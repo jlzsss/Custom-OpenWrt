@@ -13,3 +13,6 @@
 
 # Add a feed source
 #sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
+
+git clone https://github.com/kuoruan/luci-app-kcptun.git package/luci-app-kcptun
+git clone https://github.com/kuoruan/openwrt-kcptun.git package/kcptun
