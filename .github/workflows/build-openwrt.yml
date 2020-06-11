@@ -133,7 +133,7 @@ jobs:
         path: openwrt/bin
         run: |
          Compress-Archive -Path openwrt/bin '${env:ArchiveName}.zip'
-         $name = ${env:archiveName}
+         $name = ${env:ArchiveName}
          echo "::set-env name=LEDE::$name"
 
     - name: Upload files to cowtransfer
