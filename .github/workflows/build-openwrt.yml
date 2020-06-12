@@ -132,9 +132,9 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
         run: |
-         Compress-Archive -Path openwrt/bin -DestinationPath openwrt/bin/${env:ARCHIVENAME}.zip
          $name = ${env:ARCHIVENAME}
          echo "::set-env name=OP::$name"
+         Compress-Archive -Path openwrt/bin -DestinationPath openwrt/bin/${OP}.zip
 
     - name: Upload files to cowtransfer
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
