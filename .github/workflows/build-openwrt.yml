@@ -29,7 +29,7 @@ env:
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  ArchiveName: CUSTOM
+  ARCHIVENAME: custom
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: true
   UPLOAD_COWTRANSFER: true
@@ -132,20 +132,20 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
         run: |
-         Compress-Archive -Path openwrt/bin '${env:ArchiveName}.zip'
-         $name = ${env:ArchiveName}
+         Compress-Archive -Path openwrt/bin -DestinationPath openwrt/bin/${env:ARCHIVENAME}.zip
+         $name = ${env:ARCHIVENAME}
          echo "::set-env name=OP::$name"
 
     - name: Upload files to cowtransfer
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${OP} 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${OP}.zip 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
     - name: Upload files to WeTransfer
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${OP} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${OP}.zip 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
