@@ -149,7 +149,7 @@ jobs:
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
     - name: Upload files to WeTransfer
-      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      if: steps.compress.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${OP}.zip 2>&1 | tee wetransfer.log
