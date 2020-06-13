@@ -138,7 +138,7 @@ jobs:
       env:
         FILES：OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
       run: |
-        Compress-Archive -Path ${env:FILES} ${env:FILES}'.zip'
+        Compress-Archive -Path openwrt/bin ${env:FILES}'.zip'
         $name = ${env:FILES}
         echo "::set-env name=OP::$name"
         echo "::set-output name=status::success"
