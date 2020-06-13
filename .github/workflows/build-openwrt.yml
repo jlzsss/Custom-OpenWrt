@@ -136,7 +136,7 @@ jobs:
       id: compress
       if: env.COMPRESS == 'true' && !cancelled()
       run: |
-        cd openwrt/bin/*
+        cd openwrt/bin
         echo "::set-env name=OP::OpenWrt_bin"
         echo "::set-output name=status::success"
         Compress-Archive -Path openwrt/bin/* -DestinationPath ${OP}.zip
