@@ -31,7 +31,7 @@ env:
   DIY_P2_SH: diy-part2.sh
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: true
-  COMPRESS: true
+  UPLOAD_FILES: true
   UPLOAD_COWTRANSFER: true
   UPLOAD_WETRANSFER: true
   TZ: Asia/Shanghai
@@ -132,23 +132,22 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
                  
-    - name: Compress files
-      id: compress
-      if: env.COMPRESS == 'true' && !cancelled()
+    - name: Organize files
+      id: organize
+      if: env.UPLOAD_FILES == 'true' && !cancelled()
       run: |
-        cd openwrt/bin
         echo "::set-env name=OP::OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}"
         echo "::set-output name=status::success"
                 
     - name: Upload files to cowtransfer
-      if: steps.compress.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer cow --block 2621440 -s -p 64 --no-progress ${OP} 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
     - name: Upload files to WeTransfer
-      if: steps.compress.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${OP} 2>&1 | tee wetransfer.log
