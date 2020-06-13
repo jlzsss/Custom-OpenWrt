@@ -136,7 +136,7 @@ jobs:
       id: organize
       if: env.UPLOAD_FILES == 'true' && !cancelled()
       env:
-        FILES：OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        FILES：OpenWrt_bin
       run: |
         Compress-Archive -Path openwrt/bin ${env:FILES}'.zip'
         $name = ${env:FILES}
