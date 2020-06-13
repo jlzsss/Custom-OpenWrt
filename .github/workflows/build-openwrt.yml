@@ -135,8 +135,12 @@ jobs:
     - name: Organize files
       id: organize
       if: env.UPLOAD_FILES == 'true' && !cancelled()
+      env:
+        FILES：OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
       run: |
-        echo "::set-env name=OP::OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}"
+        Compress-Archive -Path ${env:FILES} ${env:FILES}'.zip'
+        $name = ${env:FILES}
+        echo "::set-env name=OP::$name"
         echo "::set-output name=status::success"
                 
     - name: Upload files to cowtransfer
