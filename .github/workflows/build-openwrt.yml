@@ -138,18 +138,18 @@ jobs:
       shell: pwsh
       run: |
         echo "::set-output name=status::success"
-        Compress-Archive -Path openwrt/bin openwrt_bin.zip
+        Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
         
     - name: Upload files to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress openwrt_bin.zip 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
 
     - name: Upload files to WeTransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress openwrt_bin.zip 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
