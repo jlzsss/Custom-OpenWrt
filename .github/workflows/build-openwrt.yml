@@ -138,9 +138,9 @@ jobs:
       shell: pwsh
       run: |
         echo "::set-output name=status::success"
-        Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
         Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
         Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+#       Compress-Archive -Path openwrt/bin/packages OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
         
     - name: Upload files to cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
