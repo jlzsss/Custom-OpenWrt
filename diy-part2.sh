@@ -24,7 +24,7 @@ git clone https://github.com/tzxiaozhen88/luci-app-koolproxyR.git package/luci-a
 git clone https://github.com/jlzsss/luci-app-passwall.git package/luci-app-passwall
 # git clone https://github.com/jlzsss/openwrt-ssr-libev-full.git package/openwrt-ssr-libev-full
 git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
-git clone https://github.com/honwen/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
+git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
 # git clone https://github.com/jlzsss/openwrt-ssr.git package/openwrt-ssr
 	
 ./scripts/feeds update -a
