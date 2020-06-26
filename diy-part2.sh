@@ -16,8 +16,6 @@ git clone -b master https://github.com/frainzy1477/luci-app-clash.git package/lu
 git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
 git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
 git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
-git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
-git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 git clone https://github.com/tzxiaozhen88/luci-app-koolproxyR.git package/luci-app-koolproxyR
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
