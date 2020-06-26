@@ -19,3 +19,4 @@ git clone https://github.com/kuoruan/openwrt-kcptun.git package/kcptun
 git clone https://github.com/jlzsss/openwrt-miredo.git package/miredo
 git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
