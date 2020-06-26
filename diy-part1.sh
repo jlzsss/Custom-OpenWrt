@@ -16,4 +16,4 @@
 
 git clone https://github.com/kuoruan/luci-app-kcptun.git package/luci-app-kcptun
 git clone https://github.com/kuoruan/openwrt-kcptun.git package/kcptun
-git clone https://github.com/ppetr/openwrt-miredo.git package/miredo
+git clone https://github.com/jlzsss/openwrt-miredo.git package/miredo
