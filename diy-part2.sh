@@ -19,7 +19,7 @@ git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci
 git clone https://github.com/tzxiaozhen88/luci-app-koolproxyR.git package/luci-app-koolproxyR
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
-git clone https://github.com/jlzsss/luci-app-passwall.git package/luci-app-passwall
+# git clone https://github.com/jlzsss/luci-app-passwall.git package/luci-app-passwall
 # git clone https://github.com/jlzsss/openwrt-ssr-libev-full.git package/openwrt-ssr-libev-full
 git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
 git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
