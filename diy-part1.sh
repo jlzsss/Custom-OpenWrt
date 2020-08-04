@@ -20,3 +20,4 @@ git clone https://github.com/jlzsss/openwrt-miredo.git package/miredo
 git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
+git clone -b luci2 https://github.com/kuoruan/luci-app-v2ray.git package/luci-app-v2ray
