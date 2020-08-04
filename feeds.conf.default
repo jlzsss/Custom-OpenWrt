@@ -3,6 +3,4 @@ src-git luci https://github.com/jlzsss/luci
 src-git routing https://git.openwrt.org/feed/routing.git
 src-git telephony https://git.openwrt.org/feed/telephony.git
 src-git lienol https://github.com/Lienol/openwrt-package
-src-git infinityfreedom https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom.git
-src-git darkmatter git://github.com/apollo-ng/luci-theme-darkmatter.git
 src-git kenzo https://github.com/kenzok8/openwrt-packages
