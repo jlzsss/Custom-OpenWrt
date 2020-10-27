@@ -143,7 +143,7 @@ jobs:
         Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 #       Compress-Archive -Path openwrt/bin/packages OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
-    - name: Upload firmware directory
+    - name: Upload files directory
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
