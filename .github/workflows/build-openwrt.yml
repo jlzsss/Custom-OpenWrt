@@ -143,6 +143,13 @@ jobs:
         Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 #       Compress-Archive -Path openwrt/bin/packages OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
+    - name: Upload firmware directory
+      uses: actions/upload-artifact@main
+      if: steps.organize.outputs.status == 'success' && !cancelled()
+      with:
+        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/bin
+
     - name: Upload files to cowtransfer
       id: cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
@@ -179,7 +186,7 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
-        files: ${{ env.FIRMWARE }}/*
+        files: openwrt/bin/*.zip
 
     - name: Remove old Artifacts
       uses: c-hive/gha-remove-artifacts@v1.2.0
