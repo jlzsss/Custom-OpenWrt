@@ -17,5 +17,5 @@
 # git clone https://github.com/jlzsss/openwrt-ssr-libev-full.git package/openwrt-ssr-libev-full
 # git clone https://github.com/jlzsss/openwrt-ssr.git package/openwrt-ssr
 	
-./scripts/feeds update -a
-./scripts/feeds install -a
+# ./scripts/feeds update -a
+# ./scripts/feeds install -a
