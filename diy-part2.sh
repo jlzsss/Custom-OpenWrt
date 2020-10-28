@@ -11,18 +11,10 @@
 # Modify default IP
 #sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
 
-
-git clone -b master https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
-git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
-git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
-git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
-git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 # git clone https://github.com/jlzsss/luci-app-passwall.git package/luci-app-passwall
 # git clone https://github.com/jlzsss/openwrt-ssr-libev-full.git package/openwrt-ssr-libev-full
-git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
-git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
 # git clone https://github.com/jlzsss/openwrt-ssr.git package/openwrt-ssr
 	
 ./scripts/feeds update -a
