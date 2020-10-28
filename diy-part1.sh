@@ -20,5 +20,12 @@ git clone https://github.com/jlzsss/openwrt-miredo.git package/miredo
 git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
-git clone -b legacy https://github.com/kuoruan/luci-app-v2ray.git package/luci-app-v2ray
+git clone -b luci2 https://github.com/kuoruan/luci-app-v2ray.git package/luci-app-v2ray
 git clone https://github.com/frainzy1477/luci-app-trojan.git package/luci-app-trojan
+git clone -b master https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
+git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
+git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
+git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
+git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
+git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
+git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
