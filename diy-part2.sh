@@ -16,6 +16,10 @@
 # git clone https://github.com/jlzsss/luci-app-passwall.git package/luci-app-passwall
 # git clone https://github.com/jlzsss/openwrt-ssr-libev-full.git package/openwrt-ssr-libev-full
 # git clone https://github.com/jlzsss/openwrt-ssr.git package/openwrt-ssr
-	
+
+svn co https://github.com/openwrt/packages/trunk/net/dawn packages/net/dawn
+svn co https://github.com/openwrt/packages/trunk/net/vnstat2 packages/net/vnstat2
+svn co https://github.com/openwrt/packages/trunk/net/openfortivpn packages/net/openfortivpn
+
 # ./scripts/feeds update -a
 # ./scripts/feeds install -a
