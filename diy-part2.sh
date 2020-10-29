@@ -15,7 +15,7 @@
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 # git clone https://github.com/jlzsss/luci-app-passwall.git package/luci-app-passwall
 # git clone https://github.com/jlzsss/openwrt-ssr-libev-full.git package/openwrt-ssr-libev-full
-# git clone https://github.com/jlzsss/openwrt-ssr.git package/openwrt-ssr
+ git clone https://github.com/jlzsss/openwrt-ssr.git package/openwrt-ssr
 
 svn co https://github.com/openwrt/packages/trunk/net/dawn package/feeds/packages/dawn
 svn co https://github.com/openwrt/packages/trunk/net/vnstat2 package/feeds/packages/vnstat2
