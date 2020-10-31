@@ -137,8 +137,6 @@ jobs:
       if: env.UPLOAD_FILES == 'true' && !cancelled()
       shell: pwsh
       run: |
-        cd openwrt/bin/*
-        echo "FILES=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
         Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
         Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
@@ -180,7 +178,9 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
-        files: ${{ env.FILES }}/*
+        files: |
+         OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+         OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
     - name: Remove old Artifacts
       uses: c-hive/gha-remove-artifacts@v1.2.0
