@@ -140,7 +140,7 @@ jobs:
         echo "::set-output name=status::success"
         Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
         Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-#       Compress-Archive -Path openwrt/bin/packages OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+        Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
 
     - name: Upload files to cowtransfer
       id: cowtransfer
@@ -181,6 +181,7 @@ jobs:
         files: |
          OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
          OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+         OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
 
     - name: Remove old Artifacts
       uses: c-hive/gha-remove-artifacts@v1.2.0
