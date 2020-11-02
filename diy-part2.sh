@@ -20,6 +20,8 @@
 svn co https://github.com/openwrt/packages/trunk/net/dawn package/feeds/packages/dawn
 svn co https://github.com/openwrt/packages/trunk/net/vnstat2 package/feeds/packages/vnstat2
 svn co https://github.com/openwrt/packages/trunk/net/openfortivpn package/feeds/packages/openfortivpn
+rm -rf feeds/packages/net/dnscrypt-proxy2
+git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
 
 # ./scripts/feeds update -a
 # ./scripts/feeds install -a
