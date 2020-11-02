@@ -32,3 +32,4 @@ git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dn
 git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
 git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
 git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
+git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
