@@ -33,6 +33,6 @@ git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-ser
 git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
 git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
 git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/dnscrypt-proxy2
-svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-transmission package/luci-app-transmission
-svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-smartdns package/luci-app-smartdns
-svn co https://github.com/kenzok8/openwrt-packages/trunk/smartdns package/smartdns
+# svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-transmission package/luci-app-transmission
+# svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-smartdns package/luci-app-smartdns
+# svn co https://github.com/kenzok8/openwrt-packages/trunk/smartdns package/smartdns
