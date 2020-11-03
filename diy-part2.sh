@@ -17,8 +17,8 @@
 # git clone https://github.com/jlzsss/openwrt-ssr-libev-full.git package/openwrt-ssr-libev-full
 # git clone https://github.com/jlzsss/openwrt-ssr.git package/openwrt-ssr
 
-git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
-git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
+# git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
+# git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
 svn co https://github.com/openwrt/packages/trunk/net/dawn package/feeds/packages/dawn
 svn co https://github.com/openwrt/packages/trunk/net/vnstat2 package/feeds/packages/vnstat2
 svn co https://github.com/openwrt/packages/trunk/net/openfortivpn package/feeds/packages/openfortivpn
