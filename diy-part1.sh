@@ -29,7 +29,7 @@ git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci
 git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
 git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
 git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
-git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/dnscrypt-proxy2
-git clone https://github.com/jlzsss/smartdns.git package/smartdns
-git clone https://github.com/jlzsss/luci-app-smartdns.git package/luci-app-smartdns
+git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
+git clone https://github.com/jlzsss/smartdns.git package/feeds/kenzo/smartdns
+git clone https://github.com/jlzsss/luci-app-smartdns.git package/feeds/kenzo/luci-app-smartdns
 svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-transmission package/luci-app-transmission
