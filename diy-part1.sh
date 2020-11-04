@@ -24,12 +24,12 @@ git clone -b luci2 https://github.com/jlzsss/luci-app-v2ray.git package/luci-app
 git clone https://github.com/frainzy1477/luci-app-trojan.git package/luci-app-trojan
 git clone -b master https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
 git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
-git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo package/luci-app-ssr-plus-Jo
+git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
 git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
-git clone https://github.com/project-opehttps://github.com/jlzsss/luci-app-ssr-plus-Jo.gitnwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
+git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
 git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
 git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
-git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
-git clone https://github.com/jlzsss/smartdns.git package/feeds/packages/smartdns
-git clone https://github.com/jlzsss/luci-app-smartdns.git package/feeds/luci/luci-app-smartdns
+git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/dnscrypt-proxy2
+git clone https://github.com/jlzsss/smartdns.git package/smartdns
+git clone https://github.com/jlzsss/luci-app-smartdns.git package/luci-app-smartdns
 svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-transmission package/luci-app-transmission
