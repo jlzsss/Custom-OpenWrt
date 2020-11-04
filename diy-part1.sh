@@ -32,4 +32,4 @@ git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dn
 svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-transmission package/feeds/luci/luci-app-transmission
 # git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/dnscrypt-proxy2
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-smartdns package/feeds/luci/luci-app-smartdns
-svn co https://github.com/kenzok8/openwrt-packages/trunk/smartdns package/feeds/luci/smartdns
+svn co https://github.com/kenzok8/openwrt-packages/trunk/smartdns package/feeds/packages/smartdns
