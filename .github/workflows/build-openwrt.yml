@@ -95,7 +95,7 @@ jobs:
       id: package
       run: |
         cd openwrt
-        make download -j16
+        make download -j20
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
@@ -103,8 +103,8 @@ jobs:
       id: Multi-thread
       run: |
         cd openwrt
-        echo -e "$(($(nproc) + 6)) thread build."
-        make -j$(($(nproc) + 6))
+        echo -e "$(($(nproc) + 7)) thread build."
+        make -j$(($(nproc) + 7))
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
