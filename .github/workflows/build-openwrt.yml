@@ -103,8 +103,8 @@ jobs:
       id: Multi-thread
       run: |
         cd openwrt
-        echo -e "$(($(nproc) + 7)) thread build."
-        make -j$(($(nproc) + 7))
+        echo -e "$(($(nproc) + 8)) thread build."
+        make -j$(($(nproc) + 8))
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
