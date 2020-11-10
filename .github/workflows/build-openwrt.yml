@@ -30,8 +30,8 @@ env:
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FILES: true
-  UPLOAD_COWTRANSFER: true
-  UPLOAD_WETRANSFER: true
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
@@ -138,10 +138,10 @@ jobs:
       shell: pwsh
       run: |
         echo "::set-output name=status::success"
-        Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-        Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
         Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
-
+#       Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+#       Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+        
     - name: Upload files to cowtransfer
       id: cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
@@ -179,9 +179,9 @@ jobs:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: |
-         OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-         OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
          OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
+#        OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+#        OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
     - name: Delete workflow runs
       uses: ActionsRML/delete-workflow-runs@main
