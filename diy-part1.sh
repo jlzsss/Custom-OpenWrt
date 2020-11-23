@@ -22,7 +22,7 @@ git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dock
 git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
 git clone -b luci2 https://github.com/jlzsss/luci-app-v2ray.git package/luci-app-v2ray
 git clone https://github.com/frainzy1477/luci-app-trojan.git package/luci-app-trojan
-git clone -b master https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
+git clone -b test https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
 git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
 git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
 git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
