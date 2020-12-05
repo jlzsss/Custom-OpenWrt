@@ -27,7 +27,7 @@ git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
 git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
 git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
 git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
-git clone https://github.com/yichya/luci-app-xray.git package/luci-app-xray
+git clone -b xray-111 https://github.com/yichya/luci-app-xray.git package/luci-app-xray
 svn co https://github.com/openwrt/packages/trunk/libs/libcap package/feeds/packages/libcap
 # git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
 # git clone https://github.com/jlzsss/smartdns.git package/feeds/packages/smartdns
