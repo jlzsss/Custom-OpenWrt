@@ -5,7 +5,7 @@ src-git luci https://github.com/jlzsss/openwrt-luci.git;main
 src-git lienol https://github.com/Lienol/openwrt-package.git;main
 src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main
 src-git kenzo https://github.com/kenzok8/openwrt-packages;master
-
+src-git darkmatter https://github.com/apollo-ng/luci-theme-darkmatter.git;openwrt-19
 
 # src-git packages https://github.com/jlzsss/packages
 # src-git luci https://github.com/coolsnowwolf/luci
@@ -14,4 +14,4 @@ src-git kenzo https://github.com/kenzok8/openwrt-packages;master
 # src-git lienol https://github.com/Lienol/openwrt-package.git;main
 # src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main
 # src-git kenzo https://github.com/kenzok8/openwrt-packages;master
-# rc-git darkmatter https://github.com/apollo-ng/luci-theme-darkmatter.git;master
+# src-git darkmatter https://github.com/apollo-ng/luci-theme-darkmatter.git;master
