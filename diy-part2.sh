@@ -21,8 +21,8 @@ git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-s
 git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
 git clone https://github.com/jlzsss/luci-app-xray.git package/luci-app-xray
 git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
-# git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
-# git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
+git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
+git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
 # svn co https://github.com/openwrt/packages/trunk/net/dawn package/feeds/packages/dawn
 # svn co https://github.com/openwrt/packages/trunk/net/vnstat2 package/feeds/packages/vnstat2
 # svn co https://github.com/openwrt/packages/trunk/net/openfortivpn package/feeds/packages/openfortivpn
