@@ -22,16 +22,15 @@ on:
 #    - cron: 0 8 * * 5
 
 env:
-  REPO_URL: https://github.com/jlzsss/lede.git
+  REPO_URL: https://github.com/coolsnowwolf/lede.git
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default-lede
   CONFIG_FILE: .config-lede
   DIY_P1_SH: diy-part1-lede.sh
   DIY_P2_SH: diy-part2-lede.sh
-  UPLOAD_BIN_DIR: false
   UPLOAD_FILES: true
-  UPLOAD_COWTRANSFER: false
-  UPLOAD_WETRANSFER: false
+  UPLOAD_COWTRANSFER: true
+  UPLOAD_WETRANSFER: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
@@ -47,22 +46,19 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        docker rmi `docker images -q`
         sudo rm -rf /etc/apt/sources.list.d /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android*
+        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* powershell dotnet* openjdk* mysql* php* android*
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
-        sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        
+        df -h
 
     - name: Clone source code
-      working-directory: /workdir
       run: |
-        df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Load custom feeds
       run: |
@@ -100,55 +96,55 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
-    - name: Multi-thread compile
-      id: Multi-thread
+    - name: Compile firmware
       run: |
-        cd openwrt
-        echo -e "$(($(nproc) + 7)) thread build."
-        make -j$(($(nproc) + 7))
+        make -j9 || make -j1 V=s
         echo "::set-output name=status::success"
-        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
-        
-    - name: Single-thread compile
-      id: Single-thread
-      if: failure() 
-      run: |
-       cd openwrt
-       make -j1 V=s
-       echo "::set-output name=status::success"
-       grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
-       [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-       echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
+        du -h --max-depth=1 ./build_dir
+        du -h --max-depth=1 ./bin
 
     - name: Check space usage
       if: (!cancelled())
-      run: df -hT
-
-    - name: Upload bin directory
-      uses: actions/upload-artifact@main
-      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin
-
+      run: df -h
+      
     - name: Organize files
       id: organize
       if: env.UPLOAD_FILES == 'true' && !cancelled()
-      shell: pwsh
       run: |
-        echo "::set-output name=status::success"
-        Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
-#       Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-#       Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+        mkdir -p ./artifact/firmware
+        mkdir -p ./artifact/package
+        mkdir -p ./artifact/bin
+        rm -rf $(find ./bin/targets/ -type d -name "packages")
+        cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
+        cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
+        cp -rf $(find ./bin/ -type f) ./artifact/bin/
         
+    - name: Deliver package
+      uses: actions/upload-artifact@v2
+      with:
+        name: OpenWrt_package
+        path: ./artifact/package/
+
+    - name: Deliver firmware
+      uses: actions/upload-artifact@v2
+      with:
+        name: OpenWrt_firmware
+        path: ./artifact/firmware/
+
+    - name: Deliver file
+      uses: actions/upload-artifact@v2
+      with:
+        name: OpenWrt_file
+        path: ./artifact/bin/
+
     - name: Upload files to cowtransfer
       id: cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress *.zip 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress ./artifact/package/ 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress ./artifact/firmware/ 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
 
@@ -157,7 +153,8 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress *.zip 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ./artifact/package/ 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ./artifact/firmware/ 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
 
@@ -180,7 +177,7 @@ jobs:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: |
-         OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
+         OpenWrt_file${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 #        OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 #        OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
