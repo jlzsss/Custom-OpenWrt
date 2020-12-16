@@ -116,7 +116,7 @@ jobs:
       
     - name: Organize files
       id: organize
-      if: env.UPLOAD_FILES == 'true' && !cancelled()
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_FILES == 'true' && !cancelled()
       run: |
         mkdir -p ./artifact/firmware
         mkdir -p ./artifact/package
@@ -125,6 +125,7 @@ jobs:
         cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
         cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
         cp -rf $(find ./bin/ -type f) ./artifact/bin/
+        echo "::set-output name=status::success"
         
     - name: Deliver package
       uses: actions/upload-artifact@v2
@@ -184,8 +185,8 @@ jobs:
         body_path: release.txt
         files: |
          OpenWrt_file${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-#        OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-#        OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+         OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+         OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
 
     - name: Delete workflow runs
       uses: ActionsRML/delete-workflow-runs@main
