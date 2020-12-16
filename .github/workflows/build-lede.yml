@@ -103,6 +103,7 @@ jobs:
         
     - name: Compile firmware
       run: |
+        cd openwrt
         make -j9 || make -j1 V=s
         echo "::set-output name=status::success"
         du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
