@@ -144,27 +144,27 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_package
-        path: ./artifact/package/
+        path: ./openwrt/artifact/package/
 
     - name: Deliver firmware
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_firmware
-        path: ./artifact/firmware/
+        path: ./openwrt/artifact/firmware/
 
     - name: Deliver file
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_file
-        path: ./artifact/bin/
+        path: ./openwrt/artifact/bin/
 
     - name: Upload files to cowtransfer
       id: cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress ./artifact/package/ 2>&1 | tee cowtransfer.log
-        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress ./artifact/firmware/ 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress ./openwrt/artifact/package/ 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress ./openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
 
@@ -173,8 +173,8 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ./artifact/package/ 2>&1 | tee wetransfer.log
-        ./transfer wet -s -p 16 --no-progress ./artifact/firmware/ 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ./openwrt/artifact/package/ 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ./openwrt/artifact/firmware/ 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
 
