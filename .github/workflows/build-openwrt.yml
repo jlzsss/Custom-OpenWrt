@@ -128,7 +128,7 @@ jobs:
       
     - name: Organize files
       id: organize
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_FILES == 'true' && !cancelled()
+      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_FILES == 'true' && !cancelled()
       run: |
         cd openwrt
         mkdir -p ./artifact/firmware
@@ -144,19 +144,19 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_package
-        path: ./artifact/package/
+        path: ./openwrt/artifact/package/
 
     - name: Deliver firmware
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_firmware
-        path: ./artifact/firmware/
+        path: ./openwrt/artifact/firmware/
 
     - name: Deliver file
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_file
-        path: ./artifact/bin/
+        path: ./openwrt/artifact/bin/
 
     - name: Upload files to cowtransfer
       id: cowtransfer
