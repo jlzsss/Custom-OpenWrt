@@ -128,7 +128,7 @@ jobs:
       
     - name: Organize files
       id: organize
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_FILES == 'true' && !cancelled()
+      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_FILES == 'true' && !cancelled()
       run: |
         cd openwrt
         mkdir -p ./artifact/firmware
