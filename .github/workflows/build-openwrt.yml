@@ -144,19 +144,19 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_package
-        path: ./openwrt/artifact/package/
+        path: ./artifact/package/
 
     - name: Deliver firmware
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_firmware
-        path: ./openwrt/artifact/firmware/
+        path: ./artifact/firmware/
 
     - name: Deliver file
       uses: actions/upload-artifact@v2
       with:
         name: OpenWrt_file
-        path: ./openwrt/artifact/bin/
+        path: ./artifact/bin/
 
     - name: Upload files to cowtransfer
       id: cowtransfer
