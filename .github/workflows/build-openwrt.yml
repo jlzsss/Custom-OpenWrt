@@ -48,7 +48,7 @@ jobs:
       run: |
         docker rmi `docker images -q`
         sudo rm -rf /etc/apt/sources.list.d /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* powershell dotnet* openjdk* mysql* php* android*
+        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android*
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
@@ -57,7 +57,7 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
         
-        df -h
+        df -hT
 
     - name: Clone source code
       working-directory: /workdir
@@ -124,47 +124,32 @@ jobs:
 
     - name: Check space usage
       if: (!cancelled())
-      run: df -h
+      run: df -hT
       
+    - name: Upload bin directory
+      uses: actions/upload-artifact@main
+      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      with:
+        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/bin
+
     - name: Organize files
       id: organize
-      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_FILES == 'true' && !cancelled()
+      if: env.UPLOAD_FILES == 'true' && !cancelled()
+      shell: pwsh
       run: |
-        cd openwrt
-        mkdir -p ./artifact/firmware
-        mkdir -p ./artifact/package
-        mkdir -p ./artifact/bin
-        rm -rf $(find ./bin/targets/ -type d -name "packages")
-        cp -rf $(find ./bin/targets/ -type f) ./artifact/firmware/
-        cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
-        cp -rf $(find ./bin/ -type f) ./artifact/bin/
+        rm -rf openwrt/bin/targets/packages
         echo "::set-output name=status::success"
-        
-    - name: Deliver package
-      uses: actions/upload-artifact@v2
-      with:
-        name: OpenWrt_package
-        path: ./openwrt/artifact/package/
-
-    - name: Deliver firmware
-      uses: actions/upload-artifact@v2
-      with:
-        name: OpenWrt_firmware
-        path: ./openwrt/artifact/firmware/
-
-    - name: Deliver file
-      uses: actions/upload-artifact@v2
-      with:
-        name: OpenWrt_file
-        path: ./openwrt/artifact/bin/
+        Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
+        Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+        Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
     - name: Upload files to cowtransfer
       id: cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress ./openwrt/artifact/package/ 2>&1 | tee cowtransfer.log
-        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress ./openwrt/artifact/firmware/ 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 99 --hash --no-progress *.zip 2>&1 | tee cowtransfer.log
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
 
@@ -173,8 +158,7 @@ jobs:
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ./openwrt/artifact/package/ 2>&1 | tee wetransfer.log
-        ./transfer wet -s -p 16 --no-progress ./openwrt/artifact/firmware/ 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress *.zip 2>&1 | tee wetransfer.log
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
 
@@ -187,9 +171,9 @@ jobs:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: |
-          OpenWrt_file${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          OpenWrt_package${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+          OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
+          OpenWrt_package${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+          OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
     - name: Delete workflow runs
       uses: ActionsRML/delete-workflow-runs@main
