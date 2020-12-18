@@ -172,8 +172,8 @@ jobs:
         body_path: release.txt
         files: |
           OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
-          OpenWrt_package${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-          OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+          OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+          OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
     - name: Delete workflow runs
       uses: ActionsRML/delete-workflow-runs@main
