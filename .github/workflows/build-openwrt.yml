@@ -138,7 +138,7 @@ jobs:
       if: env.UPLOAD_FILES == 'true' && !cancelled()
       shell: pwsh
       run: |
-        rm -rf openwrt/bin/targets/packages
+        rm -rf openwrt/bin/targets/x86/64/packages
         echo "::set-output name=status::success"
         Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
         Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
