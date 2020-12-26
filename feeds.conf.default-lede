@@ -1,6 +1,5 @@
-src-git packages https://github.com/Lienol/openwrt-packages.git;main
-src-git packages https://github.com/jlzsss/openwrt-packages.git;19.07
-src-git luci https://github.com/Lienol/openwrt-luci.git
+src-git packages https://github.com/jlzsss/openwrt-packages-main.git;main
+src-git luci https://github.com/jlzsss/openwrt-luci-main.git;main
 src-git routing https://git.openwrt.org/feed/routing.git
 src-git telephony https://git.openwrt.org/feed/telephony.git
 src-git lienol https://github.com/Lienol/openwrt-package.git;main
