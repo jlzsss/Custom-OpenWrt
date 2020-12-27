@@ -29,8 +29,8 @@ git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luc
 # git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
 # git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
 svn co https://github.com/openwrt/packages/trunk/libs/libcap package/feeds/packages/libcap
-svn co https://github.com/Lienol/openwrt-packages/trunk/lang/python package/feeds/packages/python
-svn co https://github.com/coolsnowwolf/packages/trunk/utils/docker-ce package/feeds/packages/docker-ce
+svn co https://github.com/openwrt/packages/trunk/lang/python package/feeds/packages/python
+svn co https://github.com/openwrt/packages/trunk/utils/docker-ce package/feeds/packages/docker-ce
 # git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
 # git clone https://github.com/jlzsss/smartdns.git package/feeds/packages/smartdns
 # git clone https://github.com/jlzsss/luci-app-smartdns.git package/feeds/luci/luci-app-smartdns
