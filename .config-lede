@@ -2615,18 +2615,9 @@ CONFIG_PACKAGE_ar=y
 # CONFIG_PACKAGE_asu is not set
 # CONFIG_PACKAGE_autoconf is not set
 # CONFIG_PACKAGE_automake is not set
-CONFIG_PACKAGE_binutils=y
+# CONFIG_PACKAGE_binutils is not set
 # CONFIG_PACKAGE_diffutils is not set
-CONFIG_PACKAGE_gcc=y
-
-#
-# Libraries
-#
-# CONFIG_INCLUDE_STATIC_LIBC is not set
-# CONFIG_INCLUDE_STATIC_LIBPTHREAD is not set
-# CONFIG_INCLUDE_STATIC_LIBSTDC is not set
-# end of Libraries
-
+# CONFIG_PACKAGE_gcc is not set
 # CONFIG_PACKAGE_gdb is not set
 # CONFIG_PACKAGE_gdbserver is not set
 # CONFIG_PACKAGE_gitlab-runner is not set
@@ -2634,10 +2625,10 @@ CONFIG_PACKAGE_gcc=y
 # CONFIG_PACKAGE_lpc21isp is not set
 # CONFIG_PACKAGE_lttng-tools is not set
 # CONFIG_PACKAGE_m4 is not set
-CONFIG_PACKAGE_make=y
+# CONFIG_PACKAGE_make is not set
 # CONFIG_PACKAGE_meson is not set
 # CONFIG_PACKAGE_ninja is not set
-CONFIG_PACKAGE_objdump=y
+# CONFIG_PACKAGE_objdump is not set
 # CONFIG_PACKAGE_packr is not set
 # CONFIG_PACKAGE_patch is not set
 # CONFIG_PACKAGE_perf is not set
@@ -2663,6 +2654,7 @@ CONFIG_PACKAGE_luci-app-xray=m
 #
 # Xray Configuration
 #
+# CONFIG_PACKAGE_XRAY_FETCH_VIA_PROXYCHAINS is not set
 CONFIG_PACKAGE_XRAY_INCLUDE_XRAY=y
 CONFIG_PACKAGE_XRAY_INCLUDE_GEOIP=y
 CONFIG_PACKAGE_XRAY_INCLUDE_GEOSITE=y
@@ -3884,7 +3876,7 @@ CONFIG_NODEJS_ICU_NONE=y
 # CONFIG_PACKAGE_node-hid is not set
 # CONFIG_PACKAGE_node-homebridge is not set
 # CONFIG_PACKAGE_node-javascript-obfuscator is not set
-CONFIG_PACKAGE_node-npm=y
+# CONFIG_PACKAGE_node-npm is not set
 # CONFIG_PACKAGE_node-serialport is not set
 # CONFIG_PACKAGE_node-serialport-bindings is not set
 # end of Node.js
@@ -3963,6 +3955,7 @@ CONFIG_PACKAGE_php7-mod-zip=y
 #
 # Python
 #
+# CONFIG_PACKAGE_docker-compose is not set
 # CONFIG_PACKAGE_gunicorn is not set
 # CONFIG_PACKAGE_micropython is not set
 # CONFIG_PACKAGE_micropython-lib is not set
@@ -9676,7 +9669,7 @@ CONFIG_PACKAGE_shadowsocks-libev-ss-tunnel=y
 CONFIG_PACKAGE_shadowsocksr-libev-alt=y
 CONFIG_PACKAGE_shadowsocksr-libev-server=y
 CONFIG_PACKAGE_shadowsocksr-libev-ssr-local=y
-CONFIG_PACKAGE_sockd=y
+# CONFIG_PACKAGE_sockd is not set
 # CONFIG_PACKAGE_socksify is not set
 # CONFIG_PACKAGE_spawn-fcgi is not set
 CONFIG_PACKAGE_squid=y
@@ -10054,7 +10047,7 @@ CONFIG_PACKAGE_tcping=y
 # CONFIG_PACKAGE_tor-fw-helper is not set
 # CONFIG_PACKAGE_trafficshaper is not set
 CONFIG_PACKAGE_travelmate=y
-CONFIG_PACKAGE_trojan=m
+CONFIG_PACKAGE_trojan=y
 CONFIG_PACKAGE_trojan-go=y
 
 #
@@ -10590,6 +10583,7 @@ CONFIG_PACKAGE_collectd-mod-rrdtool=y
 # CONFIG_PACKAGE_collectd-mod-write-http is not set
 # CONFIG_PACKAGE_conmon is not set
 CONFIG_PACKAGE_containerd=y
+# CONFIG_CONTAINERD_SECCOMP is not set
 # CONFIG_PACKAGE_coremark is not set
 CONFIG_PACKAGE_coreutils=y
 # CONFIG_PACKAGE_coreutils-b2sum is not set
@@ -10713,10 +10707,6 @@ CONFIG_PACKAGE_dbus=y
 # CONFIG_PACKAGE_dmidecode is not set
 # CONFIG_PACKAGE_docker is not set
 CONFIG_PACKAGE_docker-ce=y
-
-#
-# Kernel features for Docker
-#
 CONFIG_DOCKER_KERNEL_OPTIONS=y
 # CONFIG_DOCKER_SECCOMP is not set
 # CONFIG_DOCKER_RES_SHAPE is not set
@@ -10735,9 +10725,7 @@ CONFIG_DOCKER_KERNEL_OPTIONS=y
 # CONFIG_DOCKER_STO_EXT4 is not set
 # CONFIG_DOCKER_STO_BTRFS is not set
 # end of Storage
-# end of Kernel features for Docker
 
-# CONFIG_PACKAGE_docker-compose is not set
 # CONFIG_PACKAGE_dockerd is not set
 # CONFIG_PACKAGE_domoticz is not set
 # CONFIG_PACKAGE_dropbearconvert is not set
@@ -10932,6 +10920,7 @@ CONFIG_PACKAGE_rclone=y
 # CONFIG_PACKAGE_rtl-sdr is not set
 # CONFIG_PACKAGE_rtl_433 is not set
 CONFIG_PACKAGE_runc=y
+# CONFIG_RUNC_SECCOMP is not set
 # CONFIG_PACKAGE_sane-daemon is not set
 # CONFIG_PACKAGE_sane-frontends is not set
 # CONFIG_PACKAGE_secilc is not set
@@ -11027,3 +11016,5 @@ CONFIG_PACKAGE_xsltproc=y
 # CONFIG_PACKAGE_fontconfig is not set
 # end of Font-Utils
 # end of Xorg
+
+CONFIG_OVERRIDE_PKGS="smartdns"
