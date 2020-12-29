@@ -8070,7 +8070,7 @@ CONFIG_PACKAGE_luci-i18n-splash-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-squid-vi is not set
 CONFIG_PACKAGE_luci-i18n-squid-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-squid-zh-tw is not set
-CONFIG_PACKAGE_luci-i18n-sr-mudb-server-zh-cn=m
+CONFIG_PACKAGE_luci-i18n-ssr-mudb-server-zh-cn=m
 CONFIG_PACKAGE_luci-i18n-ssr-plus-zh-cn=m
 CONFIG_PACKAGE_luci-i18n-ssrserver-python-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-statistics-ar is not set
