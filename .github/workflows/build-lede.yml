@@ -22,7 +22,7 @@ on:
 #    - cron: 0 8 * * 5
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede.git
+  REPO_URL: https://github.com/jlzsss/lede.git
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default-lede
   CONFIG_FILE: .config-lede
