@@ -21,7 +21,7 @@ git clone https://github.com/jlzsss/openwrt-miredo.git package/miredo
 # git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 # git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
 git clone https://github.com/yichya/luci-app-xray.git package/luci-app-xray
-git clone -b legcy https://github.com/jlzsss/luci-app-v2ray.git package/luci-app-v2ray
+git clone -b legacy https://github.com/jlzsss/luci-app-v2ray.git package/luci-app-v2ray
 git clone https://github.com/frainzy1477/luci-app-trojan.git package/luci-app-trojan
 git clone -b test https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
 git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
