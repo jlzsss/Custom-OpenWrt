@@ -17,17 +17,17 @@
 git clone https://github.com/kuoruan/luci-app-kcptun.git package/luci-app-kcptun
 git clone https://github.com/kuoruan/openwrt-kcptun.git package/kcptun
 git clone https://github.com/jlzsss/openwrt-miredo.git package/miredo
-git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
-git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
-git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
+# git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
+# git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+# git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
 git clone https://github.com/yichya/luci-app-xray.git package/luci-app-xray
 git clone -b legacy https://github.com/jlzsss/luci-app-v2ray.git package/luci-app-v2ray
 git clone https://github.com/frainzy1477/luci-app-trojan.git package/luci-app-trojan
 git clone -b test https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
 git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
 git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
-git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
-git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
+# git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
+# git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
 git clone https://github.com/fw876/helloworld.git package/helloworld
 svn co https://github.com/openwrt/packages/trunk/libs/libcap package/feeds/packages/libcap
 # git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
