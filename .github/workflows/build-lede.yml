@@ -188,7 +188,7 @@ jobs:
           LEDE_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
           
     - name: Delete workflow runs
-      uses: ActionsRML/delete-workflow-runs@main
+      uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 1
         keep_minimum_runs: 3
