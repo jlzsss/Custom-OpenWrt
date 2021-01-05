@@ -30,7 +30,7 @@ git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luc
 # git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
 git clone https://github.com/fw876/helloworld.git package/helloworld
 svn co https://github.com/openwrt/packages/trunk/libs/libcap package/feeds/packages/libcap
-git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
+git clone https://github.com/jlzsss/dnscrypt-proxy2.git feeds/packages/net/dnscrypt-proxy2
 git clone https://github.com/jlzsss/smartdns.git package/feeds/packages/smartdns
 git clone https://github.com/jlzsss/luci-app-smartdns.git package/feeds/luci/luci-app-smartdns
 # svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-transmission package/feeds/luci/luci-app-transmission
