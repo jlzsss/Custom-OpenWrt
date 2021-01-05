@@ -25,7 +25,7 @@ git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-ser
 svn co https://github.com/openwrt/packages/trunk/net/dawn package/feeds/packages/dawn
 svn co https://github.com/openwrt/packages/trunk/net/vnstat2 package/feeds/packages/vnstat2
 svn co https://github.com/openwrt/packages/trunk/net/openfortivpn package/feeds/packages/openfortivpn
-
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean package/feeds/packages/lean
 
 # ./scripts/feeds update -a
 # ./scripts/feeds install -a
