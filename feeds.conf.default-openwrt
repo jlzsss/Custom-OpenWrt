@@ -6,3 +6,4 @@ src-git lienol https://github.com/Lienol/openwrt-package.git;main
 src-git diy1 https://github.com/xiaorouji/openwrt-passwall.git;main
 src-git kenzo https://github.com/kenzok8/openwrt-packages;master
 src-git darkmatter https://github.com/apollo-ng/luci-theme-darkmatter.git;master
+src-git infinityfreedom https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom.git
