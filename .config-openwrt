@@ -7001,7 +7001,7 @@ CONFIG_PACKAGE_luci-i18n-wireguard-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-wol-vi is not set
 CONFIG_PACKAGE_luci-i18n-wol-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-wol-zh-tw is not set
-CONFIG_PACKAGE_luci-i18n-wrtbwmon-zh-cn=y
+# CONFIG_PACKAGE_luci-i18n-wrtbwmon-zh_Hans is not set
 CONFIG_PACKAGE_luci-i18n-zerotier-zh-cn=y
 
 #
@@ -7679,6 +7679,11 @@ CONFIG_PACKAGE_sshtunnel=y
 CONFIG_PACKAGE_ntpclient=y
 # CONFIG_PACKAGE_ntpd is not set
 # CONFIG_PACKAGE_ntpdate is not set
+
+#
+# Tools
+#
+CONFIG_PACKAGE_wrtbwmon=y
 
 #
 # VPN
@@ -8883,6 +8888,27 @@ CONFIG_PACKAGE_dbus=y
 # CONFIG_PACKAGE_dmesg is not set
 # CONFIG_PACKAGE_dmidecode is not set
 CONFIG_PACKAGE_docker=y
+CONFIG_PACKAGE_docker-ce=y
+
+#
+# Kernel features for Docker
+#
+CONFIG_DOCKER_KERNEL_OPTIONS=y
+# CONFIG_DOCKER_SECCOMP is not set
+# CONFIG_DOCKER_RES_SHAPE is not set
+
+#
+# Network
+#
+# CONFIG_DOCKER_NET_OVERLAY is not set
+# CONFIG_DOCKER_NET_MACVLAN is not set
+# CONFIG_DOCKER_NET_TFTP is not set
+
+#
+# Storage
+#
+# CONFIG_DOCKER_STO_EXT4 is not set
+# CONFIG_DOCKER_STO_BTRFS is not set
 # CONFIG_PACKAGE_dockerd is not set
 # CONFIG_PACKAGE_dropbearconvert is not set
 # CONFIG_PACKAGE_dtc is not set
@@ -9137,3 +9163,4 @@ CONFIG_PACKAGE_watchcat=y
 # font-utils
 #
 # CONFIG_PACKAGE_fontconfig is not set
+CONFIG_OVERRIDE_PKGS="UnblockNeteaseMusic UnblockNeteaseMusicGo adbyby autocore automount autosamba baidupcs-web ddns-scripts_aliyun ddns-scripts_dnspod default-settings dsmboot fast-classifier ipv6-helper k3-brcmfmac4366c-firmware k3screenctrl kcptun libcryptopp luci-app-adbyby-plus luci-app-arpbind luci-app-autoreboot luci-app-baidupcs-web luci-app-cifs-mount luci-app-diskman luci-app-filetransfer luci-app-flowoffload luci-app-frpc luci-app-frps luci-app-mwan3helper luci-app-netdata luci-app-nfs luci-app-nps luci-app-openvpn-server luci-app-qbittorrent luci-app-sfe luci-app-syncdial luci-app-unblockmusic luci-app-usb-printer luci-app-vlmcsd luci-app-vsftpd luci-app-webadmin luci-app-xlnetacc luci-app-zerotier luci-lib-docker luci-lib-fs npc parted qBittorrent qt5 r8125 rblibtorrent shortcut-fe vlmcsd vsftpd-alt"
