@@ -17,9 +17,6 @@
 # git clone https://github.com/jlzsss/openwrt-ssr-libev-full.git package/openwrt-ssr-libev-full
 # git clone https://github.com/jlzsss/openwrt-ssr.git package/openwrt-ssr
 
-rm -rf package/lean/luci-app-wrtbwmon
-git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
-git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
 git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
 git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
 git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
