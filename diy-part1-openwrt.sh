@@ -18,6 +18,7 @@ git clone https://github.com/kuoruan/luci-app-kcptun.git package/luci-app-kcptun
 git clone https://github.com/kuoruan/openwrt-kcptun.git package/kcptun
 git clone https://github.com/jlzsss/openwrt-miredo.git package/miredo
 # git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
+rm -rf package/lean/luci-app-wrtbwmon
 rm -rf package/diy/luci-app-dockerman
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 # git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
@@ -32,6 +33,9 @@ git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luc
 git clone https://github.com/fw876/helloworld.git package/helloworld
 svn co https://github.com/openwrt/packages/trunk/libs/libcap package/feeds/packages/libcap
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean package/feeds/packages/lean
+rm -rf package/feeds/packages/lean/luci-app-wrtbwmon
+git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
+git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
 git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
 git clone https://github.com/jlzsss/smartdns.git package/feeds/packages/smartdns
 git clone https://github.com/jlzsss/luci-app-smartdns.git package/feeds/luci/luci-app-smartdns
