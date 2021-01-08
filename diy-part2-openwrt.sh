@@ -19,7 +19,6 @@
 
 git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
 git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
-git clone https://github.com/Lienol/openwrt-packages/trunk/utils/docker-ce package/docker-ce
 git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
 # svn co https://github.com/openwrt/packages/trunk/net/dawn package/feeds/packages/dawn
 # svn co https://github.com/openwrt/packages/trunk/net/vnstat2 package/feeds/packages/vnstat2
