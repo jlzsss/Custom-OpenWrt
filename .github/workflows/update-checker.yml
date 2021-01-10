@@ -34,7 +34,9 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
-
+        git clone --depth 1 $REPO2_URL -b $REPO2_BRANCH .
+        echo "::set-output name=commitHash::$(git rev-parse HEAD)"
+                
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
