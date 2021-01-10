@@ -189,7 +189,7 @@ jobs:
     - name: WeChat notification
       if: env.SCKEY
       run: |
-        [ steps.Multi-thread.outputs.status == 'success' ] || [ steps.Single-thread.outputs.status == 'success' ]  && curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉OpenWrt_${{ env.date3 }}_${{matrix.target}}编译完成😋|| curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=❌OpenWrt_${{ env.date3 }}_${{matrix.target}}编译失败😂
+        [ steps.Multi-thread.outputs.status == 'success' ] || [ steps.Single-thread.outputs.status == 'success' ]  && curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉Lede_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译完成😋|| curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=❌Lede_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译失败😂
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
