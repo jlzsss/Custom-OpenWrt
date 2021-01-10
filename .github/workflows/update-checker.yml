@@ -12,13 +12,13 @@
 name: Update Checker
 
 env:
-  REPO_URL: https://github.com/Lienol/openwrt.git
-  REPO_BRANCH: 19.07
+  REPO_URL: https://github.com/Lienol/openwrt.git || https://github.com/coolsnowwolf/lede.git
+  REPO_BRANCH: 19.07 || master
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: 0 16 * * *
+    - cron: 37 23 * * *
 
 jobs:
   check:
