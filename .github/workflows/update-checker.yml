@@ -32,13 +32,13 @@ jobs:
     - name: Get Commit Hash 1
       id: getHash1
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         echo "::set-output name=commitHash1::$(git rev-parse HEAD)"
 
     - name: Get Commit Hash 2
       id: getHash2
       run: |
-        git clone --depth 1 $REPO2_URL -b $REPO2_BRANCH .
+        git clone --depth 1 $REPO2_URL -b $REPO2_BRANCH lede
         echo "::set-output name=commitHash2::$(git rev-parse HEAD)"
 
     - name: Compare Commit Hash 1
