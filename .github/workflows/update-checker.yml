@@ -45,27 +45,27 @@ jobs:
       id: cacheHash1
       uses: actions/cache@v2
       with:
-        path: .commitHash1
+        path: openwrt/commitHash1
         key: HEAD-${{ steps.getHash1.outputs.commitHash1 }}
 
     - name: Compare Commit Hash 2
       id: cacheHash2
       uses: actions/cache@v2
       with:
-        path: .commitHash2
+        path: lede/commitHash2
         key: HEAD-${{ steps.getHash2.outputs.commitHash2 }}
 
     - name: Save New Commit Hash1
       if: steps.cacheHash1.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash1.outputs.commitHash1 }} | tee .commitHash1
+        echo ${{ steps.getHash1.outputs.commitHash1 }} | tee openwrt/commitHash1
 
     - name: Save New Commit Hash2
       if: steps.cacheHash2.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash2.outputs.commitHash1 }} | tee .commitHash2
+        echo ${{ steps.getHash2.outputs.commitHash2 }} | tee lede/commitHash2
         
-    - name: Trigger build 1
+    - name: Trigger build
       if: steps.cacheHash1.outputs.cache-hit != 'true' || steps.cacheHash2.outputs.cache-hit != 'true'
       uses: peter-evans/repository-dispatch@v1
       with:
