@@ -26,6 +26,7 @@ env:
   CONFIG_FILE: .config-lede
   DIY_P1_SH: diy-part1-lede.sh
   DIY_P2_SH: diy-part2-lede.sh
+  SCKEY: ${{ secrets.SCKEY }}
   UPLOAD_FILES: true
   UPLOAD_COWTRANSFER: true
   UPLOAD_WETRANSFER: true
@@ -184,7 +185,12 @@ jobs:
           LEDE_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
           LEDE_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
           LEDE_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-          
+
+    - name: WeChat notification
+      if: env.SCKEY
+      run: |
+        [ steps.Multi-thread.outputs.status == 'success' ] || [ steps.Single-thread.outputs.status == 'success' ]  && curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉OpenWrt_${{ env.date3 }}_${{matrix.target}}编译完成😋|| curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=❌OpenWrt_${{ env.date3 }}_${{matrix.target}}编译失败😂
+
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
