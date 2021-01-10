@@ -30,7 +30,8 @@ git clone https://github.com/fw876/helloworld.git package/helloworld
 svn co https://github.com/openwrt/packages/trunk/libs/libcap package/feeds/packages/libcap
 svn co https://github.com/Lienol/openwrt/trunk/package/diy package/diy
 rm -rf package/diy/luci-app-dockerman
-git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
+git clone https://github.com/jlzsss/docker-ce.git package/docker-ce
+# git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 # svn co https://github.com/Lienol/openwrt-packages/trunk/lang/python package/feeds/packages/python
 # svn co https://github.com/Lienol/openwrt-packages/trunk/utils/docker-ce package/feeds/packages/docker-ce
