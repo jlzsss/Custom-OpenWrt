@@ -11,6 +11,13 @@
 
 name: Update Checker
 
+env:
+  REPO1_URL: https://github.com/coolsnowwolf/lede
+  REPO1_BRANCH: master
+
+  REPO2_URL: https://github.com/Lienol/openwrt.git
+  REPO2_BRANCH: 19.07
+
 on:
   workflow_dispatch:
   schedule:
