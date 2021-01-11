@@ -47,15 +47,15 @@ jobs:
       id: cacheHash2
       uses: actions/cache@v2
       with:
-        path: lede/commitHash1
-        key: HEAD-${{ steps.getHash1.outputs.commitHash1 }}
+        path: lede/commitHash2
+        key: HEAD-${{ steps.getHash2.outputs.commitHash2 }}
 
-    - name: Save New Commit Hash
+    - name: Save New Commit Hash 1
       if: steps.cacheHash1.outputs.cache-hit != 'true'
       run: |
         echo ${{ steps.getHash1.outputs.commitHash1 }} | tee openwrt/commitHash1
 
-    - name: Save New Commit Hash
+    - name: Save New Commit Hash 2
       if: steps.cacheHash2.outputs.cache-hit != 'true'
       run: |
         echo ${{ steps.getHash2.outputs.commitHash2 }} | tee lede/commitHash2
