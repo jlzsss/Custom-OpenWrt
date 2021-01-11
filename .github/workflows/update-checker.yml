@@ -30,7 +30,7 @@ jobs:
       run: |
         git clone $REPO1_URL -b $REPO1_BRANCH lede
         cd lede
-        echo "::set-output name=commitHash::$(git rev-parse HEAD)"
+        echo "::set-output name=commitHash1::$(git rev-parse HEAD)"
 
     - name: Get Commit Hash OpenWrt
       id: getHash2
@@ -40,31 +40,31 @@ jobs:
       run: |
         git clone $REPO2_URL -b $REPO2_BRANCH openwrt
         cd openwrt
-        echo "::set-output name=commitHash::$(git rev-parse HEAD)"
+        echo "::set-output name=commitHash2::$(git rev-parse HEAD)"
 
     - name: Compare Commit Hash Lede
       id: cacheHash1
       uses: actions/cache@v2
       with:
-        path: lede/commitHash
-        key: HEAD-${{ steps.getHash1.outputs.commitHash }}
+        path: lede/commitHash1
+        key: HEAD-${{ steps.getHash1.outputs.commitHash1 }}
 
     - name: Compare Commit Hash OpenWrt
       id: cacheHash2
       uses: actions/cache@v2
       with:
-        path: openwrt/commitHash
-        key: HEAD-${{ steps.getHash2.outputs.commitHash }}
+        path: openwrt/commitHash2
+        key: HEAD-${{ steps.getHash2.outputs.commitHash2 }}
 
     - name: Save New Commit Hash Lede
       if: steps.cacheHash1.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash1.outputs.commitHash }} | tee lede/commitHash
+        echo ${{ steps.getHash1.outputs.commitHash1 }} | tee lede/commitHash1
 
     - name: Save New Commit Hash OpenWrt
       if: steps.cacheHash2.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash2.outputs.commitHash }} | tee openwrt/commitHash
+        echo ${{ steps.getHash2.outputs.commitHash2 }} | tee openwrt/commitHash2
 
     - name: Trigger build
       if: steps.cacheHash1.outputs.cache-hit != 'true' || steps.cacheHash2.outputs.cache-hit != 'true'
