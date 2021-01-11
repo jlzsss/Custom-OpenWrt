@@ -27,10 +27,10 @@ jobs:
     steps:
 
     - name: Get Commit Hash 1
-      id: getHash1
+      id: getHash
       run: |
         git clone --depth 1 $REPO1_URL -b $REPO1_BRANCH .
-        echo "::set-output name=commitHash1::$(git rev-parse HEAD)"
+        echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
 #    - name: Get Commit Hash 2
 #      env: 
@@ -46,7 +46,7 @@ jobs:
       uses: actions/cache@v2
       id: cacheHash1
       with:
-        path: lede/commitHash1
+        path: .commitHash1
         key: HEAD-${{ steps.getHash1.outputs.commitHash1 }}
 
 #    - name: Compare Commit Hash 2
