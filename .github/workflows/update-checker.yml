@@ -11,13 +11,6 @@
 
 name: Update Checker
 
-env:
-  REPO1_URL: https://github.com/coolsnowwolf/lede
-  REPO1_BRANCH: master
-
-  REPO2_URL: https://github.com/Lienol/openwrt.git
-  REPO2_BRANCH: 19.07
-
 on:
   workflow_dispatch:
   schedule:
@@ -39,15 +32,15 @@ jobs:
         cd lede
         echo "::set-output name=commitHash1::$(git rev-parse HEAD)"
 
-    - name: Get Commit Hash 2
-      env: 
-        REPO2_URL: https://github.com/Lienol/openwrt.git
-        REPO2_BRANCH: 19.07
-      id: getHash2
-      run: |
-        git clone --depth 1 $REPO2_URL -b $REPO2_BRANCH openwrt
-        cd openwrt
-        echo "::set-output name=commitHash2::$(git rev-parse HEAD)"
+#    - name: Get Commit Hash 2
+#      env: 
+#        REPO2_URL: https://github.com/Lienol/openwrt.git
+#        REPO2_BRANCH: 19.07
+#      id: getHash2
+#      run: |
+#        git clone --depth 1 $REPO2_URL -b $REPO2_BRANCH openwrt
+#        cd openwrt
+#        echo "::set-output name=commitHash2::$(git rev-parse HEAD)"
 
     - name: Compare Commit Hash 1
       uses: actions/cache@v2
@@ -56,22 +49,22 @@ jobs:
         path: lede/commitHash1
         key: HEAD-${{ steps.getHash1.outputs.commitHash1 }}
 
-    - name: Compare Commit Hash 2
-      uses: actions/cache@v2
-      id: cacheHash2
-      with:
-        path: openwrt/commitHash2
-        key: HEAD-${{ steps.getHash2.outputs.commitHash2 }}
+#    - name: Compare Commit Hash 2
+#      uses: actions/cache@v2
+#      id: cacheHash2
+#      with:
+#        path: openwrt/commitHash2
+#        key: HEAD-${{ steps.getHash2.outputs.commitHash2 }}
 
     - name: Save New Commit Hash 1
       if: steps.cacheHash1.outputs.cache-hit != 'true'
       run: |
         echo ${{ steps.getHash1.outputs.commitHash1 }} | tee lede/commitHash1
 
-    - name: Save New Commit Hash 2
-      if: steps.cacheHash2.outputs.cache-hit != 'true'
-      run: |
-        echo ${{ steps.getHash2.outputs.commitHash2 }} | tee openwrt/commitHash2
+#    - name: Save New Commit Hash 2
+#      if: steps.cacheHash2.outputs.cache-hit != 'true'
+#      run: |
+#        echo ${{ steps.getHash2.outputs.commitHash2 }} | tee openwrt/commitHash2
 
     - name: Trigger build
       if: steps.cacheHash1.outputs.cache-hit != 'true' || steps.cacheHash2.outputs.cache-hit != 'true'
