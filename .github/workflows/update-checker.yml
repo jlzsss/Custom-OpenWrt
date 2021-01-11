@@ -24,21 +24,21 @@ jobs:
 
     - name: Get Commit Hash 1
       env: 
-        REPO_URL: https://github.com/coolsnowwolf/lede
-        REPO_BRANCH: master
+        REPO1_URL: https://github.com/coolsnowwolf/lede
+        REPO1_BRANCH: master
       id: getHash1
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH lede
+        git clone --depth 1 $REPO1_URL -b $REPO1_BRANCH lede
         cd lede
         echo "::set-output name=commitHash1::$(git rev-parse HEAD)"
 
     - name: Get Commit Hash 2
       env: 
-        REPO_URL: https://github.com/Lienol/openwrt.git
-        REPO_BRANCH: 19.07
+        REPO2_URL: https://github.com/Lienol/openwrt.git
+        REPO2_BRANCH: 19.07
       id: getHash2
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        git clone --depth 1 $REPO2_URL -b $REPO2_BRANCH openwrt
         cd openwrt
         echo "::set-output name=commitHash2::$(git rev-parse HEAD)"
 
