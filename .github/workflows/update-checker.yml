@@ -11,10 +11,6 @@
 
 name: Update Checker
 
-env:
-  REPO_URL: https://github.com/Lienol/openwrt.git
-  REPO_BRANCH: 19.07
-
 on:
   workflow_dispatch:
   schedule:
@@ -32,8 +28,7 @@ jobs:
         REPO_URL: https://github.com/coolsnowwolf/lede
         REPO_BRANCH: master
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH lede
-        cd lede
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
     - name: Get Commit Hash 2
@@ -42,33 +37,32 @@ jobs:
         REPO_URL: https://github.com/Lienol/openwrt.git
         REPO_BRANCH: 19.07
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        cd openwrt
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH ..
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
     - name: Compare Commit Hash 1
       id: cacheHash1
       uses: actions/cache@v2
       with:
-        path: lede/commitHash
+        path: .commitHash
         key: HEAD-${{ steps.getHash1.outputs.commitHash }}
 
     - name: Compare Commit Hash 2
       id: cacheHash2
       uses: actions/cache@v2
       with:
-        path: openwrt/commitHash
+        path: ..commitHash
         key: HEAD-${{ steps.getHash2.outputs.commitHash }}
 
     - name: Save New Commit Hash 1
       if: steps.cacheHash1.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash1.outputs.commitHash }} | tee lede/commitHash
+        echo ${{ steps.getHash1.outputs.commitHash }} | tee .commitHash
 
     - name: Save New Commit Hash 2
       if: steps.cacheHash2.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash2.outputs.commitHash }} | tee openwrt/commitHash
+        echo ${{ steps.getHash2.outputs.commitHash }} | tee ..commitHash
 
     - name: Trigger build
       if: steps.cacheHash1.outputs.cache-hit != 'true' || steps.cacheHash2.outputs.cache-hit != 'true'
