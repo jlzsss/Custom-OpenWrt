@@ -37,7 +37,7 @@ jobs:
         REPO_URL: https://github.com/Lienol/openwrt.git
         REPO_BRANCH: 19.07
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH ..
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH ...
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
     - name: Compare Commit Hash 1
@@ -62,7 +62,7 @@ jobs:
     - name: Save New Commit Hash 2
       if: steps.cacheHash2.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash2.outputs.commitHash }} | tee ..commitHash
+        echo ${{ steps.getHash2.outputs.commitHash }} | tee ...commitHash
 
     - name: Trigger build
       if: steps.cacheHash1.outputs.cache-hit != 'true' || steps.cacheHash2.outputs.cache-hit != 'true'
