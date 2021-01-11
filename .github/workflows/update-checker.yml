@@ -11,6 +11,10 @@
 
 name: Update Checker
 
+env: 
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+
 on:
   workflow_dispatch:
   schedule:
@@ -24,11 +28,8 @@ jobs:
 
     - name: Get Commit Hash
       id: getHash1
-      env: 
-        REPO1_URL: https://github.com/coolsnowwolf/lede
-        REPO1_BRANCH: master
       run: |
-        git clone --depth 1 $REPO1_URL -b $REPO1_BRANCH .
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
 #    - name: Get Commit Hash 2
