@@ -22,7 +22,7 @@ jobs:
 
     steps:
 
-    - name: Get Commit Hash 1
+    - name: Get Commit Hash Lede
       id: getHash1
       env:
         REPO1_URL: https://github.com/coolsnowwolf/lede
@@ -32,7 +32,7 @@ jobs:
         cd lede
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
-    - name: Get Commit Hash 2
+    - name: Get Commit Hash OpenWrt
       id: getHash2
       env:
         REPO2_URL: https://github.com/Lienol/openwrt.git
@@ -42,26 +42,26 @@ jobs:
         cd openwrt
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
-    - name: Compare Commit Hash 1
+    - name: Compare Commit Hash Lede
       id: cacheHash1
       uses: actions/cache@v2
       with:
         path: lede/commitHash
         key: HEAD-${{ steps.getHash1.outputs.commitHash }}
 
-    - name: Compare Commit Hash 2
+    - name: Compare Commit Hash OpenWrt
       id: cacheHash2
       uses: actions/cache@v2
       with:
         path: openwrt/commitHash
         key: HEAD-${{ steps.getHash2.outputs.commitHash }}
 
-    - name: Save New Commit Hash 1
+    - name: Save New Commit Hash Lede
       if: steps.cacheHash1.outputs.cache-hit != 'true'
       run: |
         echo ${{ steps.getHash1.outputs.commitHash }} | tee lede/commitHash
 
-    - name: Save New Commit Hash 2
+    - name: Save New Commit Hash OpenWrt
       if: steps.cacheHash2.outputs.cache-hit != 'true'
       run: |
         echo ${{ steps.getHash2.outputs.commitHash }} | tee openwrt/commitHash
