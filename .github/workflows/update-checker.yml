@@ -51,7 +51,7 @@ jobs:
       id: cacheHash2
       uses: actions/cache@v2
       with:
-        path: ..commitHash
+        path: ...commitHash
         key: HEAD-${{ steps.getHash2.outputs.commitHash }}
 
     - name: Save New Commit Hash 1
