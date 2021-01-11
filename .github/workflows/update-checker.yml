@@ -46,14 +46,14 @@ jobs:
       id: cacheHash1
       uses: actions/cache@v2
       with:
-        path: lede/commitHash
+        path: lede/commitHash1
         key: HEAD-${{ steps.getHash1.outputs.commitHash1 }}
 
     - name: Compare Commit Hash 2
       id: cacheHash2
       uses: actions/cache@v2
       with:
-        path: openwrt/commitHash
+        path: openwrt/commitHash2
         key: HEAD-${{ steps.getHash2.outputs.commitHash2 }}
 
     - name: Save New Commit Hash 1
