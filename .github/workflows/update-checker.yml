@@ -11,10 +11,6 @@
 
 name: Update Checker
 
-env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
-
 on:
   workflow_dispatch:
   schedule:
@@ -26,26 +22,52 @@ jobs:
 
     steps:
 
-    - name: Get Commit Hash
-      id: getHash
+    - name: Get Commit Hash 1
+      id: getHash1
+      env:
+        REPO1_URL: https://github.com/coolsnowwolf/lede
+        REPO1_BRANCH: master
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
+        git clone $REPO1_URL -b $REPO1_BRANCH lede
+        cd lede
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
-    - name: Compare Commit Hash
-      id: cacheHash
+    - name: Get Commit Hash 2
+      id: getHash2
+      env:
+        REPO2_URL: https://github.com/Lienol/openwrt.git
+        REPO2_BRANCH: 19.07
+      run: |
+        git clone $REPO2_URL -b $REPO2_BRANCH openwrt
+        cd openwrt
+        echo "::set-output name=commitHash::$(git rev-parse HEAD)"
+
+    - name: Compare Commit Hash 1
+      id: cacheHash1
       uses: actions/cache@v2
       with:
-        path: .commitHash
-        key: HEAD-${{ steps.getHash.outputs.commitHash }}
+        path: lede/commitHash
+        key: HEAD-${{ steps.getHash1.outputs.commitHash }}
+
+    - name: Compare Commit Hash 2
+      id: cacheHash2
+      uses: actions/cache@v2
+      with:
+        path: openwrt/commitHash
+        key: HEAD-${{ steps.getHash2.outputs.commitHash }}
+
+    - name: Save New Commit Hash 1
+      if: steps.cacheHash1.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash1.outputs.commitHash }} | tee lede/commitHash
 
     - name: Save New Commit Hash
-      if: steps.cacheHash.outputs.cache-hit != 'true'
+      if: steps.cacheHash2.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
+        echo ${{ steps.getHash2.outputs.commitHash }} | tee openwrt/commitHash
 
     - name: Trigger build
-      if: steps.cacheHash.outputs.cache-hit != 'true'
+      if: steps.cacheHash1.outputs.cache-hit != 'true' || steps.cacheHash2.outputs.cache-hit != 'true'
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.ACTIONS_TRIGGER_PAT }}
