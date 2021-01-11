@@ -11,10 +11,6 @@
 
 name: Update Checker
 
-env: 
- REPO1_URL: https://github.com/coolsnowwolf/lede
- REPO1_BRANCH: master
-
 on:
   workflow_dispatch:
   schedule:
@@ -26,8 +22,11 @@ jobs:
 
     steps:
 
-    - name: Get Commit Hash 1
-      id: getHash
+    - name: Get Commit Hash
+      id: getHash1
+      env: 
+        REPO1_URL: https://github.com/coolsnowwolf/lede
+        REPO1_BRANCH: master
       run: |
         git clone --depth 1 $REPO1_URL -b $REPO1_BRANCH .
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
@@ -46,8 +45,8 @@ jobs:
       uses: actions/cache@v2
       id: cacheHash1
       with:
-        path: .commitHash1
-        key: HEAD-${{ steps.getHash1.outputs.commitHash1 }}
+        path: .commitHash
+        key: HEAD-${{ steps.getHash1.outputs.commitHash }}
 
 #    - name: Compare Commit Hash 2
 #      uses: actions/cache@v2
@@ -59,7 +58,7 @@ jobs:
     - name: Save New Commit Hash 1
       if: steps.cacheHash1.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash1.outputs.commitHash1 }} | tee lede/commitHash1
+        echo ${{ steps.getHash1.outputs.commitHash }} | tee .commitHash
 
 #    - name: Save New Commit Hash 2
 #      if: steps.cacheHash2.outputs.cache-hit != 'true'
