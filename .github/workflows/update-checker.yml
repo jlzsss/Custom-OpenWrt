@@ -11,7 +11,7 @@
 
 name: Update Checker
 
-env: 
+env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
 
@@ -27,47 +27,25 @@ jobs:
     steps:
 
     - name: Get Commit Hash
-      id: getHash1
+      id: getHash
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH .
         echo "::set-output name=commitHash::$(git rev-parse HEAD)"
 
-#    - name: Get Commit Hash 2
-#      env: 
-#        REPO2_URL: https://github.com/Lienol/openwrt.git
-#        REPO2_BRANCH: 19.07
-#      id: getHash2
-#      run: |
-#        git clone --depth 1 $REPO2_URL -b $REPO2_BRANCH openwrt
-#        cd openwrt
-#        echo "::set-output name=commitHash2::$(git rev-parse HEAD)"
-
-    - name: Compare Commit Hash 1
+    - name: Compare Commit Hash
+      id: cacheHash
       uses: actions/cache@v2
-      id: cacheHash1
       with:
         path: .commitHash
-        key: HEAD-${{ steps.getHash1.outputs.commitHash }}
+        key: HEAD-${{ steps.getHash.outputs.commitHash }}
 
-#    - name: Compare Commit Hash 2
-#      uses: actions/cache@v2
-#      id: cacheHash2
-#      with:
-#        path: openwrt/commitHash2
-#        key: HEAD-${{ steps.getHash2.outputs.commitHash2 }}
-
-    - name: Save New Commit Hash 1
-      if: steps.cacheHash1.outputs.cache-hit != 'true'
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash1.outputs.commitHash }} | tee .commitHash
-
-#    - name: Save New Commit Hash 2
-#      if: steps.cacheHash2.outputs.cache-hit != 'true'
-#      run: |
-#        echo ${{ steps.getHash2.outputs.commitHash2 }} | tee openwrt/commitHash2
+        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
 
     - name: Trigger build
-      if: steps.cacheHash1.outputs.cache-hit != 'true' || steps.cacheHash2.outputs.cache-hit != 'true'
+      if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: peter-evans/repository-dispatch@v1
       with:
         token: ${{ secrets.ACTIONS_TRIGGER_PAT }}
