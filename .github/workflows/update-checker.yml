@@ -23,35 +23,35 @@ jobs:
     steps:
 
     - name: Get Commit Hash 1
-      id: getHash1
       env: 
         REPO_URL: https://github.com/coolsnowwolf/lede
         REPO_BRANCH: master
+      id: getHash1
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH lede
         cd lede
         echo "::set-output name=commitHash1::$(git rev-parse HEAD)"
 
     - name: Get Commit Hash 2
-      id: getHash2
       env: 
         REPO_URL: https://github.com/Lienol/openwrt.git
         REPO_BRANCH: 19.07
+      id: getHash2
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         echo "::set-output name=commitHash2::$(git rev-parse HEAD)"
 
     - name: Compare Commit Hash 1
-      id: cacheHash1
       uses: actions/cache@v2
+      id: cacheHash1
       with:
         path: lede/commitHash1
         key: HEAD-${{ steps.getHash1.outputs.commitHash1 }}
 
     - name: Compare Commit Hash 2
-      id: cacheHash2
       uses: actions/cache@v2
+      id: cacheHash2
       with:
         path: openwrt/commitHash2
         key: HEAD-${{ steps.getHash2.outputs.commitHash2 }}
