@@ -61,7 +61,7 @@ jobs:
       run: |
         echo ${{ steps.getHash1.outputs.commitHash }} | tee lede/commitHash
 
-    - name: Save New Commit Hash
+    - name: Save New Commit Hash 2
       if: steps.cacheHash2.outputs.cache-hit != 'true'
       run: |
         echo ${{ steps.getHash2.outputs.commitHash }} | tee openwrt/commitHash
