@@ -187,9 +187,9 @@ jobs:
           OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
 
     - name: WeChat notification
-      if: env.SCKEY
+      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled()
       run: |
-        [ steps.Multi-thread.outputs.status == 'success' ] && curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉OpenWrt_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译完成😋|| curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=❌OpenWrt_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译失败😂
+       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉Lede_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译完成😋
         
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
