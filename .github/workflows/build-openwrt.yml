@@ -196,7 +196,7 @@ jobs:
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled()
       run: |
-       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉OpenWRT_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译完成😋
+       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWRT_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译完成
         
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
