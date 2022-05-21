@@ -15,28 +15,38 @@
 #sed -i '$a src-git lienol https://github.com/Lienol/openwrt-package' feeds.conf.default
 
 git clone https://github.com/kuoruan/luci-app-kcptun.git package/luci-app-kcptun
-git clone https://github.com/kuoruan/openwrt-kcptun.git package/kcptun
+git clone https://github.com/jlzsss/openwrt-kcptun.git package/kcptun
 git clone https://github.com/jlzsss/openwrt-miredo.git package/miredo
-# git clone https://gitee.com/wangfuying_admin/Docker-For-OpenWRT.git package/docker
-rm -rf package/diy/luci-app-dockerman
-git clone https://github.com/jlzsss/docker-ce.git package/docker-ce
-git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
-# git clone https://github.com/jlzsss/proxychains-ng.git package/proxychains-ng
+git clone https://github.com/Mleaf/openwrt-mwol.git package/mwol
 git clone https://github.com/yichya/luci-app-xray.git package/luci-app-xray
-git clone -b legacy https://github.com/jlzsss/luci-app-v2ray.git package/luci-app-v2ray
+git clone https://github.com/yichya/openwrt-xray.git package/openwrt-xray
+git clone -b luci2 https://github.com/jlzsss/luci-app-v2ray.git package/luci-app-v2ray
 git clone https://github.com/frainzy1477/luci-app-trojan.git package/luci-app-trojan
 git clone -b test https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
-git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
-git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
+git clone https://github.com/kenzok78/luci-app-netspeedtest.git package/luci-app-netspeedtest
+git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+# git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
+# git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
+# svn co https://github.com/Lienol/openwrt/trunk/package/diy package/diy
+# rm -rf package/diy/luci-app-dockerman
+# rm -rf package/diy/OpenAppFilter
+rm -rf package/lean/luci-theme-argon
+rm -rf package/lean/luci-app-dockerman
+git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 git clone https://github.com/NateLol/luci-app-oled.git package/luci-app-oled
-# git clone https://github.com/jlzsss/luci-app-ssr-plus-Jo.git package/luci-app-ssr-plus-Jo
-# git clone https://github.com/jlzsss/luci-app-ssr-plus-jo-depend.git package/luci-app-ssr-plus-jo-depend
-git clone https://github.com/fw876/helloworld.git package/helloworld
-svn co https://github.com/openwrt/packages/trunk/libs/libcap package/feeds/packages/libcap
-svn co https://github.com/coolsnowwolf/lede/trunk/package/lean package/feeds/packages/lean
-# git clone https://github.com/brvphoenix/wrtbwmon.git package/wrtbwmon
-# git clone https://github.com/brvphoenix/luci-app-wrtbwmon.git package/luci-app-wrtbwmon
 git clone https://github.com/jlzsss/dnscrypt-proxy2.git package/feeds/packages/dnscrypt-proxy2
-git clone https://github.com/jlzsss/smartdns.git package/feeds/packages/smartdns
-git clone https://github.com/jlzsss/luci-app-smartdns.git package/feeds/luci/luci-app-smartdns
-# svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-transmission package/feeds/luci/luci-app-transmission
+git clone https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git package/openwrt-cdnspeedtest
+git clone https://github.com/jlzsss/luci-app-cloudflarespeedtest.git package/luci-app-cloudflarespeedtest
+# git clone https://github.com/jlzsss/smartdns.git package/feeds/packages/smartdns
+# git clone https://github.com/jlzsss/luci-app-smartdns.git package/feeds/luci/luci-app-smartdns
+git clone https://github.com/jlzsss/libgd.git package/feeds/packages/libgd
+git clone https://github.com/v2rayA/v2raya-openwrt.git package/v2raya-openwrt
+git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
+git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
+
+
+
+svn export --force https://github.com/coolsnowwolf/packages/branches/master/utils/mariadb package/feeds/packages/mariadb
+svn export --force https://github.com/coolsnowwolf/packages/branches/master/utils/mariadb-common package/feeds/packages/mariadb-common
+svn export --force https://github.com/coolsnowwolf/lede/branches/master/package/network/services/noddos package/feeds/packages/noddos
