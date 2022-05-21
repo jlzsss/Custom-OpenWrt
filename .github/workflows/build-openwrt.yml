@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build OpenWrt
+name: Build-OpenWrt
 
 on:
   repository_dispatch:
@@ -18,39 +18,50 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-
-#  schedule:
-#    - cron: 0 0 * * *
+  
+#  push:
+  
+  schedule:
+    - cron: 0 17 * * *
 
 env:
-  REPO_URL: https://github.com/Lienol/openwrt.git
-  REPO_BRANCH: 19.07
-  FEEDS_CONF: feeds.conf.default-openwrt
-  CONFIG_FILE: .config-openwrt
+  REPO_URL: https://github.com/Lienol/openwrt
+  REPO_BRANCH: 22.03
+  FEEDS_CONF: feeds.conf.default.openwrt
+  CONFIG_FILE: .config
   DIY_P1_SH: diy-part1-openwrt.sh
   DIY_P2_SH: diy-part2-openwrt.sh
   SCKEY: ${{ secrets.SCKEY }}
-  UPLOAD_FILES: true
-  UPLOAD_COWTRANSFER: true
-  UPLOAD_WETRANSFER: true
+  FREE_UP_DISK: true
+  UPLOAD_FILES: false
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
 
 jobs:
+
   build:
     runs-on: ubuntu-20.04
 
     steps:
+
     - name: Checkout
       uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+
+    - name: WeChat notification
+      run: |
+       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
 
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        docker rmi `docker images -q`
-        sudo rm -rf /etc/apt/sources.list.d /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android*
+        docker image prune -a -f
+        sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android* adoptopenjdk* mongodb* moby* snapd*
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
@@ -61,16 +72,44 @@ jobs:
         
         df -hT
 
-    - name: WeChat notification
-      run: |
-       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWRT
-
     - name: Clone source code
       working-directory: /workdir
       run: |
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        git clone -b $REPO_BRANCH --single-branch $REPO_URL  openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
+    - name: Free up disk space
+      if: env.FREE_UP_DISK == 'true'
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo swapoff /mnt/swapfile
+        sudo rm -rf /mnt/swapfile
+        sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+        ln -s /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+        ln -s /mnt/openwrt/build_dir/host openwrt/build_dir/host
+        ln -s /mnt/openwrt/dl openwrt/dl
+        ln -s /mnt/openwrt/staging_dir openwrt/staging_dir
+        # ln -s /mnt/openwrt/bin openwrt/bin
+        # ln -s /mnt/openwrt/feeds openwrt/feeds   
+        # ln -s /mnt/openwrt/build_dir openwrt/build_dir
+        ln -s /mnt/openwrt/tmp openwrt/tmp
+        
+        df -hT
+
+    - name: Cache
+      uses: klever1988/cachewrtbuild@main
+      with:
+          #是否一并缓存.ccache目录，如果你启用了ccache。这是唯一的常用参数，其他三个用于除错，一般不需要调整
+          ccache: true
+          #是否缓存工具链目录
+          toolchain: true
+          #是否跳过工具链编译
+          skip: true
+          #清空缓存
+          clean: true
+          prefix: ${{ github.workspace }}/openwrt
+        
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
@@ -79,8 +118,7 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
-
+      run: cd openwrt && ./scripts/feeds update -a 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
@@ -91,7 +129,8 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-
+        find "${GITHUB_WORKSPACE}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '${GITHUB_WORKSPACE}/openwrt' -p1 --forward"
+        
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
@@ -103,15 +142,23 @@ jobs:
       id: package
       run: |
         cd openwrt
-        make download -j20
+        echo -e 'CONFIG_DEVEL=y\nCONFIG_CCACHE=y' >> .config
+        make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-        
+
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+      
     - name: Multi-thread compile
       id: Multi-thread
       run: |
         cd openwrt
-        make -j11
+        echo -e "$(($(nproc) + 1)) thread compile"
+        make -j$(($(nproc) + 1))
+        # make package/compile -j$(($(nproc) + 2))
+        # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -134,10 +181,24 @@ jobs:
       
     - name: Upload bin directory
       uses: actions/upload-artifact@v2
-      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
+
+    - name: Upload packages
+      uses: actions/upload-artifact@master
+      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
+      with:
+        name: OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/bin/packages
+
+    - name: Upload targets
+      uses: actions/upload-artifact@master
+      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
+      with:
+        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: openwrt/bin/targets
 
     - name: Organize files
       id: organize
@@ -146,12 +207,14 @@ jobs:
       run: |
         rm -rf openwrt/bin/targets/x86/64/packages
         echo "::set-output name=status::success"
-        Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
         Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-        Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-       
-        df -hT
+        Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip       
+        Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
         
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+      
     - name: Upload files to cowtransfer
       id: cowtransfer
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
@@ -189,19 +252,14 @@ jobs:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: |
-          OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
           OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
           OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+          OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
 
-    - name: WeChat notification
-      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled()
-      run: |
-       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWRT_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译完成
-        
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
-        retain_days: 1
+        retain_days: 5
         keep_minimum_runs: 10
 
     - name: Remove old Releases
@@ -212,3 +270,13 @@ jobs:
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: WeChat notification
+      if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
+      run: |
+       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译成功
+       
+    - name: WeChat notification
+      if: failure() && !cancelled()
+      run: |
+       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt_${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}编译失败
