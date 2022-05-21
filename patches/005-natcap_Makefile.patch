@@ -9,14 +9,3 @@
  			 +lua-cjson \
  			 +ipset \
  			 +dnsmasq-full +@PACKAGE_dnsmasq_full_ipset \
---- a/feeds/packages/net/shadowsocks-libev/Makefile
-+++ b/feeds/packages/net/shadowsocks-libev/Makefile
-@@ -89,7 +89,7 @@ define Package/shadowsocks-libev-ss-rule
-   SUBMENU:=Web Servers/Proxies
-   TITLE:=shadowsocks-libev ss-rules
-   URL:=https://github.com/shadowsocks/shadowsocks-libev
--  DEPENDS:=+firewall4 \
-+  DEPENDS:=+firewall \
- 	   +ip \
- 	   +resolveip \
- 	   +ucode \
