@@ -50,3 +50,4 @@ git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 svn export --force https://github.com/coolsnowwolf/packages/branches/master/utils/mariadb package/feeds/packages/mariadb
 svn export --force https://github.com/coolsnowwolf/packages/branches/master/utils/mariadb-common package/feeds/packages/mariadb-common
 svn export --force https://github.com/coolsnowwolf/lede/branches/master/package/network/services/noddos package/feeds/packages/noddos
+svn export --force https://github.com/coolsnowwolf/lede/branches/master/package/network/services/e2guardian package/feeds/packages/e2guardian
