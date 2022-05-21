@@ -1,0 +1,11 @@
+--- a/feeds/kenzok8/luci-app-k3screenctrl/Makefile
++++ b/feeds/kenzok8/luci-app-k3screenctrl/Makefile
+@@ -4,7 +4,7 @@ include $(TOPDIR)/rules.mk
+ 
+ LUCI_TITLE:=LuCI Support for k3screenctrl
+ LUCI_DESCRIPTION:=LuCI Support for k3screenctrl.
+-LUCI_DEPENDS:=+phicomm-k3screenctrl
++LUCI_DEPENDS:=+k3screenctrl
+ LUCI_PKGARCH:=all
+ 
+ PKG_NAME:=luci-app-k3screenctrl
