@@ -1,5 +1,5 @@
---- a/feeds/luci/applications/luci-app-transmission/Makefile
-+++ b/feeds/luci/applications/luci-app-transmission/Makefile
+--- a/feeds/luci2/applications/luci-app-transmission/Makefile
++++ b/feeds/luci2/applications/luci-app-transmission/Makefile
 @@ -7,7 +7,7 @@
  include $(TOPDIR)/rules.mk
  
