@@ -22,7 +22,7 @@ rm -rf package/feeds/kenzok8/luci-app-quickstart
 ./scripts/feeds install -p packages2 quickstart
 ./scripts/feeds install -p packages2 luci-app-quickstart
 rm -rf package/feeds/lede/php7
-rm -rf package/feeds/lede/mt-drivers
+rm -rf feeds/lede/mt-drivers
 rm -rf feeds/kiddin/MentoHUST-OpenWrt-ipk
 rm -rf feeds/luci/applications/luci-app-dockerman
 rm -rf feeds/other/luci-app-dockerman
