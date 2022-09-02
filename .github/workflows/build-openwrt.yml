@@ -136,7 +136,7 @@ jobs:
       uses: tete1030/safe-debugger-action@master
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
-        TMATE_DOCKER_CONTAINER: ${{env.BUILDER_CONTAINER_ID}}
+        TMATE_ENCRYPT_PASSWORD: ${{secrets.TMATE_ENCRYPT_PASSWORD}}
 
     - name: Download package
       id: package
