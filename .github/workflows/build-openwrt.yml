@@ -32,8 +32,6 @@ env:
   DIY_P1_SH: diy-part1-openwrt.sh
   DIY_P2_SH: diy-part2-openwrt.sh
   SCKEY: ${{ secrets.SCKEY }}
-  TMATE_ENCRYPT_PASSWORD: ${{secrets.TMATE_ENCRYPT_PASSWORD}}
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   FREE_UP_DISK: true
   UPLOAD_FILES: false
   UPLOAD_COWTRANSFER: false
@@ -134,16 +132,19 @@ jobs:
         find "${GITHUB_WORKSPACE}/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d '${GITHUB_WORKSPACE}/openwrt' -p1 --forward"
         
     - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
-        TMATE_ENCRYPT_PASSWORD: ${{secrets.TMATE_ENCRYPT_PASSWORD}}
-      uses: tete1030/safe-debugger-action@master
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
 
     - name: Download package
       id: package
       run: |
         cd openwrt
         echo -e 'CONFIG_DEVEL=y\nCONFIG_CCACHE=y' >> .config
+        make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
