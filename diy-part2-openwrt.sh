@@ -33,6 +33,8 @@ rm -rf package/lede/luci-app-dockerman
 rm -rf feeds/liuran/adguardhome
 rm -rf feeds/liuran/GoQuiet
 rm -rf feeds/liuran/gost
+rm -rf feeds/kenzok8/3proxy/patches
+
 
 # ./scripts/feeds update -a
 # ./scripts/feeds install -a
