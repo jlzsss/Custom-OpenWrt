@@ -1,0 +1,11 @@
+--- a/feeds/NueXini/cpolar/Makefile
++++ b/feeds/NueXini/cpolar/Makefile
+@@ -28,7 +28,7 @@ endef
+ 
+ ifeq ($(ARCH),x86_64)
+ 	CPOLAR_ARCH:=amd64
+-	PKG_HASH:=4cb87f092ac5a34d0715d518008b415d9383265e4f0e1fb14cbff69228315eba
++	PKG_HASH:=29370d012097d6e4dd50d3d3a665027be904dacfa400f4cca6fbe885dac91854
+ endif
+ 
+ ifeq ($(ARCH),mipsel)
