@@ -107,7 +107,7 @@ jobs:
           #是否跳过工具链编译
           skip: true
           #清空缓存
-          clean: true
+          clean: false
           prefix: ${{ github.workspace }}/openwrt
         
     - name: Load custom feeds
