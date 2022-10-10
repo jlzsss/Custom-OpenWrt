@@ -6122,7 +6122,7 @@ CONFIG_PACKAGE_luci-app-ahcp=y
 CONFIG_PACKAGE_luci-app-airplay2=y
 # CONFIG_PACKAGE_luci-app-airwhu is not set
 CONFIG_PACKAGE_luci-app-aliddns=y
-CONFIG_PACKAGE_luci-app-alist=y
+# CONFIG_PACKAGE_luci-app-alist is not set
 CONFIG_PACKAGE_luci-app-aliyundrive-fuse=y
 CONFIG_PACKAGE_luci-app-aliyundrive-webdav=y
 CONFIG_PACKAGE_luci-app-amule=y
@@ -6322,7 +6322,7 @@ CONFIG_PACKAGE_luci-app-pagekitec=y
 CONFIG_PACKAGE_luci-app-passwall=y
 
 #
-# Configuration
+# PassWall Configuration
 #
 CONFIG_PACKAGE_luci-app-passwall_Iptables_Transparent_Proxy=y
 CONFIG_PACKAGE_luci-app-passwall_Nftables_Transparent_Proxy=y
@@ -6344,7 +6344,7 @@ CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray=y
 CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin=y
 CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
 CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray_Plugin=y
-# end of Configuration
+# end of PassWall Configuration
 
 CONFIG_PACKAGE_luci-app-passwall2=y
 
@@ -6787,7 +6787,6 @@ CONFIG_PACKAGE_luci-i18n-advanced-reboot-zh-cn=y
 CONFIG_PACKAGE_luci-i18n-ahcp-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-ahcp-zh-tw is not set
 # CONFIG_PACKAGE_luci-i18n-airplay2-zh-cn is not set
-CONFIG_PACKAGE_luci-i18n-alist-zh-cn=y
 # CONFIG_PACKAGE_luci-i18n-aliyundrive-fuse-zh-cn is not set
 CONFIG_PACKAGE_luci-i18n-aliyundrive-fuse-zh_Hans=y
 # CONFIG_PACKAGE_luci-i18n-aliyundrive-webdav-zh-cn is not set
@@ -10267,7 +10266,7 @@ CONFIG_PACKAGE_uqmi=y
 # Web Servers/Proxies
 #
 CONFIG_PACKAGE_3proxy=y
-CONFIG_PACKAGE_alist=y
+# CONFIG_PACKAGE_alist is not set
 # CONFIG_ALIST_COMPRESS_UPX is not set
 # CONFIG_ALIST_COMPRESS_GOPROXY is not set
 # CONFIG_PACKAGE_apache is not set
@@ -11859,6 +11858,7 @@ CONFIG_PACKAGE_lxc-templates=y
 # CONFIG_PACKAGE_mc-skins is not set
 # CONFIG_PACKAGE_mcookie is not set
 # CONFIG_PACKAGE_mdio-tools is not set
+# CONFIG_PACKAGE_mhz is not set
 # CONFIG_PACKAGE_micrond is not set
 # CONFIG_PACKAGE_miniflux is not set
 # CONFIG_PACKAGE_mmc-utils is not set
