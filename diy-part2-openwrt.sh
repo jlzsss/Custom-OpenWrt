@@ -17,7 +17,6 @@ git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-ser
 rm -rf package/feeds/kiddin/qBittorrent-Enhanced-Edition
 rm -rf package/feeds/luci/luci-app-transmission
 ./scripts/feeds install -p luci2 luci-app-transmission
-./scripts/feeds install -p kensok8 transmission
 rm -rf package/feeds/kenzok8/quickstart
 rm -rf package/feeds/kenzok8/luci-app-quickstart
 ./scripts/feeds install -p packages2 quickstart
