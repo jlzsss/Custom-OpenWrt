@@ -14,7 +14,7 @@
 git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
 git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
 git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
-rm -rf package/feeds/kiddin/qBittorrent-Enhanced-Edition
+rm -rf package/feeds/luci2/qBittorrent-Enhanced-Edition
 rm -rf package/feeds/luci/luci-app-transmission
 ./scripts/feeds install -p luci2 luci-app-transmission
 rm -rf package/feeds/kenzok8/quickstart
