@@ -53,4 +53,4 @@ svn export --force https://github.com/coolsnowwolf/lede/branches/master/package/
 svn export --force https://github.com/coolsnowwolf/lede/branches/master/package/network/services/e2guardian package/feeds/packages/e2guardian
 svn export --force https://github.com/coolsnowwolf/packages/trunk/net/amule package/feeds/packages/amule
 svn export --force https://github.com/openwrt/routing/branches/openwrt-19.07/cjdns package/feeds/routing/cjdns
-svn export --force https://github.com/immortalwrt/luci/trunk/applications/luci-app-qbittorrent package/feeds/luci2/luci-app-qbittorrent
+svn export --force https://github.com/Joecaicai/openwrt-packages/trunk/luci-app-qbittorrent package/feeds/luci/luci-app-qbittorrent
