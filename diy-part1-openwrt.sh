@@ -51,6 +51,12 @@ svn export --force https://github.com/coolsnowwolf/packages/branches/master/util
 svn export --force https://github.com/coolsnowwolf/packages/branches/master/utils/mariadb-common package/feeds/packages/mariadb-common
 svn export --force https://github.com/coolsnowwolf/lede/branches/master/package/network/services/noddos package/feeds/packages/noddos
 svn export --force https://github.com/coolsnowwolf/lede/branches/master/package/network/services/e2guardian package/feeds/packages/e2guardian
+svn export --force https://github.com/Joecaicai/openwrt-packages/trunk/luci-app-qbittorrent package/feeds/luci/luci-app-qbittorrent
+svn export --force https://github.com/Joecaicai/openwrt-packages/trunk/qBittorrent-Enhanced-Edition package/feeds/packages/qBittorrent-Enhanced-Edition
+svn export --force https://github.com/kenzok8/jell/trunk/luci-app-transmission package/feeds/luci/luci-app-transmission
+svn export --force https://github.com/kenzok8/jell/trunk/transmission package/feeds/packages/transmission
+svn export --force https://github.com/kenzok8/jell/trunk/transmission-web-control package/feeds/packages/transmission-web-control
+svn export --force https://github.com/kenzok8/jell/trunk/luci-app-smartdns package/feeds/luci/luci-app-smartdns
+svn export --force https://github.com/kenzok8/jell/trunk/smartdns package/feeds/packages/smartdns
 svn export --force https://github.com/coolsnowwolf/packages/trunk/net/amule package/feeds/packages/amule
 svn export --force https://github.com/openwrt/routing/branches/openwrt-19.07/cjdns package/feeds/routing/cjdns
-# svn export --force https://github.com/Joecaicai/openwrt-packages/trunk/luci-app-qbittorrent package/feeds/luci/luci-app-qbittorrent
