@@ -14,11 +14,14 @@
 git clone https://github.com/jlzsss/luci-app-shadowsocksr.git package/luci-app-shadowsocksr
 git clone https://github.com/jlzsss/openwrt-dnsmasq-extra.git package/openwrt-dnsmasq-extra
 git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
+rm -rf package/feeds/packages/transmission-web-control
+rm -rf package/feeds/luci/luci-app-transmission
 rm -rf package/feeds/luci2/luci-app-qbittorrent
 rm -rf package/feeds/kenzok8/quickstart
 rm -rf package/feeds/kenzok8/luci-app-quickstart
 ./scripts/feeds install -p packages2 quickstart
 ./scripts/feeds install -p packages2 luci-app-quickstart
+./scripts/feeds install -p luci2 luci-app-transmission
 rm -rf package/feeds/lede/php7
 rm -rf feeds/lede/mt-drivers
 rm -rf feeds/kenzok8/r8168
