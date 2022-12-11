@@ -54,7 +54,7 @@ svn export --force https://github.com/coolsnowwolf/lede/branches/master/package/
 # svn export --force https://github.com/Joecaicai/openwrt-packages/trunk/luci-app-qbittorrent package/feeds/luci/luci-app-qbittorrent
 # svn export --force https://github.com/JuanParker1/Packages/trunk/luci-app-qbittorrent package/feeds/luci/luci-app-qbittorrent
 svn export --force https://github.com/kenzok8/jell/trunk/luci-app-qbittorrent package/feeds/luci/luci-app-qbittorrent
-svn export --force https://github.com/kenzok8/jell/trunk/qBittorrent-Enhanced-Edition package/feeds/packages/qBittorrent-Enhanced-Edition
+svn export --force https://github.com/kiddin9/openwrt-packages/trunk/qBittorrent-Enhanced-Edition package/feeds/packages/qBittorrent-Enhanced-Edition
 svn export --force https://github.com/kiddin9/openwrt-packages/trunk/luci-app-transmission package/feeds/luci/luci-app-transmission
 svn export --force https://github.com/kiddin9/openwrt-packages/trunk/transmission package/feeds/packages/transmission
 svn export --force https://github.com/kiddin9/openwrt-packages/trunk/transmission-web-control package/feeds/packages/transmission-web-control
