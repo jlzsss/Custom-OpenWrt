@@ -23,7 +23,7 @@ git clone https://github.com/yichya/openwrt-xray.git package/openwrt-xray
 git clone -b luci2 https://github.com/jlzsss/luci-app-v2ray.git package/luci-app-v2ray
 git clone https://github.com/frainzy1477/luci-app-trojan.git package/luci-app-trojan
 git clone -b test https://github.com/frainzy1477/luci-app-clash.git package/luci-app-clash
-git clone https://github.com/muink/luci-app-netspeedtest.git package/luci-app-netspeedtest
+git clone https://github.com/sirpdboy/netspeedtest.git package/netspeedtest
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 # git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/luci-app-koolproxyR
 # git clone -b master https://github.com/vernesong/OpenClash.git package/OpenClash
