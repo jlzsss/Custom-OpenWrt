@@ -64,3 +64,4 @@ svn export --force https://github.com/kiddin9/openwrt-packages/trunk/luci-app-sm
 svn export --force https://github.com/kiddin9/openwrt-packages/trunk/smartdns package/feeds/packages/smartdns
 svn export --force https://github.com/coolsnowwolf/packages/trunk/net/amule package/feeds/packages/amule
 svn export --force https://github.com/openwrt/routing/branches/openwrt-19.07/cjdns package/feeds/routing/cjdns
+svn export --force https://github.com/kenzok8/jell/branches/main/gost package/feeds/packages/gost
