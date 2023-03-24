@@ -105,7 +105,7 @@ jobs:
           #是否缓存工具链目录
           toolchain: true
           #是否跳过工具链编译
-          skip: true
+          skip: false
           #清空缓存
           clean: false
           prefix: ${{ github.workspace }}/openwrt
