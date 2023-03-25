@@ -28,7 +28,7 @@ env:
   REPO_URL: https://github.com/Lienol/openwrt
   REPO_BRANCH: 22.03
   FEEDS_CONF: feeds.conf.default-openwrt
-  CONFIG_FILE: .config-final
+  CONFIG_FILE: .config-begin
   DIY_P1_SH: diy-part1-openwrt.sh
   DIY_P2_SH: diy-part2-openwrt.sh
   SCKEY: ${{ secrets.SCKEY }}
@@ -105,9 +105,9 @@ jobs:
           #是否缓存工具链目录
           toolchain: true
           #是否跳过工具链编译
-          skip: false
+          skip: true
           #清空缓存
-          clean: false
+          clean: true
           prefix: ${{ github.workspace }}/openwrt
         
     - name: Load custom feeds
