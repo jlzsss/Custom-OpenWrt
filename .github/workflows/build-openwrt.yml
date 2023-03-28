@@ -155,7 +155,10 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(($(nproc) + 1)) thread compile"
+        make -j$(($(nproc) + 1)) tools/compile
         make -j$(($(nproc) + 1)) target/linux/compile
+        make -j$(($(nproc) + 1)) package/node/compile
+        make -j$(($(nproc) + 1)) package/node-npm/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -168,7 +171,10 @@ jobs:
       if: failure() 
       run: |
        cd openwrt
-       make -j1 target/linux/compile V=s
+       make -j1 tools/compile
+       make -j1 target/linux/compile
+       make -j1 package/node/compile
+       make -j1 package/node-npm/compile
        echo "::set-output name=status::success"
        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
