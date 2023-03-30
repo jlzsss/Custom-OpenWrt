@@ -205,7 +205,7 @@ jobs:
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
-        run: PWD
+        run: pwd
          
       - name: WeChat notification
         working-directory: /workdir
@@ -267,7 +267,7 @@ jobs:
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive    
-        run: PWD
+        run: pwd
           
       - name: WeChat notification
         working-directory: /workdir
@@ -329,7 +329,7 @@ jobs:
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive    
-        run: PWD 
+        run: pwd
           
       - name: WeChat notification
         working-directory: /workdir
