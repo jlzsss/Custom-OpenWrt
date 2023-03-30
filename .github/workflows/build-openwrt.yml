@@ -203,6 +203,7 @@ jobs:
           fetch-depth: 0
           
       - name: WeChat notification
+        working-directory: /workdir
         run: |
          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
@@ -259,6 +260,7 @@ jobs:
           fetch-depth: 0
           
       - name: WeChat notification
+        working-directory: /workdir
         run: |
          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
@@ -315,6 +317,7 @@ jobs:
           fetch-depth: 0
           
       - name: WeChat notification
+        working-directory: /workdir
         run: |
          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分
