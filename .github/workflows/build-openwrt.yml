@@ -140,6 +140,7 @@ jobs:
       id: package
       run: |
         echo -e 'CONFIG_DEVEL=y\nCONFIG_CCACHE=y' >> .config
+        cd openwrt
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
