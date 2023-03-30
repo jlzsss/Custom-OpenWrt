@@ -201,7 +201,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+     
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+     
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -259,6 +263,10 @@ jobs:
         with:
           fetch-depth: 0
           
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive    
+          
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -315,6 +323,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive    
           
       - name: WeChat notification
         working-directory: /workdir
