@@ -132,8 +132,8 @@ jobs:
     - name: Download package
       id: package
       run: |
-        echo -e 'CONFIG_DEVEL=y\nCONFIG_CCACHE=y' >> .config
         cd openwrt
+        echo -e 'CONFIG_DEVEL=y\nCONFIG_CCACHE=y' >> .config
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
@@ -146,6 +146,7 @@ jobs:
     - name: Multi-thread compile
       id: Multi-thread
       run: |
+        cd openwrt
         echo -e "$(($(nproc) + 1)) thread compile"
         make -j$(($(nproc) + 1)) tools/compile
         make -j$(($(nproc) + 1)) toolchain/compile
@@ -162,6 +163,7 @@ jobs:
       id: Single-thread
       if: failure() 
       run: |
+       cd openwrt
        make -j1 tools/compile V=s
        make -j1 toolchain/compile V=s
        make -j1 target/linux/compile V=s
@@ -197,6 +199,7 @@ jobs:
           
       - name: WeChat notification
         run: |
+         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
          
       - name: SSH connection to Actions
@@ -209,6 +212,7 @@ jobs:
       - name: Multi-thread compile
         id: Multi-thread
         run: |
+          cd openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1)) package/compile
           # make package/compile -j$(($(nproc) + 2))
@@ -222,6 +226,7 @@ jobs:
         id: Single-thread
         if: failure() 
         run: |
+         cd openwrt
          make -j1 package/compile V=s
          echo "::set-output name=status::success"
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
@@ -253,11 +258,13 @@ jobs:
           
       - name: WeChat notification
         run: |
+         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
          
       - name: Multi-thread compile
         id: Multi-thread
         run: |
+          cd openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1))
           # make package/compile -j$(($(nproc) + 2))
@@ -271,6 +278,7 @@ jobs:
         id: Single-thread
         if: failure() 
         run: |
+         cd openwrt
          make -j1 V=s
          echo "::set-output name=status::success"
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
