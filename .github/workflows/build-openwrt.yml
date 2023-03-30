@@ -205,7 +205,8 @@ jobs:
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
-     
+          uses: P3TERX/ssh2actions@v1.0.0
+         
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -266,6 +267,7 @@ jobs:
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive    
+          uses: P3TERX/ssh2actions@v1.0.0
           
       - name: WeChat notification
         working-directory: /workdir
@@ -327,6 +329,7 @@ jobs:
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive    
+          uses: P3TERX/ssh2actions@v1.0.0 
           
       - name: WeChat notification
         working-directory: /workdir
