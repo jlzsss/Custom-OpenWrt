@@ -175,6 +175,15 @@ jobs:
        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
+    - name: Package artifacts
+      run: |
+       tar -czvf myapp.tar.gz /workdir/openwrt
+       echo "::set-output name=artifact_name::myapp.tar.gz"
+       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       outputs:
+         artifact_name: ${{ steps.package.outputs.artifact_name }}
+
     - name: Check space usage
       if: (!cancelled())
       run: df -hT
@@ -197,14 +206,45 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-     
-      - name: SSH connection to Actions
-        uses: P3TERX/ssh2actions@v1.0.0
-        # if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-        # env:
-        #  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        #  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}      
+          
+      - name: Initialization environment
+        run: |
+         docker image prune -a -f
+         sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
+         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android* adoptopenjdk* mongodb* moby* snapd*
+         sudo -E apt-get -qq update
+         sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync ccache
+         sudo -E apt-get -qq autoremove --purge
+         sudo -E apt-get -qq clean
+         sudo timedatectl set-timezone "$TZ"
+         sudo mkdir -p /workdir
+         sudo chown $USER:$GROUPS /workdir
+        
+         df -hT
+    
+      - name: Free up disk space
+        if: env.FREE_UP_DISK == 'true'
+        run: |
+         sudo swapoff /mnt/swapfile
+         sudo rm -rf /mnt/swapfile
+         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+         ln -s /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         ln -s /mnt/openwrt/build_dir/host openwrt/build_dir/host
+         ln -s /mnt/openwrt/dl openwrt/dl
+         ln -s /mnt/openwrt/staging_dir openwrt/staging_dir
+         # ln -s /mnt/openwrt/bin openwrt/bin
+         # ln -s /mnt/openwrt/feeds openwrt/feeds   
+         # ln -s /mnt/openwrt/build_dir openwrt/build_dir
+         # ln -s /mnt/openwrt/tmp openwrt/tmp
+        
+         df -hT
          
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ steps.build.outputs.artifact_name }}
+          path: /workdir/openwrt
+  
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -242,7 +282,16 @@ jobs:
       - name: Check space usage
         if: (!cancelled())
         run: df -hT
-        
+     
+      - name: Package artifacts
+        run: |
+         tar -czvf myapp.tar.gz /workdir/openwrt
+         echo "::set-output name=artifact_name::myapp.tar.gz"
+         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         outputs:
+         artifact_name: ${{ steps.package.outputs.artifact_name }}
+     
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
         run: |
@@ -263,10 +312,43 @@ jobs:
           fetch-depth: 0
           
       - name: Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive    
-        run: pwd
-          
+        run: |
+         docker image prune -a -f
+         sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
+         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android* adoptopenjdk* mongodb* moby* snapd*
+         sudo -E apt-get -qq update
+         sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync ccache
+         sudo -E apt-get -qq autoremove --purge
+         sudo -E apt-get -qq clean
+         sudo timedatectl set-timezone "$TZ"
+         sudo mkdir -p /workdir
+         sudo chown $USER:$GROUPS /workdir
+        
+         df -hT
+    
+      - name: Free up disk space
+        if: env.FREE_UP_DISK == 'true'
+        run: |
+         sudo swapoff /mnt/swapfile
+         sudo rm -rf /mnt/swapfile
+         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+         ln -s /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         ln -s /mnt/openwrt/build_dir/host openwrt/build_dir/host
+         ln -s /mnt/openwrt/dl openwrt/dl
+         ln -s /mnt/openwrt/staging_dir openwrt/staging_dir
+         # ln -s /mnt/openwrt/bin openwrt/bin
+         # ln -s /mnt/openwrt/feeds openwrt/feeds   
+         # ln -s /mnt/openwrt/build_dir openwrt/build_dir
+         # ln -s /mnt/openwrt/tmp openwrt/tmp
+        
+         df -hT
+         
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ steps.build.outputs.artifact_name }}
+          path: /workdir/openwrt
+                   
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -304,7 +386,16 @@ jobs:
       - name: Check space usage
         if: (!cancelled())
         run: df -hT
-        
+      
+      - name: Package artifacts
+        run: |
+         tar -czvf myapp.tar.gz /workdir/openwrt
+         echo "::set-output name=artifact_name::myapp.tar.gz"
+         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         outputs:
+          artifact_name: ${{ steps.package.outputs.artifact_name }}
+      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
         run: |
@@ -325,9 +416,42 @@ jobs:
           fetch-depth: 0
           
       - name: Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive    
-        run: pwd
+        run: |
+         docker image prune -a -f
+         sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
+         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android* adoptopenjdk* mongodb* moby* snapd*
+         sudo -E apt-get -qq update
+         sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync ccache
+         sudo -E apt-get -qq autoremove --purge
+         sudo -E apt-get -qq clean
+         sudo timedatectl set-timezone "$TZ"
+         sudo mkdir -p /workdir
+         sudo chown $USER:$GROUPS /workdir
+        
+         df -hT
+    
+      - name: Free up disk space
+        if: env.FREE_UP_DISK == 'true'
+        run: |
+         sudo swapoff /mnt/swapfile
+         sudo rm -rf /mnt/swapfile
+         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+         ln -s /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         ln -s /mnt/openwrt/build_dir/host openwrt/build_dir/host
+         ln -s /mnt/openwrt/dl openwrt/dl
+         ln -s /mnt/openwrt/staging_dir openwrt/staging_dir
+         # ln -s /mnt/openwrt/bin openwrt/bin
+         # ln -s /mnt/openwrt/feeds openwrt/feeds   
+         # ln -s /mnt/openwrt/build_dir openwrt/build_dir
+         # ln -s /mnt/openwrt/tmp openwrt/tmp
+        
+         df -hT
+         
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ steps.build.outputs.artifact_name }}
+          path: /workdir/openwrt
           
       - name: WeChat notification
         working-directory: /workdir
