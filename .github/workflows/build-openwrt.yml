@@ -54,8 +54,6 @@ jobs:
        curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
 
     - name: Initialization environment
-      env:
-        DEBIAN_FRONTEND: noninteractive
       run: |
         docker image prune -a -f
         sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
@@ -78,8 +76,6 @@ jobs:
 
     - name: Free up disk space
       if: env.FREE_UP_DISK == 'true'
-      env:
-        DEBIAN_FRONTEND: noninteractive
       run: |
         sudo swapoff /mnt/swapfile
         sudo rm -rf /mnt/swapfile
@@ -155,9 +151,9 @@ jobs:
         cd openwrt
         echo -e "$(($(nproc) + 1)) thread compile"
         make -j$(($(nproc) + 1)) tools/compile
-        make -j$(($(nproc) + 1)) toolchain/compile
-        make -j$(($(nproc) + 1)) target/linux/compile
-        make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
+        # make -j$(($(nproc) + 1)) toolchain/compile
+        # make -j$(($(nproc) + 1)) target/linux/compile
+        # make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -202,10 +198,12 @@ jobs:
         with:
           fetch-depth: 0
      
-      - name: Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: pwd
+      - name: SSH connection to Actions
+        uses: P3TERX/ssh2actions@v1.0.0
+        # if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+        # env:
+        #  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        #  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}      
          
       - name: WeChat notification
         working-directory: /workdir
