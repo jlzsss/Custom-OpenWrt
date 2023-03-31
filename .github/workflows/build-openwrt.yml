@@ -177,7 +177,7 @@ jobs:
 
     - name: Package artifacts
       run: |
-       tar -czvf myapp.tar.gz /workdir/openwrt
+       tar -czvf myapp.tar.gz workdir/openwrt
        echo "::set-output name=artifact_name::myapp.tar.gz"
        env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -243,7 +243,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ steps.build.outputs.artifact_name }}
-          path: /workdir/openwrt
+          path: workdir/openwrt
   
       - name: WeChat notification
         working-directory: /workdir
@@ -285,7 +285,7 @@ jobs:
      
       - name: Package artifacts
         run: |
-         tar -czvf myapp.tar.gz /workdir/openwrt
+         tar -czvf myapp.tar.gz workdir/openwrt
          echo "::set-output name=artifact_name::myapp.tar.gz"
          env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -347,7 +347,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ steps.build.outputs.artifact_name }}
-          path: /workdir/openwrt
+          path: workdir/openwrt
                    
       - name: WeChat notification
         working-directory: /workdir
@@ -389,7 +389,7 @@ jobs:
       
       - name: Package artifacts
         run: |
-         tar -czvf myapp.tar.gz /workdir/openwrt
+         tar -czvf myapp.tar.gz workdir/openwrt
          echo "::set-output name=artifact_name::myapp.tar.gz"
          env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -451,7 +451,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ steps.build.outputs.artifact_name }}
-          path: /workdir/openwrt
+          path: workdir/openwrt
           
       - name: WeChat notification
         working-directory: /workdir
