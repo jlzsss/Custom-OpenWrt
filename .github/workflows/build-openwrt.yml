@@ -150,9 +150,9 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(($(nproc) + 1)) thread compile"
-        make -j$(($(nproc) + 1)) tools/compile
+        # make -j$(($(nproc) + 1)) tools/compile
         # make -j$(($(nproc) + 1)) toolchain/compile
-        # make -j$(($(nproc) + 1)) target/linux/compile
+        make -j$(($(nproc) + 1)) target/linux/compile
         # make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
@@ -177,7 +177,7 @@ jobs:
 
     - name: Package artifacts
       run: |
-       tar -czvf myapp.tar.gz workdir/openwrt
+       tar -czvf myapp.tar.gz openwrt/
        echo "::set-output name=artifact_name::myapp.tar.gz"
        env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
