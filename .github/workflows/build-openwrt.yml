@@ -185,12 +185,12 @@ jobs:
       
     - name: Package artifacts
       run: |
-       tar czvf myapp.tar.gz openwrt/
+       tar -czvf myapp.tar.gz openwrt/
        echo "::set-output name=artifact_name::myapp.tar.gz"
        env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
        outputs:
-         artifact_name: ${{ steps.package.outputs.artifact_name }}    
+        artifact_name: ${{ steps.package.outputs.artifact_name }}    
          
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -293,7 +293,7 @@ jobs:
      
       - name: Package artifacts
         run: |
-         tar czvf myapp.tar.gz openwrt/
+         tar -czvf myapp.tar.gz openwrt/
          echo "::set-output name=artifact_name::myapp.tar.gz"
          env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -401,7 +401,7 @@ jobs:
       
       - name: Package artifacts
         run: |
-         tar czvf myapp.tar.gz openwrt/
+         tar -czvf myapp.tar.gz openwrt/
          echo "::set-output name=artifact_name::myapp.tar.gz"
          env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
