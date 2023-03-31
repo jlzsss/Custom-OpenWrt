@@ -224,6 +224,12 @@ jobs:
          sudo chown $USER:$GROUPS /workdir
         
          df -hT
+         
+      - name: WeChat notification
+        working-directory: /workdir
+        run: |
+         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+         curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
     
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
@@ -243,13 +249,7 @@ jobs:
           # sudo ln -sf /mnt/openwrt/tmp openwrt/tmp
         
           df -hT
-        
-      - name: WeChat notification
-        working-directory: /workdir
-        run: |
-         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-         curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
-         
+               
       - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
@@ -330,6 +330,12 @@ jobs:
         
          df -hT
     
+      - name: WeChat notification
+        working-directory: /workdir
+        run: |
+         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+         curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分    
+    
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
         env:
@@ -349,12 +355,6 @@ jobs:
         
           df -hT
         
-      - name: WeChat notification
-        working-directory: /workdir
-        run: |
-         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-         curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
-
       - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
@@ -434,7 +434,13 @@ jobs:
          sudo chown $USER:$GROUPS /workdir
         
          df -hT
-    
+         
+      - name: WeChat notification
+        working-directory: /workdir
+        run: |
+         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+         curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分    
+         
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
         env:
@@ -453,12 +459,6 @@ jobs:
           # sudo ln -sf /mnt/openwrt/tmp openwrt/tmp
         
           df -hT
-
-      - name: WeChat notification
-        working-directory: /workdir
-        run: |
-         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-         curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
