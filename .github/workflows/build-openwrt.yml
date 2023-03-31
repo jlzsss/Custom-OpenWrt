@@ -183,14 +183,11 @@ jobs:
       if: (!cancelled())
       run: df -hT
       
-    - name: Package artifacts
-      run: |
-       tar -czvf myapp.tar.gz $GITHUB_WORKSPACE/openwrt/
-       echo "::set-output name=artifact_name::myapp.tar.gz"
-       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       outputs:
-        artifact_name: ${{ steps.package.outputs.artifact_name }}    
+    - name: Store build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-output
+        path: $GITHUB_WORKSPACE/
          
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -253,11 +250,11 @@ jobs:
          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
          
-      - name: Download artifacts
+      - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
-          name: ${{ steps.build.outputs.artifact_name }}
-          path: $GITHUB_WORKSPACE/
+         name: build-output
+         path: $GITHUB_WORKSPACE/
          
       - name: Check space usage
         if: (!cancelled())
@@ -291,14 +288,11 @@ jobs:
         if: (!cancelled())
         run: df -hT
      
-      - name: Package artifacts
-        run: |
-         tar -czvf myapp.tar.gz $GITHUB_WORKSPACE/openwrt/
-         echo "::set-output name=artifact_name::myapp.tar.gz"
-         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         outputs:
-         artifact_name: ${{ steps.package.outputs.artifact_name }}
+      - name: Store build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+         name: build-output
+         path: $GITHUB_WORKSPACE/
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -361,11 +355,11 @@ jobs:
          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
 
-      - name: Download artifacts
+      - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
-          name: ${{ steps.build.outputs.artifact_name }}
-          path: $GITHUB_WORKSPACE/
+         name: build-output
+         path: $GITHUB_WORKSPACE/
 
       - name: Check space usage
         if: (!cancelled())
@@ -399,14 +393,11 @@ jobs:
         if: (!cancelled())
         run: df -hT
       
-      - name: Package artifacts
-        run: |
-         tar -czvf myapp.tar.gz $GITHUB_WORKSPACE/openwrt/
-         echo "::set-output name=artifact_name::myapp.tar.gz"
-         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         outputs:
-          artifact_name: ${{ steps.package.outputs.artifact_name }}
+      - name: Store build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+         name: build-output
+         path: $GITHUB_WORKSPACE/
       
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
