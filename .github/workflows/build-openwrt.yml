@@ -84,14 +84,14 @@ jobs:
         sudo swapoff /mnt/swapfile
         sudo rm -rf /mnt/swapfile
         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-        ln -s /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-        ln -s /mnt/openwrt/build_dir/host openwrt/build_dir/host
-        ln -s /mnt/openwrt/dl openwrt/dl
-        ln -s /mnt/openwrt/staging_dir openwrt/staging_dir
-        # ln -s /mnt/openwrt/bin openwrt/bin
-        # ln -s /mnt/openwrt/feeds openwrt/feeds   
-        # ln -s /mnt/openwrt/build_dir openwrt/build_dir
-        # ln -s /mnt/openwrt/tmp openwrt/tmp
+        sudo ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+        sudo ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+        sudo ln -sf /mnt/openwrt/dl openwrt/dl
+        sudo ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+        # sudo ln -sf /mnt/openwrt/bin openwrt/bin
+        # sudo ln -sf /mnt/openwrt/feeds openwrt/feeds   
+        # sudo ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+        # sudo ln -sf /mnt/openwrt/tmp openwrt/tmp
         
         df -hT
 
@@ -228,22 +228,22 @@ jobs:
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
         env:
-          DEBIAN_FRONTEND: noninteractive         
+          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo swapoff /mnt/swapfile
-         sudo rm -rf /mnt/swapfile
-         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-         ln -s /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-         ln -s /mnt/openwrt/build_dir/host openwrt/build_dir/host
-         ln -s /mnt/openwrt/dl openwrt/dl
-         ln -s /mnt/openwrt/staging_dir openwrt/staging_dir
-         # ln -s /mnt/openwrt/bin openwrt/bin
-         # ln -s /mnt/openwrt/feeds openwrt/feeds   
-         # ln -s /mnt/openwrt/build_dir openwrt/build_dir
-         # ln -s /mnt/openwrt/tmp openwrt/tmp
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          sudo ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+          sudo ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+          sudo ln -sf /mnt/openwrt/dl openwrt/dl
+          sudo ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+          # sudo ln -sf /mnt/openwrt/bin openwrt/bin
+          # sudo ln -sf /mnt/openwrt/feeds openwrt/feeds   
+          # sudo ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+          # sudo ln -sf /mnt/openwrt/tmp openwrt/tmp
         
-         df -hT
-
+          df -hT
+        
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -333,22 +333,22 @@ jobs:
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
         env:
-          DEBIAN_FRONTEND: noninteractive        
+          DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo swapoff /mnt/swapfile
-         sudo rm -rf /mnt/swapfile
-         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-         ln -s /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-         ln -s /mnt/openwrt/build_dir/host openwrt/build_dir/host
-         ln -s /mnt/openwrt/dl openwrt/dl
-         ln -s /mnt/openwrt/staging_dir openwrt/staging_dir
-         # ln -s /mnt/openwrt/bin openwrt/bin
-         # ln -s /mnt/openwrt/feeds openwrt/feeds   
-         # ln -s /mnt/openwrt/build_dir openwrt/build_dir
-         # ln -s /mnt/openwrt/tmp openwrt/tmp
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          sudo ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+          sudo ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+          sudo ln -sf /mnt/openwrt/dl openwrt/dl
+          sudo ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+          # sudo ln -sf /mnt/openwrt/bin openwrt/bin
+          # sudo ln -sf /mnt/openwrt/feeds openwrt/feeds   
+          # sudo ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+          # sudo ln -sf /mnt/openwrt/tmp openwrt/tmp
         
-         df -hT
-                       
+          df -hT
+        
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -440,19 +440,19 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-         sudo swapoff /mnt/swapfile
-         sudo rm -rf /mnt/swapfile
-         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-         ln -s /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-         ln -s /mnt/openwrt/build_dir/host openwrt/build_dir/host
-         ln -s /mnt/openwrt/dl openwrt/dl
-         ln -s /mnt/openwrt/staging_dir openwrt/staging_dir
-         # ln -s /mnt/openwrt/bin openwrt/bin
-         # ln -s /mnt/openwrt/feeds openwrt/feeds   
-         # ln -s /mnt/openwrt/build_dir openwrt/build_dir
-         # ln -s /mnt/openwrt/tmp openwrt/tmp
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          sudo ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+          sudo ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+          sudo ln -sf /mnt/openwrt/dl openwrt/dl
+          sudo ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+          # sudo ln -sf /mnt/openwrt/bin openwrt/bin
+          # sudo ln -sf /mnt/openwrt/feeds openwrt/feeds   
+          # sudo ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+          # sudo ln -sf /mnt/openwrt/tmp openwrt/tmp
         
-         df -hT
+          df -hT
 
       - name: WeChat notification
         working-directory: /workdir
