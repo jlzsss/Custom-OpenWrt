@@ -187,7 +187,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build-output
-        path: $GITHUB_WORKSPACE/openwrt/
+        path: $GITHUB_WORKSPACE/
          
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -293,7 +293,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
          name: build-output
-         path: $GITHUB_WORKSPACE/openwrt/
+         path: $GITHUB_WORKSPACE/
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -399,7 +399,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
          name: build-output
-         path: $GITHUB_WORKSPACE/openwrt/
+         path: $GITHUB_WORKSPACE/
       
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
