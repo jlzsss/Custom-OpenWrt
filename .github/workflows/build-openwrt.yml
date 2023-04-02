@@ -189,8 +189,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       with:
         name: build-output
-        path: /workdir/openwrt
-        overwrite: true
+        path: /workdir/openwrt/
         
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -261,7 +260,6 @@ jobs:
         with:
          name: build-output
          path: /workdir/
-         overwrite: true
          
       - name: Check space usage
         if: (!cancelled())
@@ -301,8 +299,7 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: /workdir/openwrt
-         overwrite: true
+         path: /workdir/openwrt/
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -373,7 +370,6 @@ jobs:
         with:
          name: build-output
          path: /workdir/
-         overwrite: true
 
       - name: Check space usage
         if: (!cancelled())
@@ -413,9 +409,8 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: /workdir/openwrt
-         overwrite: true
-         
+         path: /workdir/openwrt/
+          
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
         run: |
@@ -485,7 +480,6 @@ jobs:
         with:
           name: build-output
           path: /workdir/
-          overwrite: true
                   
       - name: Check space usage
         if: (!cancelled())
