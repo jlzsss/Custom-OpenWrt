@@ -183,6 +183,9 @@ jobs:
       if: (!cancelled())
       run: df -hT
       
+    - name: Compress directory
+      run: tar -czvf openwrt.tar.gz /workdir/openwrt --remove-files
+      
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       env:
@@ -253,16 +256,16 @@ jobs:
         
           df -hT
          
-      - name: Download build artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v3
         env:
          DEBIAN_FRONTEND: noninteractive
         with:
-         name: build-output
-         path: /workdir/
-         
+          name: build-output
+          path: /workdir/
+          
       - name: Unzip artifact
-        run: tar -zxvf /workdir/openwrt.tar.gz --remove-files
+        run: tar -zxvf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
          
       - name: Check space usage
         if: (!cancelled())
@@ -296,13 +299,16 @@ jobs:
         if: (!cancelled())
         run: df -hT
      
+      - name: Compress directory
+        run: tar -czvf openwrt.tar.gz /workdir/openwrt --remove-files
+      
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
         env:
-         DEBIAN_FRONTEND: noninteractive
+          DEBIAN_FRONTEND: noninteractive
         with:
-         name: build-output
-         path: /workdir/openwrt.tar.gz
+          name: build-output
+          path: /workdir/openwrt.tar.gz
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -366,16 +372,16 @@ jobs:
         
           df -hT
         
-      - name: Download build artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v3
         env:
          DEBIAN_FRONTEND: noninteractive
         with:
-         name: build-output
-         path: /workdir/
-
+          name: build-output
+          path: /workdir/
+          
       - name: Unzip artifact
-        run: tar -zxvf /workdir/openwrt.tar.gz --remove-files
+        run: tar -zxvf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
@@ -408,14 +414,17 @@ jobs:
       - name: Check space usage
         if: (!cancelled())
         run: df -hT
+        
+      - name: Compress directory
+        run: tar -czvf openwrt.tar.gz /workdir/openwrt --remove-files
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
         env:
-         DEBIAN_FRONTEND: noninteractive
+          DEBIAN_FRONTEND: noninteractive
         with:
-         name: build-output
-         path: /workdir/openwrt.tar.gz
+          name: build-output
+          path: /workdir/openwrt.tar.gz
           
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -488,7 +497,7 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: tar -zxvf /workdir/openwrt.tar.gz --remove-files    
+        run: tar -zxvf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
     
       - name: Check space usage
         if: (!cancelled())
