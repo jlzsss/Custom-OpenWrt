@@ -189,9 +189,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       with:
         name: build-output
-        path: /workdir/openwrt/
-        archive: true
-        format: tar.gz
+        path: /workdir/openwrt.tar.gz
         
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -263,6 +261,9 @@ jobs:
          name: build-output
          path: /workdir/
          
+      - name: Unzip artifact
+        run: tar -zxvf /workdir/openwrt.tar.gz --remove-files
+         
       - name: Check space usage
         if: (!cancelled())
         run: df -hT   
@@ -301,9 +302,7 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: /workdir/openwrt/
-         archive: true
-         format: tar.gz
+         path: /workdir/openwrt.tar.gz
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -375,6 +374,9 @@ jobs:
          name: build-output
          path: /workdir/
 
+      - name: Unzip artifact
+        run: tar -zxvf /workdir/openwrt.tar.gz --remove-files
+
       - name: Check space usage
         if: (!cancelled())
         run: df -hT   
@@ -413,9 +415,7 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: /workdir/openwrt/
-         archive: true
-         format: tar.gz
+         path: /workdir/openwrt.tar.gz
           
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -486,7 +486,10 @@ jobs:
         with:
           name: build-output
           path: /workdir/
-                  
+          
+      - name: Unzip artifact
+        run: tar -zxvf /workdir/openwrt.tar.gz --remove-files    
+    
       - name: Check space usage
         if: (!cancelled())
         run: df -hT      
