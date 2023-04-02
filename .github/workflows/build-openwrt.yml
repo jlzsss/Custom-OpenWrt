@@ -187,7 +187,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build-output
-        path: $GITHUB_WORKSPACE/
+        path: openwrt/
          
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -255,7 +255,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
          name: build-output
-         path: $GITHUB_WORKSPACE/
+         path: openwrt/
          
       - name: Check space usage
         if: (!cancelled())
@@ -293,7 +293,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
          name: build-output
-         path: $GITHUB_WORKSPACE/
+         path: openwrt/
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -361,7 +361,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
          name: build-output
-         path: $GITHUB_WORKSPACE/
+         path: openwrt/
 
       - name: Check space usage
         if: (!cancelled())
@@ -399,7 +399,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
          name: build-output
-         path: $GITHUB_WORKSPACE/
+         path: openwrt/
       
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -466,8 +466,8 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: ${{ steps.build.outputs.artifact_name }}
-          path: $GITHUB_WORKSPACE/
+          name: build-output
+          path: openwrt/
                   
       - name: Check space usage
         if: (!cancelled())
