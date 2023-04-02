@@ -74,7 +74,7 @@ jobs:
       working-directory: /workdir
       run: |
         git clone -b $REPO_BRANCH --single-branch $REPO_URL  openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
 
     - name: Free up disk space
       if: env.FREE_UP_DISK == 'true'
@@ -185,9 +185,11 @@ jobs:
       
     - name: Store build artifacts
       uses: actions/upload-artifact@v2
+      env:
+        DEBIAN_FRONTEND: noninteractive
       with:
         name: build-output
-        path: openwrt/
+        path: ${{ github.workspace }}/openwrt
          
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -228,8 +230,8 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         mkdir -p openwrt
-         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+         mkdir openwrt
+         ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
                  
       - name: Free up disk space
@@ -253,9 +255,11 @@ jobs:
          
       - name: Download build artifacts
         uses: actions/download-artifact@v2
+        env:
+         DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: openwrt/
+         path: ${{ github.workspace }}/
          
       - name: Check space usage
         if: (!cancelled())
@@ -291,9 +295,11 @@ jobs:
      
       - name: Store build artifacts
         uses: actions/upload-artifact@v2
+        env:
+         DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: openwrt/
+         path: ${{ github.workspace }}/openwrt/
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -334,8 +340,8 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         mkdir -p openwrt
-         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+         mkdir openwrt
+         ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分 
     
       - name: Free up disk space
@@ -359,9 +365,11 @@ jobs:
         
       - name: Download build artifacts
         uses: actions/download-artifact@v2
+        env:
+         DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: openwrt/
+         path: ${{ github.workspace }}/
 
       - name: Check space usage
         if: (!cancelled())
@@ -397,9 +405,11 @@ jobs:
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v2
+        env:
+         DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: openwrt/
+         path: ${{ github.workspace }}/openwrt/
       
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -440,8 +450,8 @@ jobs:
       - name: WeChat notification
         working-directory: /workdir
         run: |
-         mkdir -p openwrt
-         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+         mkdir openwrt
+         ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分              
                  
       - name: Free up disk space
@@ -465,9 +475,11 @@ jobs:
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
+        env:
+         DEBIAN_FRONTEND: noninteractive
         with:
           name: build-output
-          path: openwrt/
+          path: ${{ github.workspace }}/
                   
       - name: Check space usage
         if: (!cancelled())
