@@ -255,7 +255,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
          name: build-output
-         path: $GITHUB_WORKSPACE/openwrt/
+         path: $GITHUB_WORKSPACE/
          
       - name: Check space usage
         if: (!cancelled())
@@ -361,7 +361,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
          name: build-output
-         path: $GITHUB_WORKSPACE/openwrt/
+         path: $GITHUB_WORKSPACE/
 
       - name: Check space usage
         if: (!cancelled())
@@ -467,7 +467,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: ${{ steps.build.outputs.artifact_name }}
-          path: $GITHUB_WORKSPACE/openwrt/
+          path: $GITHUB_WORKSPACE/
                   
       - name: Check space usage
         if: (!cancelled())
