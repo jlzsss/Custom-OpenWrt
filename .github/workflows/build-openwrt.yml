@@ -184,7 +184,7 @@ jobs:
       run: df -hT
       
     - name: Compress directory
-      run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files
+      run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files --no-symlinks
       
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
@@ -307,7 +307,7 @@ jobs:
         run: df -hT
      
       - name: Compress directory
-        run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files
+        run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files --no-symlinks
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
@@ -430,7 +430,7 @@ jobs:
         run: df -hT
         
       - name: Compress directory
-        run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files
+        run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files --no-symlinks
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
