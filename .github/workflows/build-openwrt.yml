@@ -265,7 +265,7 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: tar -zxf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
+        run: cd /workdir && tar -zxf openwrt.tar.gz && rm openwrt.tar.gz
          
       - name: Check space usage
         if: (!cancelled())
@@ -381,7 +381,7 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: tar -zxf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
+        run: cd /workdir && tar -zxf openwrt.tar.gz && rm openwrt.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
@@ -497,7 +497,7 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: tar -zxf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
+        run: cd /workdir && tar -zxf openwrt.tar.gz && rm openwrt.tar.gz
     
       - name: Check space usage
         if: (!cancelled())
