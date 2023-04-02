@@ -191,6 +191,7 @@ jobs:
         name: build-output
         path: /workdir/openwrt/
         archive: true
+        format: tar.gz
         
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -302,6 +303,7 @@ jobs:
          name: build-output
          path: /workdir/openwrt/
          archive: true
+         format: tar.gz
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -412,7 +414,8 @@ jobs:
         with:
          name: build-output
          path: /workdir/openwrt/
-         archive: true 
+         archive: true
+         format: tar.gz
           
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
