@@ -189,8 +189,9 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       with:
         name: build-output
-        path: ${{ github.workspace }}/openwrt
-         
+        path: /workdir/openwrt
+        overwrite: true
+        
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
       run: |
@@ -259,7 +260,8 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: ${{ github.workspace }}/
+         path: /workdir/
+         overwrite: true
          
       - name: Check space usage
         if: (!cancelled())
@@ -299,7 +301,8 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: ${{ github.workspace }}/openwrt/
+         path: /workdir/openwrt
+         overwrite: true
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -369,7 +372,8 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: ${{ github.workspace }}/
+         path: /workdir/
+         overwrite: true
 
       - name: Check space usage
         if: (!cancelled())
@@ -409,8 +413,9 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
          name: build-output
-         path: ${{ github.workspace }}/openwrt/
-      
+         path: /workdir/openwrt
+         overwrite: true
+         
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
         run: |
@@ -479,7 +484,8 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
           name: build-output
-          path: ${{ github.workspace }}/
+          path: /workdir/
+          overwrite: true
                   
       - name: Check space usage
         if: (!cancelled())
