@@ -28,7 +28,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default-openwrt
-  CONFIG_FILE: .config-begin
+  CONFIG_FILE: .config-final
   DIY_P1_SH: diy-part1-openwrt.sh
   DIY_P2_SH: diy-part2-openwrt.sh
   SCKEY: ${{ secrets.SCKEY }}
@@ -155,9 +155,9 @@ jobs:
         cd openwrt
         echo -e "$(($(nproc) + 1)) thread compile"
         make -j$(($(nproc) + 1)) tools/compile
-        # make -j$(($(nproc) + 1)) toolchain/compile
-        # make -j$(($(nproc) + 1)) target/linux/compile
-        # make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
+        make -j$(($(nproc) + 1)) toolchain/compile
+        make -j$(($(nproc) + 1)) target/linux/compile
+        make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -184,7 +184,7 @@ jobs:
       run: df -hT
       
     - name: Compress directory
-      run: tar -czf openwrt.tar.gz /workdir/openwrt --remove-files
+      run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files
       
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
@@ -264,7 +264,16 @@ jobs:
           # ln -sf /mnt/openwrt/feeds openwrt/feeds   
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
-        
+
+      - name: Move files
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          mv openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/hostpkg 
+          mv openwrt/build_dir/host /mnt/openwrt/build_dir/host
+          mv openwrt/dl /mnt/openwrt/dl
+          mv openwrt/staging_dir /mnt/openwrt/staging_dir 
+
       - name: Check space usage
         if: (!cancelled())
         run: df -hT   
@@ -298,7 +307,7 @@ jobs:
         run: df -hT
      
       - name: Compress directory
-        run: tar -czf openwrt.tar.gz /workdir/openwrt --remove-files
+        run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
@@ -379,6 +388,15 @@ jobs:
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
 
+      - name: Move files
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          mv openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/hostpkg 
+          mv openwrt/build_dir/host /mnt/openwrt/build_dir/host
+          mv openwrt/dl /mnt/openwrt/dl
+          mv openwrt/staging_dir /mnt/openwrt/staging_dir
+
       - name: Check space usage
         if: (!cancelled())
         run: df -hT   
@@ -412,7 +430,7 @@ jobs:
         run: df -hT
         
       - name: Compress directory
-        run: tar -czf openwrt.tar.gz /workdir/openwrt --remove-files
+        run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
@@ -463,8 +481,8 @@ jobs:
         run: |
          mkdir openwrt
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
-         curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分              
-                       
+         curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分  
+               
       - name: Download artifacts
         uses: actions/download-artifact@v3
         env:
@@ -475,7 +493,7 @@ jobs:
           
       - name: Unzip artifact
         run: cd /workdir && tar -zxf openwrt.tar.gz && rm openwrt.tar.gz
-    
+
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
         env:
@@ -492,7 +510,16 @@ jobs:
           # ln -sf /mnt/openwrt/feeds openwrt/feeds   
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
-    
+
+      - name: Move files
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          mv openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/hostpkg 
+          mv openwrt/build_dir/host /mnt/openwrt/build_dir/host
+          mv openwrt/dl /mnt/openwrt/dl
+          mv openwrt/staging_dir /mnt/openwrt/staging_dir
+
       - name: Check space usage
         if: (!cancelled())
         run: df -hT      
