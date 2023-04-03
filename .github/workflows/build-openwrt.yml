@@ -156,7 +156,7 @@ jobs:
         echo -e "$(($(nproc) + 1)) thread compile"
         make -j$(($(nproc) + 1)) tools/compile
         make -j$(($(nproc) + 1)) toolchain/compile
-        make -j$(($(nproc) + 1)) target/linux/compile
+        # make -j$(($(nproc) + 1)) target/linux/compile
         # make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
@@ -184,7 +184,7 @@ jobs:
       run: df -hT
       
     - name: Compress directory
-      run: bsdtar -czf openwrt.tar.gz /workdir/openwrt -s /workdir/openwrt
+      run: bsdtar -czf openwrt.tar.gz /workdir/openwrt && rm -rf /workdir/openwrt
       
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
@@ -307,7 +307,7 @@ jobs:
         run: df -hT
      
       - name: Compress directory
-        run: bsdtar -czf openwrt.tar.gz /workdir/openwrt -s /workdir/openwrt
+        run: bsdtar -czf openwrt.tar.gz /workdir/openwrt && rm -rf /workdir/openwrt
        
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
@@ -430,7 +430,7 @@ jobs:
         run: df -hT
         
       - name: Compress directory
-        run: bsdtar -czf openwrt.tar.gz /workdir/openwrt -s /workdir/openwrt
+        run: bsdtar -czf openwrt.tar.gz /workdir/openwrt && rm -rf /workdir/openwrt
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
