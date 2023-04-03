@@ -184,16 +184,29 @@ jobs:
       run: df -hT
       
     - name: Compress directory
-      run: bsdtar -czf openwrt.tar.gz /workdir/openwrt && rm -rf /workdir/openwrt
+      run: |
+       bsdtar -czf openwrt.tar.gz /workdir/openwrt
+       bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg
+       bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host
+       bsdtar -czf dl.tar.gz /mnt/openwrt/dl 
+       bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir 
+       rm -rf /workdir/openwrt /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host /mnt/openwrt/dl /mnt/openwrt/staging_dir
+      
+       df -hT
       
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       env:
-        DEBIAN_FRONTEND: noninteractive
+       DEBIAN_FRONTEND: noninteractive
       with:
-        name: build-output
-        path: openwrt.tar.gz
-        
+       name: build-output
+       path: |
+          openwrt.tar.gz
+          hostpkg.tar.gz
+          host.tar.gz
+          dl.tar.gz
+          staging_dir.tar.gz
+         
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
       run: |
@@ -265,17 +278,14 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: cd /workdir && bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
-      
-      # - name: Move files
-      #  env:
-      #    DEBIAN_FRONTEND: noninteractive
-      #  run: |
-      #    mv openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/hostpkg 
-      #    mv openwrt/build_dir/host /mnt/openwrt/build_dir/host
-      #    mv openwrt/dl /mnt/openwrt/dl
-      #    mv openwrt/staging_dir /mnt/openwrt/staging_dir 
-
+        run: |
+          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir
+          rm openwrt.tar.gz hostpkg.tar.gz host.tar.gz dl.tar.gz staging_dir.tar.gz
+    
       - name: Check space usage
         if: (!cancelled())
         run: df -hT   
@@ -309,15 +319,28 @@ jobs:
         run: df -hT
      
       - name: Compress directory
-        run: bsdtar -czf openwrt.tar.gz /workdir/openwrt && rm -rf /workdir/openwrt
-       
+        run: |
+         bsdtar -czf openwrt.tar.gz /workdir/openwrt
+         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg
+         bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host
+         bsdtar -czf dl.tar.gz /mnt/openwrt/dl 
+         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir 
+         rm -rf /workdir/openwrt /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host /mnt/openwrt/dl /mnt/openwrt/staging_dir
+      
+         df -hT
+      
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
         env:
-          DEBIAN_FRONTEND: noninteractive
+         DEBIAN_FRONTEND: noninteractive
         with:
-          name: build-output
-          path: openwrt.tar.gz
+         name: build-output
+         path: |
+          openwrt.tar.gz
+          hostpkg.tar.gz
+          host.tar.gz
+          dl.tar.gz
+          staging_dir.tar.gz
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -390,16 +413,13 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: cd /workdir && bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
-
-      #- name: Move files
-      #  env:
-      #    DEBIAN_FRONTEND: noninteractive
-      #  run: |
-      #    mv openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/hostpkg 
-      #    mv openwrt/build_dir/host /mnt/openwrt/build_dir/host
-      #    mv openwrt/dl /mnt/openwrt/dl
-      #    mv openwrt/staging_dir /mnt/openwrt/staging_dir
+        run: |
+          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir
+          rm openwrt.tar.gz hostpkg.tar.gz host.tar.gz dl.tar.gz staging_dir.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
@@ -434,15 +454,28 @@ jobs:
         run: df -hT
         
       - name: Compress directory
-        run: bsdtar -czf openwrt.tar.gz /workdir/openwrt && rm -rf /workdir/openwrt
+        run: |
+         bsdtar -czf openwrt.tar.gz /workdir/openwrt
+         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg
+         bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host
+         bsdtar -czf dl.tar.gz /mnt/openwrt/dl 
+         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir 
+         rm -rf /workdir/openwrt /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host /mnt/openwrt/dl /mnt/openwrt/staging_dir
+      
+         df -hT
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
         env:
-          DEBIAN_FRONTEND: noninteractive
+         DEBIAN_FRONTEND: noninteractive
         with:
-          name: build-output
-          path: openwrt.tar.gz
+         name: build-output
+         path: |
+          openwrt.tar.gz
+          hostpkg.tar.gz
+          host.tar.gz
+          dl.tar.gz
+          staging_dir.tar.gz
           
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -515,16 +548,13 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: cd /workdir && bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
-
-      # - name: Move files
-      #   env:
-      #     DEBIAN_FRONTEND: noninteractive
-      #   run: |
-      #     mv openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/hostpkg 
-      #     mv openwrt/build_dir/host /mnt/openwrt/build_dir/host
-      #     mv openwrt/dl /mnt/openwrt/dl
-      #     mv openwrt/staging_dir /mnt/openwrt/staging_dir
+        run: |
+          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir
+          rm openwrt.tar.gz hostpkg.tar.gz host.tar.gz dl.tar.gz staging_dir.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
