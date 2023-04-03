@@ -28,7 +28,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default-openwrt
-  CONFIG_FILE: .config-final
+  CONFIG_FILE: .config-begin
   DIY_P1_SH: diy-part1-openwrt.sh
   DIY_P2_SH: diy-part2-openwrt.sh
   SCKEY: ${{ secrets.SCKEY }}
@@ -61,7 +61,7 @@ jobs:
         sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android* adoptopenjdk* mongodb* moby* snapd*
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync ccache
+        sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync ccache bsdtar 
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
@@ -157,7 +157,7 @@ jobs:
         make -j$(($(nproc) + 1)) tools/compile
         make -j$(($(nproc) + 1)) toolchain/compile
         make -j$(($(nproc) + 1)) target/linux/compile
-        make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
+        # make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -173,7 +173,7 @@ jobs:
        make -j1 tools/compile V=s
        make -j1 toolchain/compile V=s
        make -j1 target/linux/compile V=s
-       make -j1 package/{node,golang,gcc,php8,ruby,perl}/compile V=s
+       # make -j1 package/{node,golang,gcc,php8,ruby,perl}/compile V=s
        echo "::set-output name=status::success"
        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -184,7 +184,7 @@ jobs:
       run: df -hT
       
     - name: Compress directory
-      run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files --no-symlinks
+      run: bsdtar -czf openwrt.tar.gz /workdir/openwrt -s /workdir/openwrt
       
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
@@ -246,7 +246,7 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: cd /workdir && tar -zxf openwrt.tar.gz && rm openwrt.tar.gz
+        run: cd /workdir && bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
         
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
@@ -307,8 +307,8 @@ jobs:
         run: df -hT
      
       - name: Compress directory
-        run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files --no-symlinks
-      
+        run: bsdtar -czf openwrt.tar.gz /workdir/openwrt -s /workdir/openwrt
+       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
         env:
@@ -369,7 +369,7 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: cd /workdir && tar -zxf openwrt.tar.gz && rm openwrt.tar.gz
+        run: cd /workdir && bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
 
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
@@ -430,7 +430,7 @@ jobs:
         run: df -hT
         
       - name: Compress directory
-        run: tar -czhf openwrt.tar.gz -h /workdir/openwrt --remove-files --no-symlinks
+        run: bsdtar -czf openwrt.tar.gz /workdir/openwrt -s /workdir/openwrt
       
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
@@ -492,7 +492,7 @@ jobs:
           path: /workdir/
           
       - name: Unzip artifact
-        run: cd /workdir && tar -zxf openwrt.tar.gz && rm openwrt.tar.gz
+        run: cd /workdir && bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
 
       - name: Free up disk space
         if: env.FREE_UP_DISK == 'true'
