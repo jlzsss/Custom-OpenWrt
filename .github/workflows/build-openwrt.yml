@@ -280,11 +280,11 @@ jobs:
           
       - name: Unzip artifact
         run: |
-          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
-          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/ && rm hostpkg.tar.gz
-          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/ && rm host.tar.gz
-          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/ && rm dl.tar.gz
-          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/ && rm staging_dir.tar.gz
+          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=1 && rm openwrt.tar.gz
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=1 && rm hostpkg.tar.gz
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=1 && rm host.tar.gz
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=1 && rm dl.tar.gz
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=1 && rm staging_dir.tar.gz
           
       - name: Check space usage
         if: (!cancelled())
@@ -415,11 +415,11 @@ jobs:
           
       - name: Unzip artifact
         run: |
-          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
-          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/ && rm hostpkg.tar.gz
-          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/ && rm host.tar.gz
-          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/ && rm dl.tar.gz
-          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/ && rm staging_dir.tar.gz
+          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=1 && rm openwrt.tar.gz
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=1 && rm hostpkg.tar.gz
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=1 && rm host.tar.gz
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=1 && rm dl.tar.gz
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=1 && rm staging_dir.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
@@ -550,11 +550,11 @@ jobs:
           
       - name: Unzip artifact
         run: |
-          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/ && rm openwrt.tar.gz
-          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/ && rm hostpkg.tar.gz
-          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/ && rm host.tar.gz
-          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/ && rm dl.tar.gz
-          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/ && rm staging_dir.tar.gz
+          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=1 && rm openwrt.tar.gz
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=1 && rm hostpkg.tar.gz
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=1 && rm host.tar.gz
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=1 && rm dl.tar.gz
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=1 && rm staging_dir.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
