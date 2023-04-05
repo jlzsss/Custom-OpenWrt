@@ -290,6 +290,9 @@ jobs:
         if: (!cancelled())
         run: df -hT   
          
+      - name: SSH connection to Actions
+        uses: P3TERX/ssh2actions@v1.0.0   
+         
       - name: Multi-thread compile
         id: Multi-thread
         run: |
