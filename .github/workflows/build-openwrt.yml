@@ -280,11 +280,12 @@ jobs:
           
       - name: Unzip artifact
         run: |
-          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=1 && rm openwrt.tar.gz
-          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=1 && rm hostpkg.tar.gz
-          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=1 && rm host.tar.gz
-          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=1 && rm dl.tar.gz
-          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=1 && rm staging_dir.tar.gz
+          cd /workdir
+          bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
+          bsdtar -xzf hostpkg.tar.gz && rm hostpkg.tar.gz
+          bsdtar -xzf host.tar.gz && rm host.tar.gz
+          bsdtar -xzf dl.tar.gz && rm dl.tar.gz
+          bsdtar -xzf staging_dir.tar.gz && rm staging_dir.tar.gz
           
       - name: Check space usage
         if: (!cancelled())
@@ -296,7 +297,7 @@ jobs:
       - name: Multi-thread compile
         id: Multi-thread
         run: |
-          cd /workdir/openwrt
+          cd openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1)) package/luci/compile
           # make package/compile -j$(($(nproc) + 2))
@@ -310,7 +311,7 @@ jobs:
         id: Single-thread
         if: failure() 
         run: |
-         cd /workdir/openwrt
+         cd openwrt
          make -j1 package/luci/compile V=s
          echo "::set-output name=status::success"
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
@@ -332,7 +333,7 @@ jobs:
          bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
       
          df -hT
-      
+        
       - name: Store build artifacts
         uses: actions/upload-artifact@v3
         env:
@@ -418,11 +419,12 @@ jobs:
           
       - name: Unzip artifact
         run: |
-          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=1 && rm openwrt.tar.gz
-          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=1 && rm hostpkg.tar.gz
-          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=1 && rm host.tar.gz
-          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=1 && rm dl.tar.gz
-          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=1 && rm staging_dir.tar.gz
+          cd /workdir
+          bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
+          bsdtar -xzf hostpkg.tar.gz && rm hostpkg.tar.gz
+          bsdtar -xzf host.tar.gz && rm host.tar.gz
+          bsdtar -xzf dl.tar.gz && rm dl.tar.gz
+          bsdtar -xzf staging_dir.tar.gz && rm staging_dir.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
@@ -431,7 +433,7 @@ jobs:
       - name: Multi-thread compile
         id: Multi-thread
         run: |
-          cd /workdir/openwrt
+          cd openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1)) package/compile
           # make package/compile -j$(($(nproc) + 2))
@@ -445,7 +447,7 @@ jobs:
         id: Single-thread
         if: failure() 
         run: |
-         cd /workdir/openwrt
+         cd openwrt
          make -j1 package/compile V=s
          echo "::set-output name=status::success"
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
@@ -553,11 +555,12 @@ jobs:
           
       - name: Unzip artifact
         run: |
-          cd /workdir && bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=1 && rm openwrt.tar.gz
-          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=1 && rm hostpkg.tar.gz
-          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=1 && rm host.tar.gz
-          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=1 && rm dl.tar.gz
-          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=1 && rm staging_dir.tar.gz
+          cd /workdir
+          bsdtar -xzf openwrt.tar.gz && rm openwrt.tar.gz
+          bsdtar -xzf hostpkg.tar.gz && rm hostpkg.tar.gz
+          bsdtar -xzf host.tar.gz && rm host.tar.gz
+          bsdtar -xzf dl.tar.gz && rm dl.tar.gz
+          bsdtar -xzf staging_dir.tar.gz && rm staging_dir.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
@@ -566,7 +569,7 @@ jobs:
       - name: Multi-thread compile
         id: Multi-thread
         run: |
-          cd /workdir/openwrt
+          cd openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1))
           # make package/compile -j$(($(nproc) + 2))
@@ -580,7 +583,7 @@ jobs:
         id: Single-thread
         if: failure() 
         run: |
-         cd /workdir/openwrt
+         cd openwrt
          make -j1 V=s
          echo "::set-output name=status::success"
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
@@ -596,21 +599,21 @@ jobs:
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
         with:
           name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          path: /workdir/openwrt/bin
+          path: openwrt/bin
 
       - name: Upload packages
         uses: actions/upload-artifact@master
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
         with:
           name: OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          path: /workdir/openwrt/bin/packages
+          path: openwrt/bin/packages
 
       - name: Upload targets
         uses: actions/upload-artifact@master
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
         with:
           name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          path: /workdir/openwrt/bin/targets
+          path: openwrt/bin/targets
 
       - name: Organize files
         id: organize
