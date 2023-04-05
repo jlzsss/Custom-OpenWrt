@@ -28,7 +28,7 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default-openwrt
-  CONFIG_FILE: .config-final
+  CONFIG_FILE: .config-begin
   DIY_P1_SH: diy-part1-openwrt.sh
   DIY_P2_SH: diy-part2-openwrt.sh
   SCKEY: ${{ secrets.SCKEY }}
@@ -155,9 +155,9 @@ jobs:
         cd openwrt
         echo -e "$(($(nproc) + 1)) thread compile"
         make -j$(($(nproc) + 1)) tools/compile
-        make -j$(($(nproc) + 1)) toolchain/compile
-        make -j$(($(nproc) + 1)) target/linux/compile
-        make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
+        # make -j$(($(nproc) + 1)) toolchain/compile
+        # make -j$(($(nproc) + 1)) target/linux/compile
+        # make -j$(($(nproc) + 1)) package/{node,golang,gcc,php8,ruby,perl}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -293,7 +293,7 @@ jobs:
       - name: Multi-thread compile
         id: Multi-thread
         run: |
-          cd openwrt
+          cd /workdir/openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1)) package/luci/compile
           # make package/compile -j$(($(nproc) + 2))
@@ -307,7 +307,7 @@ jobs:
         id: Single-thread
         if: failure() 
         run: |
-         cd openwrt
+         cd /workdir/openwrt
          make -j1 package/luci/compile V=s
          echo "::set-output name=status::success"
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
@@ -428,7 +428,7 @@ jobs:
       - name: Multi-thread compile
         id: Multi-thread
         run: |
-          cd openwrt
+          cd /workdir/openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1)) package/compile
           # make package/compile -j$(($(nproc) + 2))
@@ -442,7 +442,7 @@ jobs:
         id: Single-thread
         if: failure() 
         run: |
-         cd openwrt
+         cd /workdir/openwrt
          make -j1 package/compile V=s
          echo "::set-output name=status::success"
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
@@ -563,7 +563,7 @@ jobs:
       - name: Multi-thread compile
         id: Multi-thread
         run: |
-          cd openwrt
+          cd /workdir/openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
           make -j$(($(nproc) + 1))
           # make package/compile -j$(($(nproc) + 2))
@@ -577,7 +577,7 @@ jobs:
         id: Single-thread
         if: failure() 
         run: |
-         cd openwrt
+         cd /workdir/openwrt
          make -j1 V=s
          echo "::set-output name=status::success"
          grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
@@ -593,21 +593,21 @@ jobs:
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
         with:
           name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          path: openwrt/bin
+          path: /workdir/openwrt/bin
 
       - name: Upload packages
         uses: actions/upload-artifact@master
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
         with:
           name: OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          path: openwrt/bin/packages
+          path: /workdir/openwrt/bin/packages
 
       - name: Upload targets
         uses: actions/upload-artifact@master
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success'
         with:
           name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-          path: openwrt/bin/targets
+          path: /workdir/openwrt/bin/targets
 
       - name: Organize files
         id: organize
@@ -616,9 +616,9 @@ jobs:
         run: |
           rm -rf openwrt/bin/targets/x86/64/packages
           echo "::set-output name=status::success"
-          Compress-Archive -Path openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
-          Compress-Archive -Path openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip       
-          Compress-Archive -Path openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
+          Compress-Archive -Path /workdir/openwrt/bin/packages OpenWrt_packages${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip
+          Compress-Archive -Path /workdir/openwrt/bin/targets OpenWrt_targets${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.zip       
+          Compress-Archive -Path /workdir/openwrt/bin OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}.tar.gz
         
       - name: Check space usage
         if: (!cancelled())
