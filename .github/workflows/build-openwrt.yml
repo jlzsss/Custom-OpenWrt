@@ -243,7 +243,14 @@ jobs:
          sudo chown $USER:$GROUPS /workdir
         
          df -hT
-           
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        env:
+         DEBIAN_FRONTEND: noninteractive
+        with:
+          name: build-output
+
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -269,14 +276,7 @@ jobs:
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
 
           df -hT       
-       
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-        env:
-         DEBIAN_FRONTEND: noninteractive
-        with:
-          name: build-output
-          
+              
       - name: Unzip artifact
         run: |
           bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
@@ -379,7 +379,14 @@ jobs:
          sudo chown $USER:$GROUPS /workdir
         
          df -hT
-    
+         
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        env:
+         DEBIAN_FRONTEND: noninteractive
+        with:
+          name: build-output
+          
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -405,14 +412,7 @@ jobs:
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
 
           df -hT       
-       
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-        env:
-         DEBIAN_FRONTEND: noninteractive
-        with:
-          name: build-output
-          
+              
       - name: Unzip artifact
         run: |
           bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
@@ -512,7 +512,14 @@ jobs:
          sudo chown $USER:$GROUPS /workdir
         
          df -hT
-                 
+    
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        env:
+         DEBIAN_FRONTEND: noninteractive
+        with:
+          name: build-output    
+    
       - name: WeChat notification
         working-directory: /workdir
         run: |
@@ -538,14 +545,7 @@ jobs:
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
 
           df -hT       
-       
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-        env:
-         DEBIAN_FRONTEND: noninteractive
-        with:
-          name: build-output
-          
+               
       - name: Unzip artifact
         run: |
           bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
