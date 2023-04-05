@@ -12343,3 +12343,4 @@ CONFIG_PACKAGE_yq=y
 # end of Xorg
 
 CONFIG_OVERRIDE_PKGS="dnsproxy luci-app-serverchan"
+
