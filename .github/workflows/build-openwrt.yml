@@ -250,6 +250,7 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
           name: build-output
+          path: /workdir
 
       - name: WeChat notification
         working-directory: /workdir
@@ -387,6 +388,7 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
           name: build-output
+          path: /workdir
           
       - name: WeChat notification
         working-directory: /workdir
@@ -521,6 +523,7 @@ jobs:
          DEBIAN_FRONTEND: noninteractive
         with:
           name: build-output    
+          path: /workdir
     
       - name: WeChat notification
         working-directory: /workdir
