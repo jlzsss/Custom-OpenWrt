@@ -187,11 +187,11 @@ jobs:
       env:
        DEBIAN_FRONTEND: noninteractive
       run: |
-       bsdtar -czf openwrt.tar.gz -C /workdir/openwrt && sudo rm -rf /workdir/openwrt
-       bsdtar -czf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
-       bsdtar -czf host.tar.gz -C /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-       bsdtar -czf dl.tar.gz -C /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-       bsdtar -czf staging_dir.tar.gz -C /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
+       bsdtar -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+       bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+       bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+       bsdtar -czf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+       bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
       
        df -hT
       
@@ -324,11 +324,11 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         bsdtar -czf openwrt.tar.gz -C /workdir/openwrt && sudo rm -rf /workdir/openwrt
-         bsdtar -czf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
-         bsdtar -czf host.tar.gz -C /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-         bsdtar -czf dl.tar.gz -C /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-         bsdtar -czf staging_dir.tar.gz -C /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
+         bsdtar -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+         bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+         bsdtar -czf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
       
          df -hT
         
@@ -458,11 +458,11 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         bsdtar -czf openwrt.tar.gz -C /workdir/openwrt && sudo rm -rf /workdir/openwrt
-         bsdtar -czf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
-         bsdtar -czf host.tar.gz -C /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-         bsdtar -czf dl.tar.gz -C /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-         bsdtar -czf staging_dir.tar.gz -C /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
+         bsdtar -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+         bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+         bsdtar -czf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
       
          df -hT
       
