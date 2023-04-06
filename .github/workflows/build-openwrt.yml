@@ -88,7 +88,7 @@ jobs:
         ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
         ln -sf /mnt/openwrt/dl openwrt/dl
         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-        ln -sf /mnt/openwrt/feeds openwrt/feeds
+        # ln -sf /mnt/openwrt/feeds openwrt/feeds
         # ln -sf /mnt/openwrt/bin openwrt/bin  
         # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
         # ln -sf /mnt/openwrt/tmp openwrt/tmp
@@ -192,7 +192,7 @@ jobs:
        bsdtar -cJf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
        bsdtar -cJf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
        bsdtar -cJf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
-       bsdtar -cJf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+       # bsdtar -cJf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
        df -hT
       
@@ -208,7 +208,7 @@ jobs:
           host.tar.gz
           dl.tar.gz
           staging_dir.tar.gz
-          feeds.tar.gz
+          # feeds.tar.gz
           
     - name: WeChat notification
       if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -261,7 +261,7 @@ jobs:
          mkdir -p openwrt
          bsdtar -xJf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
-         rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir openwrt/feeds
+         rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
        
       - name: Free up disk space
@@ -276,7 +276,7 @@ jobs:
           ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           ln -sf /mnt/openwrt/dl openwrt/dl
           ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-          ln -sf /mnt/openwrt/feeds openwrt/feeds   
+          # ln -sf /mnt/openwrt/feeds openwrt/feeds   
           # ln -sf /mnt/openwrt/bin openwrt/bin
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
@@ -289,7 +289,7 @@ jobs:
           cd /workdir && bsdtar -xJf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           cd /workdir && bsdtar -xJf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
           cd /workdir && bsdtar -xJf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
-          cd /workdir && bsdtar -xJf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
+          # cd /workdir && bsdtar -xJf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
           
       - name: Check space usage
         if: (!cancelled())
@@ -334,7 +334,7 @@ jobs:
          bsdtar -cJf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          bsdtar -cJf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
          bsdtar -cJf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
-         bsdtar -cJf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+         # bsdtar -cJf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
          df -hT
       
@@ -350,7 +350,7 @@ jobs:
             host.tar.gz
             dl.tar.gz
             staging_dir.tar.gz
-            feeds.tar.gz
+            # feeds.tar.gz
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -403,7 +403,7 @@ jobs:
          mkdir -p openwrt
          bsdtar -xJf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
-         rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir openwrt/feeds
+         rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
        
       - name: Free up disk space
@@ -418,7 +418,7 @@ jobs:
           ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           ln -sf /mnt/openwrt/dl openwrt/dl
           ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-          ln -sf /mnt/openwrt/feeds openwrt/feeds   
+          # ln -sf /mnt/openwrt/feeds openwrt/feeds   
           # ln -sf /mnt/openwrt/bin openwrt/bin
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
@@ -431,7 +431,7 @@ jobs:
           cd /workdir && bsdtar -xJf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           cd /workdir && bsdtar -xJf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
           cd /workdir && bsdtar -xJf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
-          cd /workdir && bsdtar -xJf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
+          # cd /workdir && bsdtar -xJf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
@@ -474,7 +474,7 @@ jobs:
          bsdtar -cJf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          bsdtar -cJf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
          bsdtar -cJf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
-         bsdtar -cJf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+         # bsdtar -cJf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
          df -hT
       
@@ -490,7 +490,7 @@ jobs:
             host.tar.gz
             dl.tar.gz
             staging_dir.tar.gz
-            feeds.tar.gz
+            # feeds.tar.gz
           
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -543,7 +543,7 @@ jobs:
          mkdir -p openwrt
          bsdtar -xJf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
-         rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir openwrt/feeds
+         rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分
        
       - name: Free up disk space
@@ -558,7 +558,7 @@ jobs:
           ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           ln -sf /mnt/openwrt/dl openwrt/dl
           ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-          ln -sf /mnt/openwrt/feeds openwrt/feeds   
+          # ln -sf /mnt/openwrt/feeds openwrt/feeds   
           # ln -sf /mnt/openwrt/bin openwrt/bin
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
@@ -571,7 +571,7 @@ jobs:
           cd /workdir && bsdtar -xJf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           cd /workdir && bsdtar -xJf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
           cd /workdir && bsdtar -xJf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
-          cd /workdir && bsdtar -xJf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
+          # cd /workdir && bsdtar -xJf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
