@@ -283,6 +283,7 @@ jobs:
               
       - name: Unzip artifact
         run: |
+          cd /workdir
           bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
           bsdtar -xzf host.tar.gz && -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
@@ -423,6 +424,7 @@ jobs:
               
       - name: Unzip artifact
         run: |
+          cd /workdir
           bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
           bsdtar -xzf host.tar.gz && -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
@@ -560,6 +562,7 @@ jobs:
                
       - name: Unzip artifact
         run: |
+          cd /workdir
           bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
           bsdtar -xzf host.tar.gz && -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
