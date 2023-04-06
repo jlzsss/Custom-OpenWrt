@@ -283,19 +283,15 @@ jobs:
               
       - name: Unzip artifact
         run: |
-          cd /workdir
-          bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
-          bsdtar -xzf host.tar.gz && -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
-          bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
-          bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           
       - name: Check space usage
         if: (!cancelled())
         run: df -hT   
-         
-      - name: SSH connection to Actions
-        uses: P3TERX/ssh2actions@v1.0.0   
-         
+                  
       - name: Multi-thread compile
         id: Multi-thread
         run: |
@@ -424,11 +420,10 @@ jobs:
               
       - name: Unzip artifact
         run: |
-          cd /workdir
-          bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
-          bsdtar -xzf host.tar.gz && -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
-          bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
-          bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
@@ -562,11 +557,10 @@ jobs:
                
       - name: Unzip artifact
         run: |
-          cd /workdir
-          bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
-          bsdtar -xzf host.tar.gz && -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
-          bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
-          bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
+          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+          cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
+          cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
+          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
 
       - name: Check space usage
         if: (!cancelled())
