@@ -256,6 +256,7 @@ jobs:
         working-directory: /workdir
         run: |
          cd /workdir
+         mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir
@@ -268,7 +269,7 @@ jobs:
         run: |
           sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
           ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           ln -sf /mnt/openwrt/dl openwrt/dl
@@ -390,11 +391,12 @@ jobs:
         with:
           name: build-output
           path: /workdir
-          
+
       - name: WeChat notification
         working-directory: /workdir
         run: |
          cd /workdir
+         mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir
@@ -407,7 +409,7 @@ jobs:
         run: |
           sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
           ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           ln -sf /mnt/openwrt/dl openwrt/dl
@@ -417,7 +419,7 @@ jobs:
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
 
-          df -hT       
+          df -hT         
               
       - name: Unzip artifact
         run: |
@@ -518,19 +520,20 @@ jobs:
          sudo chown $USER:$GROUPS /workdir
         
          df -hT
-    
+
       - name: Download artifacts
         uses: actions/download-artifact@v3
         env:
          DEBIAN_FRONTEND: noninteractive
         with:
-          name: build-output    
+          name: build-output
           path: /workdir
-    
+
       - name: WeChat notification
         working-directory: /workdir
         run: |
          cd /workdir
+         mkdir -p openwrt
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/dl openwrt/staging_dir
@@ -543,7 +546,7 @@ jobs:
         run: |
           sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
           ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           ln -sf /mnt/openwrt/dl openwrt/dl
@@ -553,7 +556,7 @@ jobs:
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
 
-          df -hT       
+          df -hT
                
       - name: Unzip artifact
         run: |
