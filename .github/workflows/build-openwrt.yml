@@ -258,7 +258,7 @@ jobs:
          cd /workdir
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
-         rm -rf openwrt/build_dir
+         rm -rf openwrt/build_dir openwrt/dl openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
        
       - name: Free up disk space
@@ -397,7 +397,7 @@ jobs:
          cd /workdir
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
-         rm -rf openwrt/build_dir
+         rm -rf openwrt/build_dir openwrt/dl openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
        
       - name: Free up disk space
@@ -533,7 +533,7 @@ jobs:
          cd /workdir
          bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
-         rm -rf openwrt/build_dir
+         rm -rf openwrt/build_dir openwrt/dl openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分
        
       - name: Free up disk space
