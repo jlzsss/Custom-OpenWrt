@@ -42,7 +42,7 @@ env:
 jobs:
 
  prepare:
-   runs-on: ubuntu-20.04
+   runs-on: ubuntu-20.04-large
    steps:
     - name: Checkout
       uses: actions/checkout@main
@@ -157,7 +157,7 @@ jobs:
         make -j$(($(nproc) + 1)) tools/compile
         make -j$(($(nproc) + 1)) toolchain/compile
         make -j$(($(nproc) + 1)) target/linux/compile
-        make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl}/compile
+        make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -173,7 +173,7 @@ jobs:
        make -j1 tools/compile V=s
        make -j1 toolchain/compile V=s
        make -j1 target/linux/compile V=s
-       make -j1 package/{node,golang,php8,ruby,perl}/compile V=s
+       make -j1 package/{node,golang,php8,ruby,perl,squid.jq}/compile V=s
        echo "::set-output name=status::success"
        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -222,7 +222,7 @@ jobs:
       
  build1:
      needs: prepare
-     runs-on: ubuntu-20.04
+     runs-on: ubuntu-20.04-large
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -364,7 +364,7 @@ jobs:
          
  build2:
      needs: build1
-     runs-on: ubuntu-20.04
+     runs-on: ubuntu-20.04-large
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -504,7 +504,7 @@ jobs:
         
  uploads:
      needs: build2
-     runs-on: ubuntu-20.04
+     runs-on: ubuntu-20.04-large
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
