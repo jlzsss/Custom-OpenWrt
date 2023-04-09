@@ -60,8 +60,8 @@ svn export --force https://github.com/kenzok8/jell/trunk/luci-app-qbittorrent pa
 svn export --force https://github.com/kiddin9/openwrt-packages/trunk/luci-app-transmission package/feeds/luci/luci-app-transmission
 svn export --force https://github.com/kiddin9/openwrt-packages/trunk/transmission package/feeds/packages/transmission
 svn export --force https://github.com/kiddin9/openwrt-packages/trunk/transmission-web-control package/feeds/packages/transmission-web-control
-svn export --force https://github.com/kiddin9/openwrt-packages/trunk/luci-app-smartdns package/feeds/luci/luci-app-smartdns
-svn export --force https://github.com/kiddin9/openwrt-packages/trunk/smartdns package/feeds/packages/smartdns
+# svn export --force https://github.com/kiddin9/openwrt-packages/trunk/luci-app-smartdns package/feeds/luci/luci-app-smartdns
+# svn export --force https://github.com/kiddin9/openwrt-packages/trunk/smartdns package/feeds/packages/smartdns
 svn export --force https://github.com/coolsnowwolf/packages/trunk/net/amule package/feeds/packages/amule
 svn export --force https://github.com/openwrt/routing/branches/openwrt-19.07/cjdns package/feeds/routing/cjdns
 svn export --force https://github.com/kenzok8/jell/branches/main/gost package/feeds/packages/gost
