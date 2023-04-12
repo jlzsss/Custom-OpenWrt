@@ -627,8 +627,8 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
-         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
+         bsdtar -cjf hostpkg.tar.bz2 /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+         bsdtar -cjf staging_dir.tar.bz2 /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
        
          df -hT
       
@@ -640,10 +640,10 @@ jobs:
          name: build-output
          path: |
             openwrt.tar.bz2
-            hostpkg.tar.gz
+            hostpkg.tar.bz2
             # host.tar.gz
             # dl.tar.gz
-            staging_dir.tar.gz
+            staging_dir.tar.bz2
             # feeds.tar.gz
           
       - name: WeChat notification
@@ -721,10 +721,10 @@ jobs:
                
       - name: Unzip artifact
         run: |
-          cd /workdir && bsdtar -xzf hostpkg.tar.gz -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
+          cd /workdir && bsdtar -xjf hostpkg.tar.bz2 -C /mnt/openwrt/build_dir/hostpkg --strip-components=4 && rm hostpkg.tar.gz
           # cd /workdir && bsdtar -xzf host.tar.gz -C /mnt/openwrt/build_dir/host --strip-components=4 && rm host.tar.gz
           # cd /workdir && bsdtar -xzf dl.tar.gz -C /mnt/openwrt/dl --strip-components=3 && rm dl.tar.gz
-          cd /workdir && bsdtar -xzf staging_dir.tar.gz -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
+          cd /workdir && bsdtar -xjf staging_dir.tar.bz2 -C /mnt/openwrt/staging_dir --strip-components=3 && rm staging_dir.tar.gz
           # cd /workdir && bsdtar -xzf feeds.tar.gz -C /mnt/openwrt/feeds --strip-components=3 && rm feeds.tar.gz
           
       - name: Check space usage
