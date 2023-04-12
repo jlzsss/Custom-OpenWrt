@@ -465,16 +465,23 @@ jobs:
         if: (!cancelled())
         run: df -hT
      
-      - name: Compress directory
+      - name: Compress directory openwrt
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
          bsdtar -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          # bsdtar -czf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
          # bsdtar -czf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+       
+         df -hT
+      
+      - name: Compress directory files
+        env:
+         DEBIAN_FRONTEND: noninteractive
+        run: |
+         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
        
          df -hT
       
@@ -605,16 +612,23 @@ jobs:
         if: (!cancelled())
         run: df -hT
         
-      - name: Compress directory
+      - name: Compress directory openwrt
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
          bsdtar -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
          # bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          # bsdtar -czf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
          # bsdtar -czf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+       
+         df -hT
+      
+      - name: Compress directory files
+        env:
+         DEBIAN_FRONTEND: noninteractive
+        run: |
+         bsdtar -czf hostpkg.tar.gz /mnt/openwrt/build_dir/hostpkg && sudo rm -rf /mnt/openwrt/build_dir/hostpkg
+         bsdtar -czf staging_dir.tar.gz /mnt/openwrt/staging_dir && sudo rm -rf /mnt/openwrt/staging_dir
        
          df -hT
       
