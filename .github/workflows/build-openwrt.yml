@@ -58,7 +58,7 @@ jobs:
       run: |
         docker image prune -a -f
         sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android* adoptopenjdk* mongodb* moby* snapd*
+        sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* openjdk* mysql* php* android* mongodb* moby* snapd*
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install libarchive-tools build-essential libncurses5-dev zlib1g-devsudo apt install gawk gcc-multilib flex git gettext libssl-devsudo apt install python3-distutils
         sudo -E apt-get -qq autoremove --purge
