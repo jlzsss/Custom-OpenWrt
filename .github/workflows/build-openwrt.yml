@@ -469,10 +469,10 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         bsdtar -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
-         # bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
-         # bsdtar -czf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
-         # bsdtar -czf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
+         bsdtar -cjf openwrt.tar.bz2 /workdir/openwrt && sudo rm -rf /workdir/openwrt
+         # bsdtar -czf host.tar.bz2 /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
+         # bsdtar -czf dl.tar.bz2 /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
+         # bsdtar -czf feeds.tar.bz2 /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
        
          df -hT
       
@@ -492,12 +492,12 @@ jobs:
         with:
          name: build-output
          path: |
-            openwrt.tar.gz
+            openwrt.tar.bz2
             hostpkg.tar.gz
-            # host.tar.gz
-            # dl.tar.gz
+            # host.tar.bz2
+            # dl.tar.bz2
             staging_dir.tar.gz
-            # feeds.tar.gz
+            # feeds.tar.bz2
      
       - name: WeChat notification
         if: steps.Multi-thread.outputs.status == 'success' || steps.Single-thread.outputs.status == 'success' && !cancelled() && job.status == 'success'
@@ -548,7 +548,7 @@ jobs:
         run: |
          cd /workdir
          mkdir -p openwrt
-         bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
+         bsdtar -xjf openwrt.tar.bz2 -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分
@@ -616,7 +616,7 @@ jobs:
         env:
          DEBIAN_FRONTEND: noninteractive
         run: |
-         bsdtar -czf openwrt.tar.gz /workdir/openwrt && sudo rm -rf /workdir/openwrt
+         bsdtar -cjf openwrt.tar.bz2 /workdir/openwrt && sudo rm -rf /workdir/openwrt
          # bsdtar -czf host.tar.gz /mnt/openwrt/build_dir/host && sudo rm -rf /mnt/openwrt/build_dir/host
          # bsdtar -czf dl.tar.gz /mnt/openwrt/dl && sudo rm -rf /mnt/openwrt/dl
          # bsdtar -czf feeds.tar.gz /mnt/openwrt/feeds && sudo rm -rf /mnt/openwrt/feeds
@@ -695,7 +695,7 @@ jobs:
         run: |
          cd /workdir
          mkdir -p openwrt
-         bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
+         bsdtar -xjf openwrt.tar.bz2 -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第五部分
@@ -716,6 +716,7 @@ jobs:
           # ln -sf /mnt/openwrt/bin openwrt/bin
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
+          
           df -hT
                
       - name: Unzip artifact
