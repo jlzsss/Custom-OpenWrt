@@ -42,7 +42,7 @@ env:
 jobs:
 
  prepare:
-   runs-on: ubuntu-20.04
+   runs-on: ubuntu-latest
    steps:
     - name: Checkout
       uses: actions/checkout@main
@@ -221,7 +221,7 @@ jobs:
       
  build1:
      needs: prepare
-     runs-on: ubuntu-20.04
+     runs-on: ubuntu-latest
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -363,7 +363,7 @@ jobs:
          
  build2:
      needs: build1
-     runs-on: ubuntu-20.04
+     runs-on: ubuntu-latest
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -503,7 +503,7 @@ jobs:
          
  build3:
      needs: build2
-     runs-on: ubuntu-20.04
+     runs-on: ubuntu-latest
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -643,7 +643,7 @@ jobs:
         
  uploads:
      needs: build3
-     runs-on: ubuntu-20.04
+     runs-on: ubuntu-latest
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
