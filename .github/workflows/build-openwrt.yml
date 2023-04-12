@@ -639,7 +639,7 @@ jobs:
         with:
          name: build-output
          path: |
-            openwrt.tar.gz
+            openwrt.tar.bz2
             hostpkg.tar.gz
             # host.tar.gz
             # dl.tar.gz
