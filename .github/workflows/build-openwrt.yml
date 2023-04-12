@@ -155,9 +155,9 @@ jobs:
         cd openwrt
         echo -e "$(($(nproc) + 1)) thread compile"
         make -j$(($(nproc) + 1)) tools/compile
-        make -j$(($(nproc) + 1)) toolchain/compile
-        make -j$(($(nproc) + 1)) target/linux/compile
-        make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq,docker}/compile
+        # make -j$(($(nproc) + 1)) toolchain/compile
+        # make -j$(($(nproc) + 1)) target/linux/compile
+        # make -j$(($(nproc) + 1)) package/{node,golang,php8,ruby,perl,squid,jq,docker}/compile
         # make package/compile -j$(($(nproc) + 2))
         # make package/index -j$(($(nproc) + 2))
         echo "::set-output name=status::success"
@@ -171,9 +171,9 @@ jobs:
       run: |
        cd openwrt
        make -j1 tools/compile V=s
-       make -j1 toolchain/compile V=s
-       make -j1 target/linux/compile V=s
-       make -j1 package/{node,golang,php8,ruby,perl,squid.jq,docker}/compile V=s
+       # make -j1 toolchain/compile V=s
+       # make -j1 target/linux/compile V=s
+       # make -j1 package/{node,golang,php8,ruby,perl,squid.jq,docker}/compile V=s
        echo "::set-output name=status::success"
        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
@@ -241,11 +241,12 @@ jobs:
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
+          sudo mkdir -p /workdir/openwrt
+          sudo chown $USER:$GROUPS /workdir/openwrt
           sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
-        
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/staging_dir
+          
           df -hT
 
       - name: Download artifacts
@@ -267,24 +268,26 @@ jobs:
          # bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir
+         ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第二部分
        
-      - name: Free up disk space
-        if: env.FREE_UP_DISK == 'true'
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          # sudo swapoff /mnt/swapfile
-          # sudo rm -rf /mnt/swapfile
-          # sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-          ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-          # ln -sf /mnt/openwrt/dl openwrt/dl
-          ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-          # ln -sf /mnt/openwrt/feeds openwrt/feeds   
-          # ln -sf /mnt/openwrt/bin openwrt/bin
-          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-          # ln -sf /mnt/openwrt/tmp openwrt/tmp
+      # - name: Free up disk space
+      #   if: env.FREE_UP_DISK == 'true'
+      #   env:
+      #     DEBIAN_FRONTEND: noninteractive
+      #   run: |
+      #     sudo swapoff /mnt/swapfile
+      #     sudo rm -rf /mnt/swapfile
+      #     sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+      #     ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+      #     ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+      #     ln -sf /mnt/openwrt/dl openwrt/dl
+      #     ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+      #     ln -sf /mnt/openwrt/feeds openwrt/feeds   
+      #     ln -sf /mnt/openwrt/bin openwrt/bin
+      #     ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+      #     ln -sf /mnt/openwrt/tmp openwrt/tmp
 
       # - name: Unzip artifact
       #   run: |
@@ -303,6 +306,7 @@ jobs:
         run: |
           cd openwrt
           echo -e "$(($(nproc) + 1)) thread compile"
+          make -j$(($(nproc) + 1))
           make -j$(($(nproc) + 1)) package/luci/compile
           make -j$(($(nproc) + 1)) package/{luci-app-airconnect,luci-app-aliyundrive-fuse,luci-app-aliyundrive-webdav,luci-app-webd,luci-app-passwall,luci-app-qbittorrent,luci-app-shadowsocksr,luci-app-vssr,luci-app-adblock,luci-app-adbyby-plus,luci-app-adguardhome,luci-app-transmission,luci-app-amule,luci-app-aria2,luci-app-bypass,luci-app-gost,luci-app-homeproxy,luci-app-kcptun,luci-app-minidlna,luci-app-openclash,luci-app-passwall2,luci-app-smartdns,luci-app-ssr-plus,luci-app-store,luci-app-trojan,luci-app-v2ray,luci-app-wireguard,luci-app-v2raya,luci-app-xray}/compile
           # make package/compile -j$(($(nproc) + 2))
@@ -386,11 +390,12 @@ jobs:
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
+          sudo mkdir -p /workdir/openwrt
+          sudo chown $USER:$GROUPS /workdir/openwrt
           sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
-        
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/staging_dir
+          
           df -hT
 
       - name: Download artifacts
@@ -412,24 +417,26 @@ jobs:
          # bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir
+         ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第三部分
        
-      - name: Free up disk space
-        if: env.FREE_UP_DISK == 'true'
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          # sudo swapoff /mnt/swapfile
-          # sudo rm -rf /mnt/swapfile
-          # sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-          ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-          # ln -sf /mnt/openwrt/dl openwrt/dl
-          ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-          # ln -sf /mnt/openwrt/feeds openwrt/feeds   
-          # ln -sf /mnt/openwrt/bin openwrt/bin
-          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-          # ln -sf /mnt/openwrt/tmp openwrt/tmp
+      # - name: Free up disk space
+      #   if: env.FREE_UP_DISK == 'true'
+      #   env:
+      #     DEBIAN_FRONTEND: noninteractive
+      #   run: |
+      #     sudo swapoff /mnt/swapfile
+      #     sudo rm -rf /mnt/swapfile
+      #     sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+      #     ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+      #     ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+      #     ln -sf /mnt/openwrt/dl openwrt/dl
+      #     ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+      #     ln -sf /mnt/openwrt/feeds openwrt/feeds   
+      #     ln -sf /mnt/openwrt/bin openwrt/bin
+      #     ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+      #     ln -sf /mnt/openwrt/tmp openwrt/tmp
               
       # - name: Unzip artifact
       #   run: |
@@ -530,13 +537,14 @@ jobs:
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
+          sudo mkdir -p /workdir/openwrt
+          sudo chown $USER:$GROUPS /workdir/openwrt
           sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
-        
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/staging_dir
+          
           df -hT
-         
+
       - name: Download artifacts
         uses: actions/download-artifact@v3
         env:
@@ -556,24 +564,26 @@ jobs:
          # bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir
+         ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第四部分
        
-      - name: Free up disk space
-        if: env.FREE_UP_DISK == 'true'
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          # sudo swapoff /mnt/swapfile
-          # sudo rm -rf /mnt/swapfile
-          # sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-          ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-          # ln -sf /mnt/openwrt/dl openwrt/dl
-          ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-          # ln -sf /mnt/openwrt/feeds openwrt/feeds   
-          # ln -sf /mnt/openwrt/bin openwrt/bin
-          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-          # ln -sf /mnt/openwrt/tmp openwrt/tmp  
+      # - name: Free up disk space
+      #   if: env.FREE_UP_DISK == 'true'
+      #   env:
+      #     DEBIAN_FRONTEND: noninteractive
+      #   run: |
+      #     sudo swapoff /mnt/swapfile
+      #     sudo rm -rf /mnt/swapfile
+      #     sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+      #     ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+      #     ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+      #     ln -sf /mnt/openwrt/dl openwrt/dl
+      #     ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+      #     ln -sf /mnt/openwrt/feeds openwrt/feeds   
+      #     ln -sf /mnt/openwrt/bin openwrt/bin
+      #     ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+      #     ln -sf /mnt/openwrt/tmp openwrt/tmp  
               
       # - name: Unzip artifact
       #   run: |
@@ -673,11 +683,12 @@ jobs:
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
           sudo timedatectl set-timezone "$TZ"
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
+          sudo mkdir -p /workdir/openwrt
+          sudo chown $USER:$GROUPS /workdir/openwrt
           sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
-        
+          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/staging_dir
+          
           df -hT
 
       - name: Download artifacts
@@ -699,24 +710,26 @@ jobs:
          # bsdtar -xzf openwrt.tar.gz -C /workdir/openwrt --strip-components=2 && rm openwrt.tar.gz
          ln -sf /workdir/openwrt ${{ github.workspace }}/openwrt
          rm -rf openwrt/build_dir/hostpkg openwrt/staging_dir
+         ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+         ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
          curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=OpenWrt开始编译第五部分
        
-      - name: Free up disk space
-        if: env.FREE_UP_DISK == 'true'
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          # sudo swapoff /mnt/swapfile
-          # sudo rm -rf /mnt/swapfile
-          # sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
-          ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
-          # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
-          # ln -sf /mnt/openwrt/dl openwrt/dl
-          ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
-          # ln -sf /mnt/openwrt/feeds openwrt/feeds   
-          # ln -sf /mnt/openwrt/bin openwrt/bin
-          # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-          # ln -sf /mnt/openwrt/tmp openwrt/tmp
+      # - name: Free up disk space
+      #   if: env.FREE_UP_DISK == 'true'
+      #   env:
+      #     DEBIAN_FRONTEND: noninteractive
+      #   run: |
+      #     sudo swapoff /mnt/swapfile
+      #     sudo rm -rf /mnt/swapfile
+      #     sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+      #     ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
+      #     ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
+      #     ln -sf /mnt/openwrt/dl openwrt/dl
+      #     ln -sf /mnt/openwrt/staging_dir openwrt/staging_dir
+      #     ln -sf /mnt/openwrt/feeds openwrt/feeds   
+      #     ln -sf /mnt/openwrt/bin openwrt/bin
+      #     ln -sf /mnt/openwrt/build_dir openwrt/build_dir
+      #     ln -sf /mnt/openwrt/tmp openwrt/tmp
 
       # - name: Unzip artifact
       #   run: |
