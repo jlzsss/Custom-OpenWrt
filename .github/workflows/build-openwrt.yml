@@ -243,6 +243,8 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
         
           df -hT
 
@@ -272,9 +274,9 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
-          sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          # sudo swapoff /mnt/swapfile
+          # sudo rm -rf /mnt/swapfile
+          # sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
           # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           # ln -sf /mnt/openwrt/dl openwrt/dl
@@ -386,6 +388,8 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
         
           df -hT
 
@@ -415,9 +419,9 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
-          sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          # sudo swapoff /mnt/swapfile
+          # sudo rm -rf /mnt/swapfile
+          # sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
           # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           # ln -sf /mnt/openwrt/dl openwrt/dl
@@ -528,7 +532,9 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
-         
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
+        
           df -hT
          
       - name: Download artifacts
@@ -557,9 +563,9 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
-          sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          # sudo swapoff /mnt/swapfile
+          # sudo rm -rf /mnt/swapfile
+          # sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
           # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           # ln -sf /mnt/openwrt/dl openwrt/dl
@@ -567,9 +573,7 @@ jobs:
           # ln -sf /mnt/openwrt/feeds openwrt/feeds   
           # ln -sf /mnt/openwrt/bin openwrt/bin
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
-          # ln -sf /mnt/openwrt/tmp openwrt/tmp
-
-          df -hT     
+          # ln -sf /mnt/openwrt/tmp openwrt/tmp  
               
       # - name: Unzip artifact
       #   run: |
@@ -659,20 +663,22 @@ jobs:
                     
       - name: Initialization environment
         env:
-         DEBIAN_FRONTEND: noninteractive
+          DEBIAN_FRONTEND: noninteractive
         run: |
-         docker image prune -a -f
-         sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
-         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android* adoptopenjdk* mongodb* moby* snapd*
-         sudo -E apt-get -qq update
-         sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
-         sudo -E apt-get -qq autoremove --purge
-         sudo -E apt-get -qq clean
-         sudo timedatectl set-timezone "$TZ"
-         sudo mkdir -p /workdir
-         sudo chown $USER:$GROUPS /workdir
+          docker image prune -a -f
+          sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d/* /var/cache/apt/archives /usr/local/share/boost /usr/local/go* /usr/local/lib/android /opt/ghc
+          sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* openjdk* mysql* php* android* adoptopenjdk* mongodb* moby* snapd*
+          sudo -E apt-get -qq update
+          sudo -E apt-get -qq install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs git-core gcc-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler g++-multilib antlr3 gperf wget curl swig rsync
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo timedatectl set-timezone "$TZ"
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+          sudo swapoff /mnt/swapfile
+          sudo rm -rf /mnt/swapfile
         
-         df -hT
+          df -hT
 
       - name: Download artifacts
         uses: actions/download-artifact@v3
@@ -700,9 +706,9 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
-          sudo rm -rf /mnt/swapfile
-          sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
+          # sudo swapoff /mnt/swapfile
+          # sudo rm -rf /mnt/swapfile
+          # sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
           # ln -sf /mnt/openwrt/build_dir/host openwrt/build_dir/host
           # ln -sf /mnt/openwrt/dl openwrt/dl
@@ -711,8 +717,6 @@ jobs:
           # ln -sf /mnt/openwrt/bin openwrt/bin
           # ln -sf /mnt/openwrt/build_dir openwrt/build_dir
           # ln -sf /mnt/openwrt/tmp openwrt/tmp
-
-          df -hT
 
       # - name: Unzip artifact
       #   run: |
