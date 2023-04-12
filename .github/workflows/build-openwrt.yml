@@ -49,6 +49,10 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: WeChat notification
+      run: |
+       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
+
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
