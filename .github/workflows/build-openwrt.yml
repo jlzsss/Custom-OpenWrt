@@ -54,7 +54,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       with:
-        root-reserve-mb: 61440 # Reserve 5 GB for the system
+        root-reserve-mb: 59392 # Reserve 5 GB for the system
         # swap-size-mb: 1024 # Add 1 GB of swap
         remove-dotnet: 'true' # Remove .NET SDKs and runtimes
         remove-android: 'true' # Remove Android SDKs
