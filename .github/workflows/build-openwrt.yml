@@ -56,8 +56,8 @@ jobs:
         
     - name: Set disk space
       run: |
-        sudo umoun
-        sudo mount -o remount,size=100G /dev/sda1 /    
+        sudo umount /
+        sudo mount -o remount,size=150G /dev/root /    
     
     - name: WeChat notification
       run: |
