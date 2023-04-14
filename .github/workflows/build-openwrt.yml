@@ -51,11 +51,7 @@ jobs:
       uses: actions/checkout@main
       with:
         fetch-depth: 0 
-        
-    - name: WeChat notification
-      run: |
-       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
-       
+            
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -72,6 +68,10 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
         
         df -hT
+        
+    - name: WeChat notification
+      run: |
+       curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt        
         
     - name: Clone source code
       working-directory: /workdir
