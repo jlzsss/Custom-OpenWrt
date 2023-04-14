@@ -44,7 +44,7 @@ jobs:
  prepare:
    runs-on: ubuntu-20.04
    container:
-      image: openwrt:docker
+      image: openwrt/docker:master
       options: --mount type=ext4,target=/,tmpfs-size=100G
    steps:
     - name: Checkout
