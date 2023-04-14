@@ -49,13 +49,6 @@ jobs:
       with:
         fetch-depth: 0
         
-    - name: Create custom environment
-      uses: actions/runner-images@main
-      with:
-        image: ubuntu-20.04
-        name: openwrt
-        disk-size: 100GB
-
     - name: WeChat notification
       run: |
        curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
