@@ -56,7 +56,6 @@ jobs:
         
     - name: Set disk space
       run: |
-        sudo umount /mnt/disks/workspace
         sudo mount -o remount,size=100G /dev/sda1 /    
     
     - name: WeChat notification
