@@ -43,6 +43,9 @@ jobs:
 
  prepare:
    runs-on: ubuntu-20.04
+   container:
+      image: ubuntu:20.04
+      options: --storage-opt size=100G
    steps:
     - name: Checkout
       uses: actions/checkout@main
