@@ -48,7 +48,17 @@ jobs:
       uses: actions/checkout@main
       with:
         fetch-depth: 0
+    
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
         
+    - name: Set disk space
+      run: |
+        sudo umount /mnt/disks/workspace
+        sudo mount -o remount,size=100G /dev/sda1 /    
+    
     - name: WeChat notification
       run: |
        curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
