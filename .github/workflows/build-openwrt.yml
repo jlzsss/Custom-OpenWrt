@@ -52,12 +52,14 @@ jobs:
     - name: Allocate disk space
       uses: easimon/maximize-build-space@v4
       with:
-        root-reserve-mb: 102400 # Reserve 5 GB for the system
-        swap-size-mb: 1024 # Add 1 GB of swap
+        # root-reserve-mb: 102400 # Reserve 5 GB for the system
+        # swap-size-mb: 1024 # Add 1 GB of swap
         remove-dotnet: 'true' # Remove .NET SDKs and runtimes
         remove-android: 'true' # Remove Android SDKs
         remove-haskell: 'true' # Remove Haskell
-    
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
+        
     - name: WeChat notification
       run: |
        curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=开始编译OpenWrt
@@ -231,13 +233,24 @@ jobs:
       
  build1:
      needs: prepare
-     runs-on: ubuntu-latest
+     runs-on: ubuntu-20.04
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+    
+      - name: Allocate disk space
+        uses: easimon/maximize-build-space@v4
+        with:
+          # root-reserve-mb: 102400 # Reserve 5 GB for the system
+          # swap-size-mb: 1024 # Add 1 GB of swap
+          remove-dotnet: 'true' # Remove .NET SDKs and runtimes
+          remove-android: 'true' # Remove Android SDKs
+          remove-haskell: 'true' # Remove Haskell
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+      
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -373,13 +386,24 @@ jobs:
          
  build2:
      needs: build1
-     runs-on: ubuntu-latest
+     runs-on: ubuntu-20.04
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+     
+      - name: Allocate disk space
+        uses: easimon/maximize-build-space@v4
+        with:
+          # root-reserve-mb: 102400 # Reserve 5 GB for the system
+          # swap-size-mb: 1024 # Add 1 GB of swap
+          remove-dotnet: 'true' # Remove .NET SDKs and runtimes
+          remove-android: 'true' # Remove Android SDKs
+          remove-haskell: 'true' # Remove Haskell
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+     
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -520,13 +544,24 @@ jobs:
          
  build3:
      needs: build2
-     runs-on: ubuntu-latest
+     runs-on: ubuntu-20.04
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
+      - name: Allocate disk space
+        uses: easimon/maximize-build-space@v4
+        with:
+          # root-reserve-mb: 102400 # Reserve 5 GB for the system
+          # swap-size-mb: 1024 # Add 1 GB of swap
+          remove-dotnet: 'true' # Remove .NET SDKs and runtimes
+          remove-android: 'true' # Remove Android SDKs
+          remove-haskell: 'true' # Remove Haskell
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -667,13 +702,24 @@ jobs:
         
  uploads:
      needs: build3
-     runs-on: ubuntu-latest
+     runs-on: ubuntu-20.04
      steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-                    
+ 
+      - name: Allocate disk space
+        uses: easimon/maximize-build-space@v4
+        with:
+          # root-reserve-mb: 102400 # Reserve 5 GB for the system
+          # swap-size-mb: 1024 # Add 1 GB of swap
+          remove-dotnet: 'true' # Remove .NET SDKs and runtimes
+          remove-android: 'true' # Remove Android SDKs
+          remove-haskell: 'true' # Remove Haskell
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+ 
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
