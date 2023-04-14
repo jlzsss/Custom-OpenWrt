@@ -50,7 +50,7 @@ jobs:
         fetch-depth: 0
         
     - name: Create custom environment
-      uses: actions/virtual-environments@main
+      uses: actions/runner-images@main
       with:
         image: ubuntu-20.04
         name: openwrt
