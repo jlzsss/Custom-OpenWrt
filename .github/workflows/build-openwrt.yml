@@ -46,7 +46,7 @@ jobs:
    steps:
    
     - name: Create custom environment
-      uses: actions/virtual-environments@v1
+      uses: actions/virtual-environments@main
       with:
         image: ubuntu-20.04
         name: openwrt
