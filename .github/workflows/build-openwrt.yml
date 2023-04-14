@@ -92,7 +92,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo swapoff /mnt/swapfile
+        # sudo swapoff /mnt/swapfile
         sudo rm -rf /mnt/swapfile
         sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
         ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
@@ -291,7 +291,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
+          # sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
           sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
@@ -444,7 +444,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
+          # sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
           sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
@@ -602,7 +602,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
+          # sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
           sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
@@ -760,7 +760,7 @@ jobs:
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          sudo swapoff /mnt/swapfile
+          # sudo swapoff /mnt/swapfile
           sudo rm -rf /mnt/swapfile
           sudo mkdir -p -m 777 /mnt/openwrt/build_dir/hostpkg /mnt/openwrt/build_dir/host openwrt/build_dir/hostpkg openwrt/build_dir/host openwrt/feeds /mnt/openwrt/dl /mnt/openwrt/feeds /mnt/openwrt/staging_dir /mnt/openwrt/build_dir /mnt/openwrt/tmp /mnt/openwrt/bin
           ln -sf /mnt/openwrt/build_dir/hostpkg openwrt/build_dir/hostpkg
