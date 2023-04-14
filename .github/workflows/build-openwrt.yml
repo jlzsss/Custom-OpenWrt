@@ -44,18 +44,17 @@ jobs:
  prepare:
    runs-on: ubuntu-20.04
    steps:
-   
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+        
     - name: Create custom environment
       uses: actions/virtual-environments@main
       with:
         image: ubuntu-20.04
         name: openwrt
         disk-size: 100GB
-   
-    - name: Checkout
-      uses: actions/checkout@main
-      with:
-        fetch-depth: 0
 
     - name: WeChat notification
       run: |
