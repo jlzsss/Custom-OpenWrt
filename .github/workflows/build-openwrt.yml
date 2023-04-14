@@ -43,24 +43,14 @@ jobs:
 
  prepare:
    runs-on: ubuntu-20.04
+   container:
+      image: ubuntu:20.04
+      options: --mount type=tmpfs,target=/mnt,tmpfs-size=100G
    steps:
     - name: Checkout
       uses: actions/checkout@main
       with:
         fetch-depth: 0 
-    
-    - name: Allocate disk space
-      uses: easimon/maximize-build-space@master
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      with:
-        root-reserve-mb: 58368 # Reserve 5 GB for the system
-        # swap-size-mb: 1024 # Add 1 GB of swap
-        remove-dotnet: 'true' # Remove .NET SDKs and runtimes
-        remove-android: 'true' # Remove Android SDKs
-        remove-haskell: 'true' # Remove Haskell
-        remove-codeql: 'true'
-        remove-docker-images: 'true'
         
     - name: WeChat notification
       run: |
