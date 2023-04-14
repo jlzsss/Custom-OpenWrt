@@ -47,17 +47,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
       with:
-        fetch-depth: 0
-    
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-        
-    - name: Set disk space
-      run: |
-        sudo umount /
-        sudo mount -o remount,size=150G /dev/root /    
+        fetch-depth: 0 
     
     - name: WeChat notification
       run: |
