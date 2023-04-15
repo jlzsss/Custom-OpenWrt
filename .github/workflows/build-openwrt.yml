@@ -45,7 +45,7 @@ jobs:
    runs-on: ubuntu-20.04
    container:
       image: ubuntu:20.04
-      options: --mount type=ext4,target=/,tmpfs-size=100G
+      options: --mount type=ext4,target=/,size=100G
    steps:
     - name: Checkout
       uses: actions/checkout@main
