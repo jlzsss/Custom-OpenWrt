@@ -31,7 +31,7 @@ env:
   CONFIG_FILE: .config-final
   DIY_P1_SH: diy-part1-openwrt.sh
   DIY_P2_SH: diy-part2-openwrt.sh
-  SCKEY: ${{ secrets.SCKEY }}
+  SCKEY: ${{ secrets.SCKEY }
   FREE_UP_DISK: true
   UPLOAD_FILES: false
   UPLOAD_COWTRANSFER: false
@@ -40,7 +40,6 @@ env:
   TZ: Asia/Shanghai
 
 jobs:
-
  prepare:
    runs-on: ubuntu-20.04
    container:
